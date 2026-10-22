@@ -157,7 +157,7 @@ function renderCombat(c, sh) {
       <div class="field"><label>Bono situacional</label><input data-u="rb" type="number" step="1" value="${ui.rb}"></div></div>
       ${traits.map(([t, i]) => `<label class="check-row"><input type="checkbox" data-u="rt" value="${i}" ${ui.rt.includes(i) ? 'checked' : ''}><span>+20 · ${esc(t.text)}</span></label>`).join('')}
       <div class="actions" style="margin-top:10px"><button class="btn primary" data-a="roll">TIRAR d100</button></div>
-      ${r ? `<div class="roll-result ${r.status}"><div class="roll-dice mono">${String(r.die).padStart(2, '0')}</div><div class="roll-status">${{exito: 'Éxito', critico: 'Crítico', fallo: r.die >= 90 ? 'Fallo automático' : 'Fallo', pifia: 'Pifia'}[r.status]}</div><div class="help">Umbral ${r.threshold} · Crítico ≤ ${r.crit} · ${esc(r.label)}</div></div>` : ''}</div>`;
+      ${r ? `<div class="roll-result ${{exito: 'good', critico: 'crit', fallo: 'fail', pifia: 'fumble'}[r.status]}"><div class="roll-dice mono">${String(r.die).padStart(2, '0')}</div><div class="roll-status">${{exito: r.die > r.threshold ? 'Éxito automático' : 'Éxito', critico: 'Crítico', fallo: r.die >= 90 ? 'Fallo automático' : 'Fallo', pifia: 'Pifia'}[r.status]}</div><div class="help">Umbral ${r.threshold} · Crítico ≤ ${r.crit} · ${esc(r.label)}</div></div>` : ''}</div>`;
 }
 
 // Tiers con texto (un chip solo tiene T1); un implante personalizado vacío muestra los 6.
