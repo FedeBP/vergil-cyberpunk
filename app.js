@@ -121,7 +121,7 @@ function renderSkills(c, sh) {
   }).join('');
   const skillOpts = sel => c.skills.map(s => `<option ${s.name === sel ? 'selected' : ''}>${esc(s.name)}</option>`).join('');
   return heading('01', 'Habilidades', 'La base sale de la fórmula. Vos asignás los puntos (+/-); especialidad suma +20 y duplica tus puntos.') +
-    `<div class="grid three">${plain('PH por nivel', sh.sec.ph.total, 'INT/5+5')}${plain('PH disponibles', pts.avail, `PH × nivel ${c.level}`)}${plain('PH asignados', pts.spent, pts.spent > pts.avail ? 'Te pasaste' : `Quedan ${pts.avail - pts.spent}`, pts.spent > pts.avail ? 'bad' : 'emph')}</div>` +
+    `<div class="grid three">${plain('PH por nivel', sh.sec.ph.total, 'INT/5+5')}${plain('PH disponibles', pts.avail, `INT/2+30 + PH × ${c.level - 1} niveles`)}${plain('PH asignados', pts.spent, pts.spent > pts.avail ? 'Te pasaste' : `Quedan ${pts.avail - pts.spent}`, pts.spent > pts.avail ? 'bad' : 'emph')}</div>` +
     `<div class="card"><div class="skill-headers"><span style="text-align:left">HABILIDAD</span><span>PUNTOS</span><span>TOTAL</span><span>CRÍT.</span></div>${rows}
      <div class="actions" style="margin-top:12px"><button class="btn" data-a="addSkill">+ Agregar habilidad</button></div></div>` +
     heading('02', 'Rasgos y especialidades situacionales', 'Suman +20 a la tirada cuando aplican. Se eligen al tirar el dado.') +

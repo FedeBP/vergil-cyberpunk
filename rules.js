@@ -132,7 +132,8 @@ function compute(ch) {
     points: {
       ini: {avail: INITIAL_POINTS, spent: ATTRS.reduce((t, [k]) => t + (+ch.attrs[k].ini || 0), 0)},
       attr: {avail: 10 * (ch.level - 1) + sum(mods.pts), spent: ATTRS.reduce((t, [k]) => t + (+ch.attrs[k].lvl || 0), 0)},
-      skill: {avail: sec.ph.total * ch.level, spent: ch.skills.reduce((t, s) => t + (F(+s.mod) || 0), 0)},
+      // Iniciales INT/2+30 al crear, más PH × NV por cada nivel subido.
+      skill: {avail: F(raw.int / 2 + 30) + sec.ph.total * (ch.level - 1), spent: ch.skills.reduce((t, s) => t + (F(+s.mod) || 0), 0)},
     },
     merits: {count: ch.merits.reduce((t, m) => t + (m.ranks || 1), 0), max: Math.min(ch.level, 10)},
     load: {used: ch.implants.reduce((t, i) => t + (+(i.tier >= 6 ? i.load6 : i.load) || 0), 0), max: sec.implantes.total},
