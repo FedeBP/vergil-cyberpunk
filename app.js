@@ -57,7 +57,7 @@ function toast(msg, ms = 2600) { const el = $('toast'); el.textContent = msg; el
 
 // ---------- Helpers de vista ----------
 const LABELS = Object.fromEntries([...R.ATTRS.map(a => [a[0], a[1]]), ...R.DEFENSES.map(d => [d[0], d[1]]),
-  ...R.SECONDARY.map(s => [s[0], s[1]]), ...R.RD.map(r => ['rd.' + r[0], 'RD ' + r[1]]), ['rd', 'RD (todas)'], ['crit', 'Crítico'], ['pts', 'Puntos de característica']]);
+  ...R.SECONDARY.map(s => [s[0], s[1]]), ...R.RD.map(r => ['rd.' + r[0], 'RD ' + r[1]]), ['crit', 'Crítico'], ['pts', 'Puntos de característica']]);
 const heading = (num, title, sub = '') => `<div class="heading"><div><div class="section-number">${num} // NIGHT CITY</div><h2>${title}</h2>${sub ? `<p>${sub}</p>` : ''}</div></div>`;
 const why = p => esc(p.src.map(s => `${s.src} ${sg(s.v)}`).join('\n'));
 const tile = (label, p, extra = '') => `<div class="tile ${p.mod ? 'emph' : ''}" data-a="why" data-why="${why(p)}" title="${why(p)}"><div class="topline">${label}</div><strong class="big mono">${p.total}</strong><div class="below">base ${p.base} · ${sg(p.mod)}${extra}</div></div>`;

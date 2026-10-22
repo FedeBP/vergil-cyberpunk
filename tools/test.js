@@ -28,7 +28,7 @@ sh = R.compute(ch);
 assert.deepStrictEqual([s('pa'), sh.def.reflejos.total, sh.def.evasion.total], [15, 67, 41], 'Kerenzikov activo');
 R.nextTurn(ch);
 assert.deepStrictEqual([ch.implants[ker].on, ch.implants[ker].cdLeft, ch.implants[def].on], [0, 2, 1], 'termina y dispara Defenzikov');
-assert.strictEqual(R.compute(ch).rd.normal.total, 20);
+assert.deepStrictEqual([R.compute(ch).rd.normal.total, R.compute(ch).rd.termal.total], [20, 0], 'RD sin tipo es RD normal');
 
 const p = R.parseEffect('10 Icewall | +4 PA, D 3T, CD 6T, +10 Reflejos. +10 Puntería con armas SMART');
 assert.deepStrictEqual([p.dur, p.cd, p.mods.map(m => m.target)], [3, 6, ['icewall', 'pa', 'reflejos', 'puntería con armas smart'.normalize('NFD').replace(/[̀-ͯ]/g, '')]]);

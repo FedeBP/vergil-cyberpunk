@@ -41,7 +41,7 @@ const TARGETS = {fuerza: 'fue', destreza: 'des', percepcion: 'per', inteligencia
   pa: 'pa', 'puntos de accion': 'pa', vitalidad: 'vitalidad', potencia: 'potencia', rango: 'rango', iniciativa: 'iniciativa',
   'velocidad de curacion': 'curacion', resolucion: 'resolucion', suerte: 'suerte', phxnv: 'ph',
   'limite de implantes': 'implantes', ram: 'ram', icewall: 'icewall',
-  rd: 'rd', 'rd normal': 'rd.normal', 'rd termal': 'rd.termal', 'rd electrica': 'rd.electrica', 'rd quimica': 'rd.quimica',
+  rd: 'rd.normal', 'rd normal': 'rd.normal', 'rd termal': 'rd.termal', 'rd electrica': 'rd.electrica', 'rd quimica': 'rd.quimica', // "+N RD" sin tipo es RD normal
   'resultado de critico': 'crit', caracteristica: 'pts', 'turno de duracion': 'dur'};
 
 // Lee un texto de efecto ("+4 PA, D 3T, CD 6T, +10 Reflejos") y devuelve modificadores numéricos.
@@ -121,7 +121,7 @@ function compute(ch) {
   };
   const def = Object.fromEntries(DEFENSES.map(([k, , , fn]) => [k, part(fn, k)]));
   const sec = Object.fromEntries(SECONDARY.map(([k, , , fn]) => [k, part(fn, k)]));
-  const rd = Object.fromEntries(RD.map(([k]) => [k, part(() => +ch.armor[k] || 0, 'rd.' + k, mods.rd)]));
+  const rd = Object.fromEntries(RD.map(([k]) => [k, part(() => +ch.armor[k] || 0, 'rd.' + k)]));
   const pro = ch.merits.some(m => norm(m.name) === 'el profesional');
   const skills = ch.skills.map(s => {
     const p = part(a => (a[s.a] + a[s.b]) / 5 + 10, 'skill:' + norm(s.name));
