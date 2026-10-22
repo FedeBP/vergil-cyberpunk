@@ -8,7 +8,7 @@ Ficha de personaje editable y offline (PWA) para la campaña de Cyberpunk. Cualq
 - **Características**: 320 puntos iniciales + 10 por cada nivel subido (`INITIAL_POINTS` en `rules.js`). Los implantes y méritos van en el +/-.
 - **Habilidades**: base = (A+B)/5+10. El jugador asigna sus PH: INT/2+30 iniciales más PH × NV (INT/5+5) por cada nivel subido. La especialidad suma +20 y duplica los PH asignados. Se pueden agregar habilidades propias (ej. Estilo = DET×2).
 - **Defensas y secundarias** calculadas; el +/- muestra de dónde sale cada bono (tocá el valor).
-- **Implantes** desde el catálogo del Excel (o personalizados). Cada efecto escrito como `+N Objetivo` se aplica solo; lo condicional queda como texto. `D 2T, CD 6T` vuelve al implante activable (sus bonos solo valen activo). `+N X al usar Kerenzikov` vale con ese implante activo.
+- **Implantes**: los 105 del Excel (todas las hojas de implantes y los chips) o personalizados. Límite por parte según la planilla: Cara 1, Corteza frontal 3, Sistema operativo 1, Sistema nervioso 3, Sistema circulatorio 3, Sistema integumentario 3, Esqueleto 3, Brazos 2, Manos 2, Piernas 1; chips sin límite. Cada efecto escrito como `+N Objetivo` se aplica solo; lo condicional queda como texto. `D 2T, CD 6T` vuelve al implante activable (sus bonos solo valen activo). `+N X al usar Kerenzikov` vale con ese implante activo.
 - **Méritos** del catálogo con rangos, requisitos y nivel mínimo.
 - **Combate**: turnos, duración y cooldown de implantes, recursos (vitalidad, suerte, resolución) y d100 (90–94 fallo, 95–100 pifia), con opción de combinar dos habilidades usando la menor (Estilo).
 - Redondeo hacia abajo en todo, salvo cooldowns (hacia arriba).
@@ -41,7 +41,7 @@ python tools/build_catalog.py ruta/Cyberpunk.xlsx > catalog.js
 node tools/test.js
 ```
 
-Los méritos generales y los implantes que no están en el Excel (Kerenzikov, Defenzikov) están dentro de `tools/build_catalog.py`.
+Los méritos generales (la tabla de la foto) están dentro de `tools/build_catalog.py`.
 
 ## Instalar en el celular
 

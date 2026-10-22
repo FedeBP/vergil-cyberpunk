@@ -31,24 +31,28 @@ const SECONDARY = [
   ['icewall', 'Icewall', 'Sistema operativo', () => 0]];
 const INITIAL_POINTS = 320; // puntos de características al crear el personaje
 const RD = [['normal', 'Normal'], ['termal', 'Termal'], ['electrica', 'Eléctrica'], ['quimica', 'Química']];
-const SLOTS = ['Cara / Ojos', 'Corteza frontal', 'Sistema operativo', 'Sistema nervioso', 'Sistema circulatorio',
-  'Sistema integumentario', 'Esqueleto', 'Brazo derecho', 'Brazo izquierdo', 'Mano derecha', 'Mano izquierda', 'Piernas'];
+// Ranura -> cantidad máxima de implantes (casilleros de la planilla de implantes). Chips sin límite.
+const SLOT_LIMITS = {'Cara / Ojos': 1, 'Corteza frontal': 3, 'Sistema operativo': 1, 'Sistema nervioso': 3,
+  'Sistema circulatorio': 3, 'Sistema integumentario': 3, 'Esqueleto': 3, 'Brazos': 2, 'Manos': 2, 'Piernas': 1, 'Chips': Infinity};
+const SLOTS = Object.keys(SLOT_LIMITS);
 const TARGETS = {fuerza: 'fue', destreza: 'des', percepcion: 'per', inteligencia: 'int', determinacion: 'det', constitucion: 'con',
+  fue: 'fue', des: 'des', per: 'per', int: 'int', det: 'det', con: 'con', 'vitalidad maxima': 'vitalidad',
   evasion: 'evasion', reflejos: 'reflejos', fortaleza: 'fortaleza', voluntad: 'voluntad',
   pa: 'pa', 'puntos de accion': 'pa', vitalidad: 'vitalidad', potencia: 'potencia', rango: 'rango', iniciativa: 'iniciativa',
   'velocidad de curacion': 'curacion', resolucion: 'resolucion', suerte: 'suerte', phxnv: 'ph',
   'limite de implantes': 'implantes', ram: 'ram', icewall: 'icewall',
   rd: 'rd', 'rd normal': 'rd.normal', 'rd termal': 'rd.termal', 'rd electrica': 'rd.electrica', 'rd quimica': 'rd.quimica',
-  critico: 'crit', 'resultado de critico': 'crit', caracteristica: 'pts', 'turno de duracion': 'dur'};
+  'resultado de critico': 'crit', caracteristica: 'pts', 'turno de duracion': 'dur'};
 
 // Lee un texto de efecto ("+4 PA, D 3T, CD 6T, +10 Reflejos") y devuelve modificadores numéricos.
 // Solo cuenta frases exactas "+N Objetivo"; lo condicional ("+10 Puntería con armas SMART") queda como texto.
 function parseEffect(text) {
   const out = {mods: [], dur: null, cd: null, trigger: null, cdr: 0};
-  for (const seg of String(text || '').split(/\.(?!\d)|\|/)) {
-    const s = norm(seg).replace(/mientras (este|esta) activo/, '');
-    let m;
+  // "(se activa cuando…)" solo describe cuándo activarlo; se activa a mano desde Combate.
+  for (const seg of norm(text).replace(/\(se activa[^)]*\)/g, '').split(/\.(?!\d)|\|/)) {
+    let s = seg.replace(/mientras (este|esta) activo/, ''), m;
     if ((m = s.match(/se activa al terminar (.+)/))) { out.trigger = m[1].trim(); continue; }
+    if ((m = s.match(/ al finalizar el efecto de (\S+)/))) { out.trigger = m[1]; s = s.replace(m[0], ''); }
     if ((m = s.match(/enfriamiento.*?(\d+)\s*%/))) { out.cdr += +m[1]; continue; }
     if (/\b(cuando|si|grupo)\b/.test(s)) continue;
     for (let ph of s.split(/,| y /)) {
@@ -86,7 +90,9 @@ function compute(ch) {
       const t = resolveTarget(m.target, ch.skills);
       if (!t) continue;
       if (t === 'dur') { if (m.when) durBonus[norm(m.when)] = (durBonus[norm(m.when)] || 0) + m.v; continue; }
-      if (m.set) { if (!sets[t] || m.v > sets[t].v) sets[t] = {v: m.v, src: im.name}; continue; }
+      // Un número sin signo solo fija RAM/Icewall del sistema operativo ("5 PA" en armas es el coste del ataque).
+      if (m.set) { if (['ram', 'icewall'].includes(t) && (!sets[t] || m.v > sets[t].v)) sets[t] = {v: m.v, src: im.name}; continue; }
+      if (t.startsWith('rd') && m.v < 0) continue; // "-15 RD" en implantes-arma es perforación de la RD enemiga
       if (m.when ? active(m.when) : (!x.dur || im.on > 0)) add(t, m.v, im.name);
     }
     return x;
@@ -184,6 +190,9 @@ function nextTurn(ch) {
   ch.round = (ch.round || 1) + 1;
 }
 
+const slotUse = (ch, slot) => ch.implants.filter(i => i.slot === slot).length;
+const slotFull = (ch, slot) => slotUse(ch, slot) >= (SLOT_LIMITS[slot] ?? Infinity);
+
 function blankCharacter() {
   return {v: 3, name: 'Nuevo personaje', player: '', role: '', roleDesc: '', level: 1, exp: 0,
     age: '', height: '', weight: '', profession: '', appearance: '', look: '',
@@ -199,10 +208,11 @@ function normalize(ch) {
   out.attrs = Object.fromEntries(ATTRS.map(([k]) => [k, {...b.attrs[k], ...(ch.attrs?.[k] || {})}]));
   out.armor = {...b.armor, ...(ch.armor || {})};
   for (const k of ['skills', 'traits', 'merits', 'implants']) if (!Array.isArray(out[k])) out[k] = b[k];
-  out.implants.forEach(im => { im.on ||= 0; im.cdLeft ||= 0; im.tiers = Array.from({length: 6}, (_, i) => im.tiers?.[i] ?? null); });
+  const OLD_SLOTS = {'Brazo derecho': 'Brazos', 'Brazo izquierdo': 'Brazos', 'Mano derecha': 'Manos', 'Mano izquierda': 'Manos'};
+  out.implants.forEach(im => { im.slot = OLD_SLOTS[im.slot] || im.slot; im.on ||= 0; im.cdLeft ||= 0; im.tiers = Array.from({length: 6}, (_, i) => im.tiers?.[i] ?? null); });
   return out;
 }
 
-globalThis.Rules = {F, norm, TARGETS, ATTRS, DEFAULT_SKILLS, DEFENSES, SECONDARY, RD, SLOTS, parseEffect, implantInfo,
+globalThis.Rules = {F, norm, TARGETS, SLOT_LIMITS, slotUse, slotFull, ATTRS, DEFAULT_SKILLS, DEFENSES, SECONDARY, RD, SLOTS, parseEffect, implantInfo,
   compute, unmetReqs, rollStatus, activate, nextTurn, blankCharacter, normalize};
 })();

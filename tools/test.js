@@ -36,4 +36,17 @@ assert.strictEqual(R.parseEffect('+20 Fuerza, +1 a los PA cuando tus PGs bajen')
 assert.deepStrictEqual(R.unmetReqs('DES 70, Pelea: Agarres 40, Hab. 50', ch, R.compute(ch)), ['DES 70']);
 assert.deepStrictEqual([R.rollStatus(92, 100, 10), R.rollStatus(97, 100, 10), R.rollStatus(5, 50, 5), R.rollStatus(40, 50, 5), R.rollStatus(60, 50, 5)],
   ['fallo', 'pifia', 'critico', 'exito', 'fallo']);
+
+// Catálogo completo del Excel: Defenzikov con su texto original, implantes-arma y límites por ranura.
+require('../catalog.js');
+const cat = name => ({...JSON.parse(JSON.stringify(CATALOG.implants.find(i => i.name === name))), on: 0, cdLeft: 0});
+const d = R.parseEffect(cat('Defenzikov').tiers[0]);
+assert.deepStrictEqual([d.trigger, d.dur, d.cd, d.mods.map(m => m.target)], ['kerenzikov', 1, 3, ['rd']]);
+const n2 = R.normalize(R.blankCharacter());
+n2.implants = [{...cat('Brazos Gorila - Arasaka'), tier: 1}, {...cat('Hojas Mantis Arasaka'), tier: 2}, {...cat('Adaptador Celular'), tier: 1}];
+const s2 = R.compute(n2);
+assert.deepStrictEqual([s2.sec.pa.total, s2.attrs.fue.total, s2.sec.potencia.total, s2.rd.normal.total, s2.sec.vitalidad.total], [10, 60, 8, 0, 75],
+  '"5 PA" es coste de ataque, "-15 RD" es perforación, "+10 Vitalidad máxima" suma');
+assert.ok(R.slotFull(n2, 'Brazos') && !R.slotFull(n2, 'Sistema integumentario') && !R.slotFull(n2, 'Chips'));
+assert.strictEqual(R.normalize({...n2, implants: [{name: 'x', slot: 'Mano derecha', tiers: []}]}).implants[0].slot, 'Manos');
 console.log('OK');

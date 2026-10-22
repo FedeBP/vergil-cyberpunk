@@ -1,8 +1,8 @@
 """Genera catalog.js a partir del Excel de campaña.
 
 Uso: python tools/build_catalog.py ruta/al/Cyberpunk.xlsx > catalog.js
-Hojas leídas: Ojos, Corteza Frontal, Sistema operativo, Méritos.
-Los méritos generales (imagen de la tabla) y los implantes que no están en el Excel van abajo, a mano.
+Hojas leídas: las de implantes (ver SHEETS), Chips y Méritos.
+Los méritos generales (imagen de la tabla) van abajo, a mano.
 """
 import json
 import re
@@ -14,17 +14,14 @@ SHEETS = {  # hoja -> (ranura, columna de precio, columna de icewall)
     'Ojos': ('Cara / Ojos', 'D', None),
     'Corteza Frontal': ('Corteza frontal', 'D', None),
     'Sistema operativo': ('Sistema operativo', 'E', 'D'),
+    'Sistema Nervioso': ('Sistema nervioso', 'D', None),
+    'Sistema Circulatorio': ('Sistema circulatorio', 'D', None),
+    'Sistema Tegumentario': ('Sistema integumentario', 'D', None),
+    'Esqueleto': ('Esqueleto', 'D', None),
+    'Manos': ('Manos', 'D', None),
+    'Brazos': ('Brazos', 'D', None),
+    'Piernas': ('Piernas', 'D', None),
 }
-
-# Implantes que no figuran en el Excel (cargados por el jugador en la versión anterior).
-EXTRA_IMPLANTS = [
-    {'name': 'Kerenzikov', 'slot': 'Sistema nervioso', 'minTier': 1, 'load': 12, 'load6': 18,
-     'price': 9000, 'tiers': ['+2 PA, +10 Reflejos, D 1T, CD 3T', '+5 Reflejos', '+10 Evasión', '+1 PA', '+5 Crítico',
-                              'Duplica los efectos anteriores']},
-    {'name': 'Defenzikov', 'slot': 'Sistema integumentario', 'minTier': 1, 'load': 15, 'load6': 22,
-     'price': 10000, 'tiers': ['+5 RD, D 1T, CD 3T. Se activa al terminar Kerenzikov', '+5 RD', '+5 RD', '+5 RD',
-                               '+5 RD, D 2T', 'Inmune a críticos mientras Kerenzikov está activo']},
-]
 
 # Méritos generales (tabla de la imagen): nivel, nombre, requisito, rangos, descripción.
 GENERAL_MERITS = """
@@ -104,36 +101,57 @@ def num(v):
     return v if isinstance(v, (int, float)) else None
 
 
+def tier_of(ws, r):
+    m = re.match(r'\s*TIER\s*(\d)\s*\|\s*(.*)', str(ws[f'C{r}'].value or ''), re.S)
+    return (int(m.group(1)), re.sub(r'\s+', ' ', m.group(2)).strip()) if m else (None, None)
+
+
 def implants(wb):
     out = []
     for sheet, (slot, price_col, ice_col) in SHEETS.items():
         ws = wb[sheet]
-        block = []
+        # Un bloque empieza cuando el número de TIER no sigue subiendo; el nombre (columna A) puede estar arriba, abajo o en medio.
+        starts, last = [], 99
         for r in range(2, ws.max_row + 1):
-            text = ws[f'C{r}'].value
-            if text:
-                block.append(r)
-            name = ws[f'A{r}'].value
-            if not name or not block:  # el nombre está en la última fila de cada bloque
+            t, _ = tier_of(ws, r)
+            if t:
+                if t <= last:
+                    starts.append(r)
+                last = t
+        for i, start in enumerate(starts):
+            end = starts[i + 1] - 1 if i + 1 < len(starts) else ws.max_row
+            rows = range(start, end + 1)
+            name = next((str(ws[f'A{r}'].value).strip() for r in rows if ws[f'A{r}'].value), None)
+            if not name:
                 continue
-            tiers, minTier = [None] * 6, 6
-            for br in block:
-                m = re.match(r'\s*TIER\s*(\d)\s*\|\s*(.*)', str(ws[f'C{br}'].value), re.S)
-                if not m:
+            tiers, desc, load, load6, price = [None] * 6, [], None, None, None
+            for r in rows:
+                t, text = tier_of(ws, r)
+                b = num(ws[f'B{r}'].value)
+                if not t:
+                    if ws[f'C{r}'].value:
+                        desc.append(str(ws[f'C{r}'].value).strip())
                     continue
-                t, rest = int(m.group(1)), re.sub(r'\s+', ' ', m.group(2)).strip()
-                if ice_col and num(ws[f'{ice_col}{br}'].value) is not None:
-                    rest = f'{ws[f"{ice_col}{br}"].value} Icewall | {rest}'
-                tiers[t - 1] = rest
-                minTier = min(minTier, t)
-            loads = [(br, num(ws[f'B{br}'].value)) for br in block if num(ws[f'B{br}'].value) is not None]
-            load6 = next((v for br, v in loads if str(ws[f'C{br}'].value).strip().startswith('TIER 6')), None)
-            load = next((v for br, v in loads if not str(ws[f'C{br}'].value).strip().startswith('TIER 6')), load6)
-            price = next((num(ws[f'{price_col}{br}'].value) for br in block if num(ws[f'{price_col}{br}'].value)), None)
-            out.append({'name': str(name).strip().title(), 'slot': slot, 'minTier': minTier,
-                        'load': load or 0, 'load6': load6 or load or 0, 'price': price, 'tiers': tiers})
-            block = []
-    return out + EXTRA_IMPLANTS
+                if ice_col and num(ws[f'{ice_col}{r}'].value) is not None:
+                    text = f'{ws[f"{ice_col}{r}"].value} Icewall | {text}'
+                tiers[t - 1] = text
+                if b is not None:
+                    if t == 6:
+                        load6 = b
+                    elif load is None:
+                        load = b
+                if price is None:
+                    price = num(ws[f'{price_col}{r}'].value)
+            out.append({'name': name.title(), 'slot': slot, 'minTier': next(k + 1 for k, t in enumerate(tiers) if t),
+                        'load': load or load6 or 0, 'load6': load6 or load or 0, 'price': price, 'tiers': tiers,
+                        'desc': ' '.join(desc)})
+    ws = wb['Chips']  # chips: un solo nivel, sin carga
+    for r in range(2, ws.max_row + 1):
+        price, model, _, desc = (ws.cell(r, c).value for c in range(1, 5))
+        if model:
+            out.append({'name': f'Chip {model}', 'slot': 'Chips', 'minTier': 1, 'load': 0, 'load6': 0, 'price': None,
+                        'tiers': [str(desc).capitalize()] + [None] * 5, 'desc': f'{price:,} €$'.replace(',', '.')})
+    return out
 
 
 def merits(wb):

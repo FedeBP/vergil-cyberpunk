@@ -96,6 +96,7 @@ function renderResumen(c, sh) {
   if (sh.points.attr.spent > sh.points.attr.avail) warn.push(`Características: ${sh.points.attr.spent} puntos por nivel asignados de ${sh.points.attr.avail}.`);
   if (sh.points.skill.spent > sh.points.skill.avail) warn.push(`Habilidades: ${sh.points.skill.spent} PH asignados de ${sh.points.skill.avail}.`);
   if (sh.merits.count > sh.merits.max) warn.push(`Méritos: ${sh.merits.count} de ${sh.merits.max} permitidos.`);
+  for (const slot of R.SLOTS) if (R.slotUse(c, slot) > R.SLOT_LIMITS[slot]) warn.push(`${slot}: ${R.slotUse(c, slot)} implantes, el máximo es ${R.SLOT_LIMITS[slot]}.`);
   if (sh.load.used > sh.load.max) warn.push(`Implantes: carga ${sh.load.used} supera el límite ${sh.load.max}.`);
   return heading('01', 'Panel principal', 'Tocá un valor para ver de dónde sale su +/-.') +
     warn.map(w => `<div class="hint-bubble warn">${esc(w)}</div>`).join('') +
@@ -157,19 +158,22 @@ function renderCombat(c, sh) {
       ${r ? `<div class="roll-result ${r.status}"><div class="roll-dice mono">${String(r.die).padStart(2, '0')}</div><div class="roll-status">${{exito: 'Éxito', critico: 'Crítico', fallo: r.die >= 90 ? 'Fallo automático' : 'Fallo', pifia: 'Pifia'}[r.status]}</div><div class="help">Umbral ${r.threshold} · Crítico ≤ ${r.crit} · ${esc(r.label)}</div></div>` : ''}</div>`;
 }
 
+// Tiers con texto (un chip solo tiene T1); un implante personalizado vacío muestra los 6.
+const tierList = im => { const l = [1, 2, 3, 4, 5, 6].filter(t => im.tiers[t - 1]); return l.length ? l : [1, 2, 3, 4, 5, 6]; };
+const slotLabel = (c, slot) => R.SLOT_LIMITS[slot] === Infinity ? '' : ` (${R.slotUse(c, slot)}/${R.SLOT_LIMITS[slot]})`;
 function renderImplants(c, sh) {
   const groups = R.SLOTS.map(slot => [slot, C.implants.filter(i => i.slot === slot)]).filter(([, l]) => l.length);
   return heading('01', 'Implantes', 'Los efectos “+N Algo” se aplican solos al +/- que corresponda. Lo condicional queda como texto.') +
     `<div class="grid four">${plain('Carga', `${sh.load.used}/${sh.load.max}`, 'DET + CON/2', sh.load.used > sh.load.max ? 'bad' : 'emph')}${plain('Enfriamiento', `−${sh.cdr}%`, 'cooldowns')}${tile('RAM', sh.sec.ram)}${tile('Icewall', sh.sec.icewall)}</div>
     <div class="mini-bar" style="height:8px;margin:13px 0"><div class="mini-fill" style="width:${Math.min(100, sh.load.used / Math.max(1, sh.load.max) * 100)}%;background:${sh.load.used > sh.load.max ? 'var(--red)' : 'var(--yellow)'}"></div></div>
-    <div class="card"><label>Instalar implante</label><div class="select-roll"><select id="addImplant"><option value="">Elegí del catálogo…</option>${groups.map(([slot, l]) => `<optgroup label="${esc(slot)}">${l.map(i => `<option>${esc(i.name)}</option>`).join('')}</optgroup>`).join('')}<option value="*">Personalizado…</option></select><button class="btn primary" data-a="addImplant">Instalar</button></div></div>` +
+    <div class="card"><label>Instalar implante</label><div class="select-roll"><select id="addImplant"><option value="">Elegí del catálogo…</option>${groups.map(([slot, l]) => `<optgroup label="${esc(slot)}${slotLabel(c, slot)}">${l.map(i => `<option value="${C.implants.indexOf(i)}" ${R.slotFull(c, slot) ? 'disabled' : ''}>${esc(i.name)}</option>`).join('')}</optgroup>`).join('')}<option value="*">Personalizado…</option></select><button class="btn primary" data-a="addImplant">Instalar</button></div></div>` +
     c.implants.map((im, i) => {
       const x = sh.imps[i], edit = ui.edit === i, chips = autoChips(im.tiers.slice(0, im.tier).filter(Boolean), c);
       const price = im.price && im.tier < 6 ? im.price * 2 ** (im.tier + 1 - im.minTier) : 0;
-      return `<div class="implant"><div class="implant-top"><div><div class="eyebrow" style="color:var(--muted);font-size:9px">${esc(im.slot).toUpperCase()}</div><h3>${esc(im.name)}</h3><small>Tier ${im.tier} · Carga ${im.tier >= 6 ? im.load6 : im.load}${x.dur ? ` · D ${x.dur}T / CD ${x.cdEff}T` : ''}</small></div><div class="actions"><button class="btn tiny" data-a="editImp" data-i="${i}">${edit ? 'Listo' : 'Editar'}</button><button class="btn tiny danger" data-a="delImp" data-i="${i}">Quitar</button></div></div>
-        <div class="tier-wrap">${[1, 2, 3, 4, 5, 6].filter(t => t >= (im.minTier || 1)).map(t => `<button class="tier-dot ${t === im.tier ? 'selected' : t < im.tier ? 'past' : ''}" data-a="tier" data-i="${i}" data-v="${t}" aria-label="Tier ${t}">${t}</button>`).join('')}</div>
+      return `<div class="implant"><div class="implant-top"><div><div class="eyebrow" style="color:var(--muted);font-size:9px">${esc(im.slot).toUpperCase()}</div><h3>${esc(im.name)}</h3>${im.desc ? `<div class="help">${esc(im.desc)}</div>` : ''}<small>Tier ${im.tier} · Carga ${im.tier >= 6 ? im.load6 : im.load}${x.dur ? ` · D ${x.dur}T / CD ${x.cdEff}T` : ''}</small></div><div class="actions"><button class="btn tiny" data-a="editImp" data-i="${i}">${edit ? 'Listo' : 'Editar'}</button><button class="btn tiny danger" data-a="delImp" data-i="${i}">Quitar</button></div></div>
+        <div class="tier-wrap">${tierList(im).map(t => `<button class="tier-dot ${t === im.tier ? 'selected' : t < im.tier ? 'past' : ''}" data-a="tier" data-i="${i}" data-v="${t}" aria-label="Tier ${t}">${t}</button>`).join('')}</div>
         ${chips.length ? `<div class="chips">${chips.map(t => `<span class="pill on">${esc(t)}</span>`).join('')}${x.dur ? '<span class="pill">solo activo</span>' : ''}</div>` : ''}
-        ${edit ? `<div class="field-grid" style="margin-top:12px">${field('Nombre', `implants.${i}.name`, im.name)}<div class="field"><label>Ranura</label><select data-f="implants.${i}.slot">${R.SLOTS.map(s => `<option ${s === im.slot ? 'selected' : ''}>${s}</option>`).join('')}</select></div>${field('Carga T1–T5', `implants.${i}.load`, im.load, 'number')}${field('Carga T6', `implants.${i}.load6`, im.load6, 'number')}
+        ${edit ? `<div class="field-grid" style="margin-top:12px">${field('Nombre', `implants.${i}.name`, im.name)}<div class="field"><label>Ranura</label><select data-f="implants.${i}.slot">${R.SLOTS.map(s => `<option ${s === im.slot ? 'selected' : R.slotFull(c, s) ? 'disabled' : ''}>${s}${slotLabel(c, s)}</option>`).join('')}</select></div>${field('Carga T1–T5', `implants.${i}.load`, im.load, 'number')}${field('Carga T6', `implants.${i}.load6`, im.load6, 'number')}
           ${im.tiers.map((t, k) => area(`Tier ${k + 1}`, `implants.${i}.tiers.${k}`, t || '', 'Ej: +10 Reflejos, D 2T, CD 6T')).join('')}</div>
           <p class="help">Se aplica solo lo escrito como “+N Objetivo” (Percepción, Reflejos, PA, RD, Pelea…). “D 2T, CD 6T” lo vuelve activable: sus bonos valen solo activo. “+N X al usar Kerenzikov” vale con ese implante activo. “N RAM” sin signo fija un valor base.</p>`
         : `<ul class="effect-list">${im.tiers.map((t, k) => k < im.tier && t ? `<li><strong>T${k + 1}:</strong> ${esc(t)}</li>` : '').join('')}</ul>${im.tier < 6 && im.tiers[im.tier] ? `<div class="next-tier"><b>Tier ${im.tier + 1}:</b> ${esc(im.tiers[im.tier])}${price ? ` · <span class="yellow">${price.toLocaleString('es-AR')} €$</span>` : ''}</div>` : ''}`}</div>`;
@@ -267,7 +271,9 @@ const ACTIONS = {
   addImplant() {
     const v = $('addImplant').value;
     if (!v) return false;
-    const im = v === '*' ? {name: 'Implante personalizado', slot: R.SLOTS[0], minTier: 1, tier: 1, load: 0, load6: 0, price: null, tiers: Array(6).fill(null), on: 0, cdLeft: 0} : catImplant(v);
+    const im = v === '*' ? {name: 'Implante personalizado', slot: R.SLOTS.find(s => !R.slotFull(ch(), s)), minTier: 1, tier: 1, load: 0, load6: 0, price: null, desc: '', tiers: Array(6).fill(null), on: 0, cdLeft: 0}
+      : {...clone(C.implants[+v]), tier: C.implants[+v].minTier, on: 0, cdLeft: 0};
+    if (R.slotFull(ch(), im.slot)) { toast(`${im.slot}: ya tenés el máximo (${R.SLOT_LIMITS[im.slot]})`); return false; }
     ch().implants.push(im);
     if (v === '*') ui.edit = ch().implants.length - 1;
     toast(im.name + ' instalado');
