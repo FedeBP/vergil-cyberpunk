@@ -1,0 +1,312 @@
+{
+ "format": "ficha-cyberpunk",
+ "character": {
+  "v": 3,
+  "name": "Vergil",
+  "player": "Fefo",
+  "role": "Ronin",
+  "roleDesc": "Propio código, no pertenece a nadie, el propósito personal lo es todo.",
+  "level": 4,
+  "exp": 120,
+  "age": "",
+  "height": "",
+  "weight": "",
+  "profession": "",
+  "appearance": "",
+  "look": "",
+  "attrs": {
+   "fue": {
+    "ini": 50,
+    "lvl": 0
+   },
+   "des": {
+    "ini": 60,
+    "lvl": 0
+   },
+   "per": {
+    "ini": 40,
+    "lvl": 0
+   },
+   "int": {
+    "ini": 50,
+    "lvl": 0
+   },
+   "det": {
+    "ini": 75,
+    "lvl": 0
+   },
+   "con": {
+    "ini": 50,
+    "lvl": 0
+   }
+  },
+  "skills": [
+   {
+    "name": "Investigación",
+    "a": "per",
+    "b": "int",
+    "mod": 0,
+    "spec": false,
+    "custom": false
+   },
+   {
+    "name": "Pericia",
+    "a": "des",
+    "b": "int",
+    "mod": 0,
+    "spec": false,
+    "custom": false
+   },
+   {
+    "name": "Conocimiento",
+    "a": "int",
+    "b": "int",
+    "mod": 10,
+    "spec": false,
+    "custom": false
+   },
+   {
+    "name": "Social",
+    "a": "det",
+    "b": "int",
+    "mod": 10,
+    "spec": false,
+    "custom": false
+   },
+   {
+    "name": "Atletismo",
+    "a": "con",
+    "b": "des",
+    "mod": 18,
+    "spec": false,
+    "custom": false
+   },
+   {
+    "name": "Sigilo",
+    "a": "des",
+    "b": "per",
+    "mod": 8,
+    "spec": false,
+    "custom": false
+   },
+   {
+    "name": "Pelea",
+    "a": "fue",
+    "b": "des",
+    "mod": 24,
+    "spec": true,
+    "custom": false
+   },
+   {
+    "name": "Puntería",
+    "a": "des",
+    "b": "per",
+    "mod": 15,
+    "spec": true,
+    "custom": false
+   },
+   {
+    "name": "Informática",
+    "a": "int",
+    "b": "des",
+    "mod": 0,
+    "spec": false,
+    "custom": false
+   },
+   {
+    "name": "Estilo",
+    "a": "det",
+    "b": "det",
+    "mod": 15,
+    "spec": true,
+    "custom": true
+   }
+  ],
+  "traits": [
+   {
+    "text": "Especialidad en Investigación al recolectar información",
+    "skill": "Investigación"
+   },
+   {
+    "text": "Especialidad en Pelea con armas grandes",
+    "skill": "Pelea"
+   },
+   {
+    "text": "Especialidad en Atletismo al correr",
+    "skill": "Atletismo"
+   },
+   {
+    "text": "Skill en Pelea con Estilo",
+    "skill": "Pelea"
+   },
+   {
+    "text": "Skill en Puntería con armas cortas",
+    "skill": "Puntería"
+   }
+  ],
+  "merits": [
+   {
+    "lvl": 1,
+    "name": "Primera sangre",
+    "req": "-",
+    "max": 1,
+    "desc": "+3 Iniciativa",
+    "ranks": 1
+   },
+   {
+    "lvl": 2,
+    "name": "Viviendo al límite",
+    "req": "Estilo 40",
+    "max": 1,
+    "desc": "+20 margen de Estilo",
+    "ranks": 1
+   },
+   {
+    "lvl": 3,
+    "name": "Edgerunner",
+    "req": "Estilo 60",
+    "max": 1,
+    "desc": "+1 turno de duración de bono de estilo (no se apila con nuevos efectos)",
+    "ranks": 1
+   },
+   {
+    "lvl": 4,
+    "name": "Evasivo",
+    "req": "-",
+    "max": 2,
+    "desc": "+5 Evasión",
+    "ranks": 1
+   }
+  ],
+  "implants": [
+   {
+    "name": "Kiroshi Clarividente",
+    "slot": "Cara / Ojos",
+    "minTier": 1,
+    "load": 24,
+    "load6": 36,
+    "price": 23000,
+    "tiers": [
+     "Permite ver la trayectoria de los disparos",
+     "+10 Evasión",
+     "+10 Percepción",
+     "+10 Reflejos",
+     "Permite usar 1/2 Reflejos para esquivar disparos (Reflejos al 100% usando Kerenzikov o Sandevistan)",
+     "Reflejos al 100% para esquivar disparos"
+    ],
+    "tier": 4,
+    "on": 0,
+    "cdLeft": 0
+   },
+   {
+    "name": "Kerenzikov Boost System",
+    "slot": "Corteza frontal",
+    "minTier": 3,
+    "load": 8,
+    "load6": 12,
+    "price": 7000,
+    "tiers": [
+     null,
+     null,
+     "+10 Reflejos al usar Kerenzikov",
+     "+1 PA al usar Kerenzikov",
+     "+1 turno de duración al usar Kerenzikov",
+     "Duplica los efectos del Kerenzikov"
+    ],
+    "tier": 4,
+    "on": 0,
+    "cdLeft": 0
+   },
+   {
+    "name": "Newton Module",
+    "slot": "Corteza frontal",
+    "minTier": 2,
+    "load": 14,
+    "load6": 21,
+    "price": 25000,
+    "tiers": [
+     null,
+     "Reduce el enfriamiento de todos los implantes en 20%",
+     "Reduce el enfriamiento de todos los implantes en 10%",
+     "Reduce el enfriamiento de todos los implantes en 10%",
+     "Reduce el enfriamiento de todos los implantes en 10%",
+     "Reset (CD 10T)"
+    ],
+    "tier": 5,
+    "on": 0,
+    "cdLeft": 0
+   },
+   {
+    "name": "Kerenzikov",
+    "slot": "Sistema nervioso",
+    "minTier": 1,
+    "load": 12,
+    "load6": 18,
+    "price": 9000,
+    "tiers": [
+     "+2 PA, +10 Reflejos, D 1T, CD 3T",
+     "+5 Reflejos",
+     "+10 Evasión",
+     "+1 PA",
+     "+5 Crítico",
+     "Duplica los efectos anteriores"
+    ],
+    "tier": 4,
+    "on": 0,
+    "cdLeft": 0
+   },
+   {
+    "name": "Zetatech Sandevistan (Mirror)",
+    "slot": "Sistema operativo",
+    "minTier": 1,
+    "load": 20,
+    "load6": 30,
+    "price": 19000,
+    "tiers": [
+     "10 Icewall | +6 PA, D 2T, CD 8T, +15 Evasión",
+     "15 Icewall | +20 Evasión",
+     "25 Icewall | +20 Reflejos",
+     "30 Icewall | +30 Reflejos",
+     "40 Icewall | Remueve los hacks cargados al activarse",
+     "50 Icewall | BOOMERANG III mientras está activo"
+    ],
+    "tier": 4,
+    "on": 0,
+    "cdLeft": 0
+   },
+   {
+    "name": "Defenzikov",
+    "slot": "Sistema integumentario",
+    "minTier": 1,
+    "load": 15,
+    "load6": 22,
+    "price": 10000,
+    "tiers": [
+     "+5 RD, D 1T, CD 3T. Se activa al terminar Kerenzikov",
+     "+5 RD",
+     "+5 RD",
+     "+5 RD",
+     "+5 RD, D 2T",
+     "Inmune a críticos mientras Kerenzikov está activo"
+    ],
+    "tier": 4,
+    "on": 0,
+    "cdLeft": 0
+   }
+  ],
+  "armor": {
+   "normal": 0,
+   "termal": 0,
+   "electrica": 0,
+   "quimica": 0
+  },
+  "vitality": 70,
+  "luck": 10,
+  "resolution": 37,
+  "round": 1,
+  "inventory": "",
+  "quick": "",
+  "roleDetails": "",
+  "notes": ""
+ }
+}

@@ -4,20 +4,20 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#0b0c0f">
-  <meta name="description" content="Ficha interactiva de Vergil — Cyberpunk de mesa">
+  <meta name="description" content="Ficha de personaje editable y offline para Cyberpunk de mesa">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="VERGIL">
+  <meta name="apple-mobile-web-app-title" content="Ficha CP">
   <link rel="apple-touch-icon" href="icon-192.png">
   <link rel="icon" type="image/svg+xml" href="icon.svg">
   <link rel="manifest" href="manifest.webmanifest">
-  <title>VERGIL // Ficha Cyberpunk</title>
+  <title>Ficha Cyberpunk</title>
   <style>
     :root{color-scheme:dark;--bg:#0a0c10;--surface:#15191e;--surface2:#1b2026;--surface3:#232830;--stroke:#303640;--muted:#969ea8;--white:#f3f4f5;--yellow:#f4e600;--cyan:#53dedb;--red:#ff5464;--green:#8aeda4;--radius:13px}
     *{box-sizing:border-box} html{scroll-behavior:smooth}body{margin:0;min-height:100vh;background:var(--bg);font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--white);-webkit-font-smoothing:antialiased}body:before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(135deg,transparent 45%,rgba(244,230,0,.025) 60%,transparent 75%),repeating-linear-gradient(0deg,transparent,transparent 44px,rgba(255,255,255,.015) 45px)}
     button,input,textarea,select{font:inherit}button{cursor:pointer}button:disabled{opacity:.38;cursor:not-allowed}input,textarea,select{background:#101419;border:1px solid #363d46;color:var(--white);padding:11px;border-radius:8px;min-width:0;width:100%;outline:none;font-size:16px}input:focus,textarea:focus,select:focus{border-color:var(--yellow);box-shadow:0 0 0 2px #f4e60016} input[type=number]{font-variant-numeric:tabular-nums} textarea{resize:vertical;min-height:75px}label{display:block;color:#c8cdd1;font-size:12px;font-weight:650;letter-spacing:.02em}.help{font-size:12px;color:var(--muted);line-height:1.55}.small{font-size:12px}.mono{font-variant-numeric:tabular-nums}.yellow{color:var(--yellow)}.cyan{color:var(--cyan)}.green{color:var(--green)}.red{color:var(--red)}.muted{color:var(--muted)}
     .app{max-width:1000px;margin:0 auto;padding:0 16px 114px}.mast{padding:24px 0 19px;border-bottom:1px solid var(--stroke);display:flex;align-items:center;justify-content:space-between;gap:12px}.brand{display:flex;gap:12px;align-items:center}.brand-mark{width:47px;height:47px;background:var(--yellow);color:#000;display:grid;place-items:center;clip-path:polygon(0 0,87% 0,100% 20%,100% 100%,13% 100%,0 80%);font-size:28px;font-style:italic;font-weight:1000;letter-spacing:-4px;padding-right:5px}.eyebrow{font-family:ui-monospace,SFMono-Regular,monospace;color:var(--yellow);font-size:10px;letter-spacing:2.7px;font-weight:700}.brand h1{font-size:24px;line-height:1;letter-spacing:2px;margin:4px 0}.version{font-size:11px;background:var(--surface2);color:var(--muted);border:1px solid var(--stroke);padding:7px 9px;white-space:nowrap;border-radius:4px}
-    .hero{position:relative;overflow:hidden;border:1px solid #77700c;background:linear-gradient(120deg,#222312,#121519 75%);margin:21px 0;border-radius:12px;padding:19px 20px 18px}.hero:after{content:"// V";position:absolute;right:-10px;top:-24px;font-weight:1000;font-size:125px;letter-spacing:-15px;color:#f4e6000f;pointer-events:none}.hero-main{position:relative;z-index:1}.hero h2{margin:6px 0 5px;line-height:1;font-size:36px;font-weight:900;letter-spacing:3px}.hero .subtitle{font-size:12px;color:#bcc0b9;margin:0 0 15px}.tag-row{display:flex;flex-wrap:wrap;gap:7px}.tag{display:inline-flex;align-items:center;gap:5px;padding:6px 9px;border:1px solid #464735;color:#d8d9c7;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;border-radius:5px;background:#ffffff08}.tag.lime{border-color:#a7a128;color:var(--yellow)}
+    .hero{position:relative;overflow:hidden;border:1px solid #77700c;background:linear-gradient(120deg,#222312,#121519 75%);margin:21px 0;border-radius:12px;padding:19px 20px 18px}.hero:after{content:attr(data-mark);position:absolute;right:-10px;top:-24px;font-weight:1000;font-size:125px;letter-spacing:-15px;color:#f4e6000f;pointer-events:none}.hero-main{position:relative;z-index:1}.hero h2{margin:6px 0 5px;line-height:1;font-size:36px;font-weight:900;letter-spacing:3px}.hero .subtitle{font-size:12px;color:#bcc0b9;margin:0 0 15px}.tag-row{display:flex;flex-wrap:wrap;gap:7px}.tag{display:inline-flex;align-items:center;gap:5px;padding:6px 9px;border:1px solid #464735;color:#d8d9c7;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;border-radius:5px;background:#ffffff08}.tag.lime{border-color:#a7a128;color:var(--yellow)}
     .tabs{display:none}.panel{display:none}.panel.active{display:block;animation:arrive .16s ease-out}@keyframes arrive{from{opacity:.7;transform:translateY(3px)}to{opacity:1;transform:translateY(0)}}.heading{display:flex;align-items:flex-end;justify-content:space-between;gap:10px;margin:25px 0 13px}.heading h2{margin:0;font-size:21px;font-weight:850;letter-spacing:-.55px}.heading .section-number{color:var(--yellow);font-size:10px;letter-spacing:2px;font-weight:850;font-family:monospace}.heading p{margin:6px 0 0;font-size:12px;color:var(--muted)}
     .grid{display:grid;gap:10px}.grid.two{grid-template-columns:repeat(2,minmax(0,1fr))}.grid.three{grid-template-columns:repeat(3,minmax(0,1fr))}.grid.four{grid-template-columns:repeat(4,minmax(0,1fr))}.tile{background:var(--surface);border:1px solid var(--stroke);border-radius:var(--radius);padding:13px 14px;min-width:0}.tile strong.big{font-size:29px;line-height:1.15;display:block;margin:5px 0;color:var(--white);letter-spacing:-1px}.tile .topline{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:1.2px;font-weight:750}.tile .below{font-size:11px;color:var(--muted)}.tile.emph{border-color:#8f8613;background:linear-gradient(150deg,#222410,#14181c)}.tile.emph strong.big{color:var(--yellow)}.card{border:1px solid var(--stroke);border-radius:var(--radius);padding:16px;background:var(--surface);margin-bottom:12px}.card h3{margin:0 0 12px;font-size:15px}.row{display:flex;align-items:center;justify-content:space-between;gap:12px}.row.wrap{flex-wrap:wrap}.stack{display:grid;gap:11px}.separator{height:1px;background:var(--stroke);margin:13px 0}.field-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.field{display:grid;gap:6px}.field.span{grid-column:1/-1}.hint-bubble{padding:10px 12px;border-left:3px solid var(--yellow);background:#f4e6000b;font-size:12px;line-height:1.5;color:#dcdcd1;margin:12px 0;border-radius:0 8px 8px 0}.hint-bubble.warn{border-color:var(--red);background:#ff54640b}
     .mini-bar{height:5px;border-radius:99px;background:#323843;margin:9px 0;overflow:hidden}.mini-fill{background:var(--yellow);height:100%;border-radius:99px;transition:width .2s}.meter-title{font-size:12px;color:var(--muted)}.editable-stat{display:grid;grid-template-columns:1fr 80px;align-items:center;gap:10px;border-bottom:1px solid var(--stroke);padding:10px 0}.editable-stat:last-child{border:0}.editable-stat strong{font-size:13px}.editable-stat small{color:var(--muted);font-size:11px;display:block;margin-top:4px}.editable-stat input{text-align:right;padding:8px;font-size:16px}
@@ -29,15 +29,23 @@
     .bottom-nav{position:fixed;z-index:50;bottom:0;left:0;right:0;display:flex;align-items:stretch;justify-content:center;padding:7px max(8px,env(safe-area-inset-right)) calc(7px + env(safe-area-inset-bottom)) max(8px,env(safe-area-inset-left));background:#101317f7;border-top:1px solid #3d444c;backdrop-filter:blur(15px);box-shadow:0 -15px 32px #0008}.tab-button{border:0;background:transparent;color:#7f8994;padding:9px 6px;display:grid;gap:4px;justify-items:center;font-size:10px;flex:1;max-width:180px;min-width:0;font-weight:750}.tab-button svg{width:21px;height:21px}.tab-button.active{color:var(--yellow)}.tab-button.active span{color:var(--white)}.empty{font-size:12px;color:var(--muted);padding:20px;text-align:center}.toast{position:fixed;bottom:100px;left:50%;transform:translateX(-50%);background:#222b29;border:1px solid #4a7b6a;color:#c4ffde;border-radius:9px;padding:10px 16px;font-size:12px;z-index:60;opacity:0;pointer-events:none;transition:opacity .2s;min-width:180px;text-align:center}.toast.show{opacity:1}
     @media(min-width:760px){.app{padding:0 26px 80px}.bottom-nav{position:sticky;top:0;bottom:auto;max-width:1000px;margin:auto;border:1px solid #454b50;border-radius:12px;padding:5px;box-shadow:none;z-index:50}.hero{padding:26px}.hero h2{font-size:43px}.desktop-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px;align-items:start}.desktop-grid .card{margin-bottom:0}.heading{margin-top:32px}.grid.four{grid-template-columns:repeat(4,1fr)}}@media(max-width:390px){.app{padding-left:11px;padding-right:11px}.tile{padding:11px}.tile strong.big{font-size:25px}.grid.three{gap:7px}.field-grid{gap:8px}.btn{padding:9px 10px}.skill-row,.skill-headers{grid-template-columns:minmax(0,1fr) 58px 60px 48px}}
     .readonly-stat{display:flex;gap:10px;align-items:center;justify-content:space-between;border-bottom:1px solid var(--stroke);padding:10px 0;font-size:13px}.readonly-stat strong{font-size:12px}.readonly-stat b{font-size:17px}.readonly-stat + .help{padding:1px 0 9px}.mini-head{display:flex;justify-content:space-between;color:var(--muted);font-size:10px;letter-spacing:.08em;padding-bottom:7px}
+    .tile[data-a]{cursor:pointer}.tile.bad{border-color:#8c3640;background:#2a1519}.tile.bad strong.big{color:var(--red)}
+    .skill-row{grid-template-columns:minmax(0,1fr) 64px 56px 46px;align-items:start}.skill-headers{grid-template-columns:minmax(0,1fr) 64px 56px 46px}.skill-note{color:var(--muted)}
+    .row-tools{display:flex;gap:10px;align-items:center;margin-top:6px}.check-inline{display:inline-flex;gap:6px;align-items:center;font-size:11px;color:#c8cdd1;font-weight:600}.check-inline input{width:16px;height:16px;accent-color:var(--yellow)}
+    .custom-skill{display:grid;gap:6px}.custom-skill input{text-align:left;font-weight:800}.pair{display:flex;gap:4px;align-items:center;font-size:11px;color:var(--muted)}.pair select{padding:5px;font-size:13px;width:auto}
+    .trait-row{display:grid;grid-template-columns:minmax(0,1fr) 130px auto;gap:8px;align-items:center;margin-bottom:8px}
+    .attr-row{display:grid;grid-template-columns:minmax(0,1fr) 72px 72px 44px 44px;gap:8px;align-items:center;padding:7px 0;border-bottom:1px solid var(--stroke)}.attr-row:last-child{border:0}.attr-row.head{color:var(--muted);font-size:10px;font-weight:750}.attr-row input{padding:8px;text-align:center}.attr-row span,.attr-row b{text-align:right}
+    .merit{padding:11px 0;border-bottom:1px solid var(--stroke)}.merit .help{margin-top:4px}.chips{display:flex;flex-wrap:wrap;gap:5px;margin-top:9px}.actions .pill{align-self:center}
+    @media(max-width:520px){.trait-row{grid-template-columns:1fr auto}.trait-row select{grid-column:1/2}.field-grid{grid-template-columns:1fr}}
   </style>
 </head>
 <body>
 <div class="app">
   <header class="mast">
-    <div class="brand"><div class="brand-mark">V</div><div><div class="eyebrow">ARCHIVO DE PERSONAJE</div><h1>VERGIL<span class="yellow">_</span></h1></div></div>
-    <span class="version">BUILD 02 / OFFLINE</span>
+    <div class="brand"><div class="brand-mark" id="brandMark">?</div><div><div class="eyebrow">ARCHIVO DE PERSONAJE</div><h1><span id="brandName"></span><span class="yellow">_</span></h1></div></div>
+    <span class="version">BUILD 03 / OFFLINE</span>
   </header>
-  <div class="hero"><div class="hero-main"><div class="eyebrow">NIGHT CITY // RONIN</div><h2 id="heroName">VERGIL</h2><p class="subtitle"><span id="heroPlayer">Fefo</span> · Un código propio, ningún amo. El propósito personal lo es todo.</p><div class="tag-row"><span class="tag lime" id="heroLevel">NV 04</span><span class="tag" id="heroExp">120 EXP</span><span class="tag">SISTEMAS CYBERWARE // 06</span></div></div></div>
+  <div class="hero" data-mark="// ?"><div class="hero-main"><div class="eyebrow">NIGHT CITY</div><h2 id="heroName"></h2><p class="subtitle" id="heroSub"></p><div class="tag-row" id="heroTags"></div></div></div>
   <nav class="bottom-nav" id="bottomNav" aria-label="Secciones">
     <button class="tab-button active" data-tab="resumen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="8" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="15" width="7" height="6" rx="1"/></svg><span>Ficha</span></button>
     <button class="tab-button" data-tab="habilidades"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4l16 16M4 4l4 1-3 3M20 4L4 20M20 4l-4 1 3 3"/><path d="M5 15l4 4m6 0 4-4"/></svg><span>Habilidades</span></button>
@@ -51,229 +59,8 @@
   <section class="panel" id="tab-implantes"></section>
   <section class="panel" id="tab-perfil"></section>
 </div><div id="toast" class="toast" role="status" aria-live="polite"></div>
-<script>
-'use strict';
-const KEY='vergil-cyberpunk-v2'; const OLD_KEY='vergil-cyberpunk-v1';
-const ATTRS=[['fue','Fuerza'],['des','Destreza'],['per','Percepción'],['int','Inteligencia'],['det','Determinación'],['con','Constitución']];
-const SKILLS=[
- ['investigacion','Investigación','(PER + INT)/5 + 10',a=>(a.per+a.int)/5+10,false],
- ['pericia','Pericia','(DES + INT)/5 + 10',a=>(a.des+a.int)/5+10,false],
- ['conocimiento','Conocimiento','(INT × 2)/5 + 10',a=>(a.int*2)/5+10,false],
- ['social','Social','(DET + INT)/5 + 10',a=>(a.det+a.int)/5+10,false],
- ['atletismo','Atletismo','(CON + DES)/5 + 10',a=>(a.con+a.des)/5+10,false],
- ['sigilo','Sigilo','(DES + PER)/5 + 10',a=>(a.des+a.per)/5+10,false],
- ['pelea','Pelea ★','(FUE + DES)/5 + 10',a=>(a.fue+a.des)/5+10,true],
- ['punteria','Puntería ★','(DES + PER)/5 + 10',a=>(a.des+a.per)/5+10,true],
- ['informatica','Informática','(INT + DES)/5 + 10',a=>(a.int+a.des)/5+10,false],
- ['estilo','Estilo ★','(DET × 2)/5 + 10',a=>(a.det*2)/5+10,true]
-];
-const IMPLANTS=[
- {id:'kiroshi',name:'Kiroshi Clarividente',area:'Ojos',min:1,load:24,load6:36,effects:['Ver trayectoria de disparos','+10 Evasión permanente','+10 Percepción permanente','+10 Reflejos permanente','Mitad de Reflejos al esquivar disparos; 100% con Kerenzikov o Sandevistan','100% de Reflejos para esquivar disparos siempre'],prices:[23000,46000,92000,184000,368000,0]},
- {id:'boost',name:'Kerenzikov Boost System',area:'Corteza frontal',min:3,load:8,load6:12,effects:['','','+10 Reflejos mientras Kerenzikov está activo','+1 PA mientras Kerenzikov está activo','+1 turno de duración de Kerenzikov','Duplica los efectos de Kerenzikov (interpretación a confirmar)'],prices:[0,0,7000,14000,28000,0]},
- {id:'newton',name:'Newton Module',area:'Corteza frontal',min:2,load:14,load6:21,effects:['','-20% enfriamiento en implantes','-10% adicional','-10% adicional','-10% adicional','Reset (CD 10 turnos; efecto exacto a confirmar)'],prices:[0,25000,50000,100000,200000,0]},
- {id:'kerenzikov',name:'Kerenzikov',area:'Sistema nervioso',min:1,load:12,load6:18,effects:['+2 PA, +10 Reflejos; D 1T, CD 3T','+5 Reflejos','+10 Evasión','+1 PA','+5 Crítico','Duplica los efectos anteriores (interpretación a confirmar)'],prices:[9000,18000,36000,72000,144000,0]},
- {id:'mirror',name:'Zetatech Sandevistan (Mirror)',area:'Sistema operativo',min:1,load:20,load6:30,effects:['+6 PA, +15 Evasión; D 2T, CD 8T','+20 Evasión','+20 Reflejos','+30 Reflejos','Remueve hacks cargados al activarse','BOOMERANG III mientras está activo'],prices:[19000,38000,76000,152000,304000,0]},
- {id:'defenzikov',name:'Defenzikov',area:'Sistema tegumentario',min:1,load:15,load6:22,effects:['+5 RD tras Kerenzikov; D 1T, CD 3T','+5 RD adicional','+5 RD adicional','+5 RD adicional','+5 RD adicional; D 2T','Inmune a críticos mientras Kerenzikov está activo'],prices:[10000,20000,40000,80000,160000,0]}
-];
-const DEFAULT={name:'Vergil',player:'Fefo',role:'Ronin',roleDesc:'Propio código, no pertenece a nadie; el propósito personal lo es todo.',level:4,exp:120,attrs:{fue:50,des:60,per:40,int:50,det:75,con:50},progression:{anchorLevel:4,anchorAttrs:{fue:50,des:60,per:40,int:50,det:75,con:50}},skillMods:{investigacion:0,pericia:0,conocimiento:10,social:10,atletismo:18,sigilo:8,pelea:24,punteria:15,informatica:0,estilo:15},specialties:{pelea:true,punteria:true,estilo:true},implants:{kiroshi:4,boost:4,newton:5,kerenzikov:4,mirror:4,defenzikov:4},implantLoad:{kiroshi:24,boost:8,newton:14,kerenzikov:12,mirror:20,defenzikov:15},vitality:67,luck:10,luckMax:50,resolution:37,armors:{normal:0,thermal:0,electric:0,chemical:0},combat:{round:1,k:{active:0,cd:0},m:{active:0,cd:0},d:{active:0,cd:0}},traits:[['Especialidad en Investigación al recolectar información','Investigación'],['Especialidad en Pelea con armas grandes','Pelea'],['Especialidad en Atletismo al correr','Atletismo'],['Skill en Pelea con Estilo','Pelea / Estilo'],['Skill en Puntería con armas cortas','Puntería']],merits:[{name:'Primera Sangre',effect:''},{name:'Viviendo al Límite',effect:'+20 margen de Estilo'},{name:'Edgerunner',effect:'+1 turno de duración de bono de Estilo (no se apila)'},{name:'Evasivo',effect:''}],notes:'',styleRoll:false,rollSkill:'pelea',rollBonus:0,rollResult:null};
-const clone=x=>JSON.parse(JSON.stringify(x));
-function deepMerge(target,src){if(!src||typeof src!=='object')return target;Object.keys(target).forEach(k=>{if(src[k]!==undefined){if(target[k]&&typeof target[k]==='object'&&!Array.isArray(target[k])&&typeof src[k]==='object')deepMerge(target[k],src[k]);else target[k]=src[k]}});return target}
-let state=clone(DEFAULT);
-try{
-  const current=localStorage.getItem(KEY);
-  const saved=JSON.parse(current||localStorage.getItem(OLD_KEY)||'null');
-  if(saved){
-    deepMerge(state,saved);
-    delete state.statsOverride; delete state.skillExtra; delete state.reflexIncludesKiroshi;
-    // Solo reiniciar el punto de referencia si el guardado es de la versión anterior.
-    if(!current)state.progression=clone(DEFAULT.progression);
-    state.luckMax=50;
-    state.vitality=Math.max(0,Math.min(Number(state.vitality)||0,Math.floor(state.attrs.con/2+state.attrs.des/5+30)));
-    state.resolution=Math.max(0,Math.min(Number(state.resolution)||0,Math.floor(state.attrs.det/2)));
-  }
-}catch(e){console.warn('No se pudo leer el guardado',e)}
-const fmt=n=>Number.isInteger(n)?String(n):Number(n).toFixed(1).replace(/\.0$/,'');
-const esc=x=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const n=(v,def=0)=>Number.isFinite(Number(v))?Number(v):def;
-const clamp=(val,lo,hi)=>Math.max(lo,Math.min(hi,n(val,lo)));
-const level=id=>Math.max(0,n(state.implants[id]));
-// Las bases siempre se calculan con los atributos SIN modificaciones.
-// Cada implante aporta diferencias automáticas a la columna +/- correspondiente.
-function baseAttrs(){return state.attrs}
-function effective(){const a={...baseAttrs()};if(level('kiroshi')>=3)a.per+=10;return a}
-function attrParts(id){const base=n(baseAttrs()[id]),extra=n(effective()[id])-base;return{base,mod:extra,total:base+extra}}
-function calculatedParts(formula){const base=Math.floor(formula(baseAttrs()));const total=Math.floor(formula(effective()));return{base,mod:total-base,total}}
-function coolReduce(){return level('newton')>=5?.5:level('newton')>=4?.4:level('newton')>=3?.3:level('newton')>=2?.2:0}
-function cooldown(base){return Math.ceil(base*(1-coolReduce()))}
-function kDuration(){return 1+(level('boost')>=5?1:0)}
-function dDuration(){return level('defenzikov')>=5?2:1}
-function isOn(k){return state.combat[k].active>0}
-function skillInfo(id){
-  const item=SKILLS.find(x=>x[0]===id);
-  const b=calculatedParts(item[3]);
-  const manual=Math.floor(n(state.skillMods[id]));
-  const special=!!state.specialties[id];
-  const specialtyBonus=special?20:0;
-  const skillBonus=manual*(special?2:1);
-  const mod= b.mod+specialtyBonus+skillBonus;
-  const total=b.base+mod;
-  return {base:b.base,implant:b.mod,manual,special,specialtyBonus,skillBonus,mod,total,crit:Math.max(0,Math.floor(total/10)),name:item[1]};
-}
-function rawDefenses(){const a=baseAttrs();return{
-  evade:Math.floor((a.des+a.per)/5+10),
-  reflex:Math.floor((a.des+a.per)/5+10),
-  fort:Math.floor((a.con+a.fue)/5+10),
-  will:Math.floor((a.det+a.fue)/5+10)
-}}
-function baseStats(){
-  const a=baseAttrs();
-  const calcPA=Math.floor(a.des/10+5);
-  const calcHP=Math.floor(a.con/2+a.des/5+30);
-  return{a,calcPA,calcHP,pa:calcPA,hp:calcHP,defs:rawDefenses(),
-    heal:Math.floor(a.con/20),power:Math.floor(a.fue/5-5),
-    range:Math.floor(a.per/2),initiative:Math.floor((a.des+a.per)/10),
-    resolveMax:Math.floor(a.det/2),phLevel:Math.floor(a.int/5+5),
-    implantMax:Math.floor(a.det+a.con/2)};
-}
-function secondaryStat(id){const formulas={
-  power:a=>a.fue/5-5,range:a=>a.per/2,
-  initiative:a=>(a.des+a.per)/10,heal:a=>a.con/20,
-  pa:a=>a.des/10+5,hp:a=>a.con/2+a.des/5+30,
-  resolveMax:a=>a.det/2,implantMax:a=>a.det+a.con/2};
-  const v=calculatedParts(formulas[id]);
-  if(id==='pa')v.mod+=bonusPA();
-  v.total=v.base+v.mod;
-  return v;
-}
-function defStat(id){
-  const formulas={evade:a=>(a.des+a.per)/5+10,reflex:a=>(a.des+a.per)/5+10,
-    fort:a=>(a.con+a.fue)/5+10,will:a=>(a.det+a.fue)/5+10};
-  let {base,mod:attributeBonus}=calculatedParts(formulas[id]);
-  let perm=0,active=0;
-  if(id==='evade'){
-    perm+=level('kiroshi')>=2?10:0;
-    active+=(isOn('k')&&level('kerenzikov')>=3)?10:0;
-    active+=isOn('m')?(level('mirror')>=1?15:0)+(level('mirror')>=2?20:0):0;
-  }
-  if(id==='reflex'){
-    perm+=level('kiroshi')>=4?10:0;
-    active+=isOn('k')?(level('kerenzikov')>=1?10:0)+(level('kerenzikov')>=2?5:0)+(level('boost')>=3?10:0):0;
-    active+=isOn('m')?(level('mirror')>=3?20:0)+(level('mirror')>=4?30:0):0;
-  }
-  const mod=attributeBonus+perm+active;
-  return{base,attributeBonus,perm,active,mod,total:base+mod};
-}
-function bonusPA(){const k=isOn('k')?(level('kerenzikov')>=1?2:0)+(level('kerenzikov')>=4?1:0)+(level('boost')>=4?1:0):0;const m=isOn('m')&&level('mirror')>=1?6:0;return k+m}
-function rdBoost(){return isOn('d')?Math.min(5,level('defenzikov'))*5:0}
-function rdStat(id){const base=Math.floor(n(state.armors[id]));const mod=rdBoost();return{base,mod,total:base+mod}}
-function implantLoadTotal(){return Math.floor(IMPLANTS.reduce((t,i)=>t+Math.floor(n(state.implantLoad[i.id])),0))}
-function progression(){
- const p=state.progression;
- const available=Math.max(0,Math.floor(state.level)-p.anchorLevel)*10;
- const spent=ATTRS.reduce((sum,[id])=>sum+Math.floor(n(state.attrs[id])-n(p.anchorAttrs[id])),0);
- return{available,spent,remaining:available-spent};
-}
-function partsLabel(p){return `${p.base} base · ${p.mod>=0?'+':''}${p.mod} implantes`}
-function attrsText(){return ATTRS.map(([id,label])=>`${label}: ${attrParts(id).total} (base ${attrParts(id).base}; implantes ${attrParts(id).mod})`).join(', ')}
-function save(){try{localStorage.setItem(KEY,JSON.stringify(state))}catch(e){toast('No se pudo guardar; exportá un respaldo')}}
-function toast(msg){const el=document.getElementById('toast');el.textContent=msg;el.classList.add('show');clearTimeout(toast.timer);toast.timer=setTimeout(()=>el.classList.remove('show'),2400)}
-function setTab(tab){document.querySelectorAll('.panel').forEach(el=>el.classList.toggle('active',el.id==='tab-'+tab));document.querySelectorAll('.tab-button').forEach(el=>el.classList.toggle('active',el.dataset.tab===tab));render(tab);window.scrollTo({top:0,behavior:'instant'})}
-function heading(num,title,sub=''){return `<div class="heading"><div><div class="section-number">${num} // NIGHT CITY</div><h2>${title}</h2>${sub?`<p>${sub}</p>`:''}</div></div>`}
-function tile(label,value,sub='',type=''){return `<div class="tile ${type}"><div class="topline">${label}</div><strong class="big mono">${value}</strong><div class="below">${sub}</div></div>`}
-function inputField(label,path,val,opts=''){return `<div class="field"><label for="${path}">${label}</label><input id="${path}" data-field="${path}" ${opts} value="${esc(val)}"></div>`}
-function renderResumen(){
-  const st=baseStats();
-  const ev=defStat('evade'),ref=defStat('reflex');
-  document.getElementById('heroName').textContent=state.name;
-  document.getElementById('heroPlayer').textContent=state.player;
-  document.getElementById('heroLevel').textContent='NV '+String(state.level).padStart(2,'0');
-  document.getElementById('heroExp').textContent=state.exp+' EXP';
-  const attrs=ATTRS.map(([id,name])=>{const p=attrParts(id);return tile(name,p.total,partsLabel(p),p.mod?'emph':'')}).join('');
-  const defs=[['evade','Evasión'],['reflex','Reflejos'],['fort','Fortaleza'],['will','Voluntad']]
-    .map(([id,label])=>{const d=defStat(id);return tile(label,d.total,`${d.base} base · ${d.mod>=0?'+':''}${d.mod} implantes`,d.mod?'emph':'')}).join('');
-  const others=[['power','Potencia'],['range','Rango'],['initiative','Iniciativa'],['heal','Curación']]
-    .map(([id,label])=>{const d=secondaryStat(id);return tile(label,d.total,partsLabel(d))}).join('');
-  document.getElementById('tab-resumen').innerHTML=
-    heading('01','Panel principal','Cifras generadas a partir de los atributos y de los implantes activos.')+
-    `<div class="grid four">${tile('Nivel',state.level,`${state.exp} EXP`,'emph')}${tile('PA totales',secondaryStat('pa').total,`${st.pa} base · +${bonusPA()} activos`)}${tile('Vitalidad',`${Math.min(state.vitality,st.hp)}/${st.hp}`,'Máximo calculado')}${tile('Implantes',`${implantLoadTotal()}/${st.implantMax}`,'Carga provisional')}</div>`+
-    heading('02','Características','Cada bono de implante se indica en +/−, sin alterar la base.')+
-    `<div class="grid three">${attrs}</div>`+
-    heading('03','Defensas','Base de fórmula + modificadores automáticos.')+
-    `<div class="grid two">${defs}</div>`+
-    heading('04','Características secundarias','Bases calculadas siempre con redondeo hacia abajo.')+
-    `<div class="grid three">${others}${tile('Suerte',`${state.luck}/${state.luckMax}`,'Recurso')}${tile('Resolución',`${state.resolution}/${st.resolveMax}`,'Recurso')}</div>`+
-    `<div class="card" style="margin-top:17px"><div class="row wrap"><div><h3 style="margin:0">Acceso rápido</h3><p class="help" style="margin:6px 0 0">Activá implantes, lanzá el d100 o editá la ficha.</p></div><div class="actions"><button class="btn primary" data-goto="combate">Ir a combate →</button><button class="btn" data-goto="perfil">Editar ficha</button></div></div></div>`;
-}
-function renderSkills(){
-  const st=baseStats();
-  document.getElementById('tab-habilidades').innerHTML=
-    heading('01','Habilidades','Las bases son fórmulas inalterables; solo editás el +/- propio.')+
-    `<div class="grid three">${tile('PH por nivel',st.phLevel,'⌊INT/5 + 5⌋')}${tile('PH teóricos',st.phLevel*state.level,'PH × nivel')}${tile('Atributos / NV','+10','Por nivel subido')}</div>`+
-    `<div class="hint-bubble">Base: atributos sin implantes, redondeo hacia abajo. <strong>+/- manual:</strong> lo asignás vos. <strong>Automático:</strong> implantes (+2 por PER de Kiroshi en habilidades que usan PER) y especialidades (+20 y doble del +/- manual).</div>`+
-    `<div class="card"><div class="skill-headers"><span style="text-align:left">HABILIDAD / BASE</span><span>+/- TUYO</span><span>TOTAL</span><span>CRÍTICO</span></div>`+
-    SKILLS.map(item=>{const [id,label,formula]=item;const r=skillInfo(id);return `<div class="skill-row"><div><div class="skill-name">${label.replace(' ★','')}${r.special?' ★':''}</div><div class="skill-formula">Base <b>${r.base}</b> · ${formula}</div><div class="skill-note">+/- auto ${r.implant>=0?'+':''}${r.implant} implantes · +${r.specialtyBonus} esp. · manual ×${r.special?2:1}</div></div><input type="number" step="1" data-field="skillMods.${id}" value="${r.manual}" aria-label="Modificador manual de ${label}"><div class="skill-score ${r.special?'yellow':''}">${r.total}</div><div class="skill-score">${r.crit}</div></div>`}).join('')+
-    `</div>`+
-    heading('02','Especialidades','Marcá las especialidades que correspondan al personaje.')+
-    `<div class="card">${SKILLS.map(([id,label])=>`<label class="check-row"><input type="checkbox" data-field="specialties.${id}" ${state.specialties[id]?'checked':''}><span>${label.replace(' ★','')}</span></label>`).join('')}</div>`+
-    heading('03','Rasgos y condiciones','Los +20 situacionales se aplican al realizar una tirada, no alteran la base.')+
-    `<div class="card">${state.traits.map(it=>`<div class="row" style="padding:10px 0;border-bottom:1px solid #303640"><div><div class="small" style="font-weight:650">${esc(it[0])}</div><div class="help">${esc(it[1])}</div></div><span class="pill">+20 situacional*</span></div>`).join('')}<p class="help">* Usá el campo de bono situacional en Combate cuando aplique. Evitá sumar dos veces la misma especialidad.</p></div>`;
-}
-function renderCombat(){let st=baseStats(),ev=defStat('evade'),ref=defStat('reflex'),bonus=bonusPA(),rd=rdBoost(),c=state.combat,roll=state.rollResult;const sys=[['k','Kerenzikov + Boost',kDuration(),cooldown(3),'Concede PA, Reflejos y Evasión'],['m','Sandevistan Mirror',2,cooldown(8),'Concede PA, Evasión y Reflejos'],['d','Defenzikov',dDuration(),cooldown(3),'Se activa automáticamente cuando termina Kerenzikov']];document.getElementById('tab-combate').innerHTML=heading('01','Control de combate','Los cooldowns comienzan al terminar el efecto; redondeo hacia arriba.')+`<div class="combat-head"><div class="row wrap"><div><div class="eyebrow">ENCUENTRO ACTUAL</div><div class="round-number">TURNO <span class="yellow">${c.round}</span></div></div><div class="actions"><button class="btn primary" data-action="nextTurn">Siguiente turno →</button><button class="btn ghost" data-action="resetCombat">Reiniciar</button></div></div></div><div class="grid four">${tile('PA totales',st.pa+bonus,`${st.pa} base +${bonus} implantes`,'emph')}${tile('Reflejos',ref.total,`${ref.base} base · ${ref.mod>=0?'+':''}${ref.mod} +/-`)}${tile('Evasión',ev.total,`${ev.base} base · ${ev.mod>=0?'+':''}${ev.mod} +/-`)}${tile('RD normal',rdStat('normal').total,`Equipo ${rdStat('normal').base} + ${rd} Def.`)}</div>`+heading('02','Implantes activables')+`<div class="card">${sys.map(([id,name,dur,cd,subtitle])=>{let x=c[id],ready=x.active===0&&x.cd===0;return `<div class="combat-implant"><div><div class="title">${name}</div><div class="sub">${subtitle}</div><div style="margin-top:7px">${x.active?`<span class="pill on">ACTIVO · ${x.active}T restantes</span>`:x.cd?`<span class="pill cool">CD · ${x.cd}T restantes</span>`:`<span class="pill ready">LISTO</span>`} <span class="pill">D ${dur}T / CD ${cd}T</span></div></div><div class="buttonish">${id==='d'?'':`<button class="btn ${ready?'primary':''} tiny" data-action="activate" data-id="${id}" ${!ready?'disabled':''}>Activar</button>`}<button class="btn tiny" data-action="adjustCD" data-id="${id}" data-val="-1" aria-label="Restar turno de cooldown ${name}">−</button><button class="btn tiny" data-action="adjustCD" data-id="${id}" data-val="1" aria-label="Sumar turno de cooldown ${name}">+</button></div></div>`}).join('')}</div><div class="hint-bubble">La RD de Defenzikov se muestra en el +/- de cada resistencia (interpretación de RD genérica). Aporta <strong>+${level('defenzikov')*5} RD</strong> (${dDuration()} turno/s al terminar Kerenzikov). Con Newton ${level('newton')}, reducción de cooldown: <strong>${Math.round(coolReduce()*100)}%</strong>, redondeada hacia arriba.</div>`+heading('03','Recursos')+`<div class="grid two"><div class="resource-card"><h3>Vitalidad</h3><div class="number">${state.vitality} <span class="muted small">/ ${st.hp}</span></div><div class="mini-bar"><div class="mini-fill" style="width:${clamp(state.vitality/Math.max(1,st.hp)*100,0,100)}%"></div></div><div class="resource-buttons"><button class="btn tiny" data-action="resource" data-id="vitality" data-val="-10">−10</button><button class="btn tiny" data-action="resource" data-id="vitality" data-val="-1">−1</button><button class="btn tiny" data-action="resource" data-id="vitality" data-val="1">+1</button><button class="btn tiny" data-action="resource" data-id="vitality" data-val="10">+10</button></div></div><div class="resource-card"><h3>Suerte</h3><div class="number">${state.luck} <span class="muted small">/ ${state.luckMax}</span></div><div class="stat-footer">−5 fallo · −10 pifia · recuperá aceptando pifias</div><div class="resource-buttons"><button class="btn tiny" data-action="resource" data-id="luck" data-val="-5">−5</button><button class="btn tiny" data-action="resource" data-id="luck" data-val="-10">−10</button><button class="btn tiny" data-action="resource" data-id="luck" data-val="5">+5</button></div></div><div class="resource-card"><h3>Resolución</h3><div class="number">${state.resolution} <span class="muted small">/ ${st.resolveMax}</span></div><div class="stat-footer">−5 para éxito automático · recupera por sesión</div><div class="resource-buttons"><button class="btn tiny" data-action="resource" data-id="resolution" data-val="-5">−5</button><button class="btn tiny" data-action="resource" data-id="resolution" data-val="5">+5</button><button class="btn tiny" data-action="resetResolution">Restaurar</button></div></div><div class="resource-card"><h3>Resistencias (RD)</h3><div class="stat-footer">Normal ${rdStat('normal').total} · Termal ${rdStat('thermal').total} · Eléctrica ${rdStat('electric').total} · Química ${rdStat('chemical').total}</div><div class="resource-buttons"><button class="btn tiny" data-goto="perfil">Editar armadura →</button></div></div></div>`+heading('04','Dado porcentual','Tirada d100 con fallo automático 90–94 y pifia 95–100.')+`<div class="card"><div class="field"><label>Habilidad para la tirada</label><div class="select-roll"><select data-field="rollSkill">${SKILLS.map(([id,name])=>`<option value="${id}" ${state.rollSkill===id?'selected':''}>${name.replace(' ★','')} (${skillInfo(id).total})</option>`).join('')}</select><button class="btn primary" data-action="roll">TIRAR d100</button></div></div><label class="check-row"><input type="checkbox" data-field="styleRoll" ${state.styleRoll?'checked':''}><span>Declarar tirada con Estilo (usar el menor entre habilidad y Estilo)</span></label><div class="field" style="margin-top:9px;max-width:240px"><label>Bono situacional a la tirada (+20 cuando corresponda)</label><input type="number" data-field="rollBonus" value="${n(state.rollBonus)}"></div><div class="help" id="rollThreshold">Umbral actual: ${state.styleRoll?Math.min(skillInfo(state.rollSkill).total+n(state.rollBonus),skillInfo('estilo').total):skillInfo(state.rollSkill).total+n(state.rollBonus)}${state.styleRoll?' (limitado por Estilo)':''}. No dupliques un +20 de especialidad que ya esté incluido.</div>${roll?`<div class="roll-result ${roll.status}"><div class="roll-dice mono">${String(roll.die).padStart(2,'0')}</div><div class="roll-status">${esc(roll.label)}</div><div class="help">Umbral ${roll.threshold} · Crítico ${roll.crit} · ${esc(roll.name)}${roll.styled?' con Estilo':''}</div></div>`:''}<div class="hint-bubble">Supuesto usado: el d100 tiene éxito si es ≤ al umbral, y crítico si es ≤ al valor de crítico. Los resultados 90–94 y 95–100 prevalecen sobre el umbral. Los beneficios narrativos de Estilo se aplican en mesa.</div></div>`}
-function renderImplants(){let st=baseStats(),loads=implantLoadTotal();document.getElementById('tab-implantes').innerHTML=heading('01','Implantes instalados','Cambiá sus tiers; los efectos y cálculos se actualizan.')+`<div class="grid three">${tile('Carga estimada',loads,`Máximo ${st.implantMax}`,loads>st.implantMax?'':'emph')}${tile('Capacidad',st.implantMax,'DET + CON/2')}${tile('CD reducido',`${Math.round(coolReduce()*100)}%`,'Newton Module')}</div><div class="mini-bar" style="height:8px;margin:13px 0"><div class="mini-fill" style="width:${clamp(loads/Math.max(1,st.implantMax)*100,0,100)}%;background:${loads>st.implantMax?'var(--red)':'var(--yellow)'}"></div></div><div class="hint-bubble warn">La carga es <b>provisional</b>: el Excel no identifica inequívocamente esa columna como carga de implantes. Se muestra solo como referencia, sin permitir modificar un cálculo. Confirmar la regla con el máster.</div>${IMPLANTS.map(imp=>{let lv=level(imp.id);return `<div class="implant"><div class="implant-top"><div><div class="eyebrow" style="color:var(--muted);font-size:9px">${imp.area.toUpperCase()}</div><h3>${imp.name}</h3><small>Tier ${lv} · Carga <span id="load-${imp.id}">${n(state.implantLoad[imp.id])}</span></small></div><span class="pill ready">TIER ${lv}</span></div><div class="tier-wrap">${[1,2,3,4,5,6].filter(x=>x>=imp.min).map(x=>`<button class="tier-dot ${x===lv?'selected':x<lv?'past':''}" data-action="tier" data-id="${imp.id}" data-val="${x}" aria-label="${imp.name}, Tier ${x}">${x}</button>`).join('')}</div><ul class="effect-list">${imp.effects.map((e,i)=>i<lv&&e?`<li><strong>T${i+1}:</strong> ${esc(e)}</li>`:'').join('')}</ul>${lv<6?`<div class="next-tier"><b>Próximo Tier ${lv+1}:</b> ${esc(imp.effects[lv]||'—')} ${imp.prices[lv]?`· <span class="yellow">${imp.prices[lv].toLocaleString('es-AR')} €$</span>`:''}</div>`:`<div class="next-tier">Tier 6 alcanzado. Los efectos de duplicación o Reset requieren confirmación de reglas.</div>`}</div>`}).join('')}`}
-function renderPerfil(){
-  const st=baseStats(),prog=progression();
-  const mk=(id,label)=>{const v=attrParts(id);return `<div class="editable-stat"><div><strong>${label}</strong><small>Base ${v.base} · +/- implantes ${v.mod>=0?'+':''}${v.mod} · Total ${v.total}</small></div><input type="number" step="1" data-field="attrs.${id}" min="0" max="500" value="${v.base}" aria-label="Valor base de ${label}"></div>`};
-  const defenses=[['evade','Evasión'],['reflex','Reflejos'],['fort','Fortaleza'],['will','Voluntad']]
-    .map(([id,name])=>{const p=defStat(id);return `<div class="readonly-stat"><strong>${name}</strong><span>${p.base} <span class="yellow">${p.mod>=0?'+':''}${p.mod}</span> = <b>${p.total}</b></span></div><div class="help">${p.attributeBonus?`PER de Kiroshi ${p.attributeBonus>=0?'+':''}${p.attributeBonus} · `:''}${p.perm?`Bono ocular +${p.perm} · `:''}${p.active?`Sistemas activos +${p.active}`:'Defensa calculada automáticamente'}</div>`}).join('');
-  const sec=[['pa','PA'],['hp','Vitalidad máxima'],['power','Potencia'],['range','Rango'],['initiative','Iniciativa'],['heal','Curación'],['resolveMax','Resolución máxima'],['implantMax','Capacidad de implantes']]
-    .map(([id,name])=>{const p=secondaryStat(id);return `<div class="readonly-stat"><strong>${name}</strong><span>${p.base} <span class="yellow">${p.mod>=0?'+':''}${p.mod}</span> = <b>${p.total}</b></span></div>`}).join('');
-  document.getElementById('tab-perfil').innerHTML=
-    heading('01','Identidad','Datos que vos elegís y que quedan guardados.')+
-    `<div class="card"><div class="field-grid">${inputField('Personaje','name',state.name,'type="text"')}${inputField('Jugador','player',state.player,'type="text"')}${inputField('Nivel','level',state.level,'type="number" min="1" step="1"')}${inputField('Experiencia','exp',state.exp,'type="number" min="0" step="1"')}${inputField('Rol','role',state.role,'type="text"')}<div class="field span"><label>Descripción del rol</label><textarea data-field="roleDesc">${esc(state.roleDesc)}</textarea></div></div></div>`+
-    heading('02','Características','Solo se editan los puntos base; los implantes aparecen en +/- automático.')+
-    `<div class="card"><div class="grid three">${tile('Puntos ganados',prog.available,`Desde nivel ${state.progression.anchorLevel}`)}${tile('Puntos asignados',prog.spent,'Desde la ficha inicial')}${tile('Saldo',prog.remaining,prog.remaining<0?'Revisar distribución':'Para distribuir',prog.remaining<0?'':'emph')}</div>${prog.remaining<0?'<div class="hint-bubble warn">Hay más puntos asignados que los obtenidos desde la ficha inicial. Verificá si fue un ajuste aprobado o si excediste el presupuesto.</div>':''}<div class="hint-bubble">La distribución inicial del nivel 4 es el punto de partida. Al subir de nivel ganás 10 puntos nuevos; si corregís atributos iniciales, podés actualizar el punto de partida mediante el botón inferior.</div>${ATTRS.map(([id,label])=>mk(id,label)).join('')}<div class="actions" style="margin-top:12px"><button class="btn" data-action="setAnchor">Tomar estos atributos como punto de partida</button></div></div>`+
-    heading('03','Defensas calculadas','BASE + +/- automático = TOTAL; sin ajustes manuales.')+
-    `<div class="card"><div class="mini-head">DEFENSA <span>BASE &nbsp;&nbsp; +/- &nbsp;&nbsp; TOTAL</span></div>${defenses}</div>`+
-    heading('04','Características secundarias','Fórmulas automáticas, redondeo hacia abajo.')+
-    `<div class="card">${sec}</div>`+
-    heading('05','Recursos y protección del equipo','Los puntos actuales y la RD del equipo son datos del personaje; no alteran fórmulas.')+
-    `<div class="card"><div class="field-grid">${inputField('Suerte actual','luck',state.luck,'type="number" min="0" step="1"')}${inputField('Resolución actual','resolution',state.resolution,'type="number" min="0" step="1"')}${inputField('Vitalidad actual','vitality',Math.min(st.hp,state.vitality),'type="number" min="0" step="1"')}${inputField('RD equipo · Normal','armors.normal',state.armors.normal,'type="number" step="1"')}${inputField('RD equipo · Termal','armors.thermal',state.armors.thermal,'type="number" step="1"')}${inputField('RD equipo · Eléctrica','armors.electric',state.armors.electric,'type="number" step="1"')}${inputField('RD equipo · Química','armors.chemical',state.armors.chemical,'type="number" step="1"')}</div><p class="help">Suerte máxima: 50. Resolución máxima: ⌊DET/2⌋. Vitalidad máxima: ⌊CON/2 + DES/5 + 30⌋. Defenzikov y otros implantes se suman automáticamente a RD en combate.</p></div>`+
-    heading('06','Méritos y rasgos')+
-    `<div class="card"><div class="help" style="margin-bottom:10px">1 mérito por nivel, máximo 10. Las descripciones son notas de mesa.</div>${state.merits.map((m,i)=>`<div class="field" style="margin-bottom:12px"><label>${esc(m.name)}</label><input type="text" data-field="merits.${i}.effect" value="${esc(m.effect)}" placeholder="Efecto / nota"></div>`).join('')}</div>`+
-    heading('07','Notas de campaña')+
-    `<div class="card"><label class="field">Notas<textarea data-field="notes" placeholder="Equipamiento, historia, recordatorios...">${esc(state.notes)}</textarea></label></div>`+
-    heading('08','Datos y copias de seguridad')+
-    `<div class="card"><p class="help" style="margin-top:0">Guardado local automático. Para cambiar de teléfono o navegador, exportá un JSON e importalo en el otro.</p><div class="actions"><button class="btn primary" data-action="export">Exportar personaje</button><button class="btn" data-action="import">Importar JSON</button><button class="btn danger" data-action="resetAll">Restablecer ficha</button><input type="file" id="importFile" accept=".json,application/json" hidden></div></div>`;
-}
-function render(tab){const f={resumen:renderResumen,habilidades:renderSkills,combate:renderCombat,implantes:renderImplants,perfil:renderPerfil};if(tab)f[tab]();else Object.values(f).forEach(fn=>fn());}
-function fieldUpdate(path,value){
- const allowed=/^(name|player|level|exp|role|roleDesc|notes|vitality|luck|resolution|rollSkill|rollBonus|styleRoll|attrs\.(fue|des|per|int|det|con)|skillMods\.(investigacion|pericia|conocimiento|social|atletismo|sigilo|pelea|punteria|informatica|estilo)|specialties\.(investigacion|pericia|conocimiento|social|atletismo|sigilo|pelea|punteria|informatica|estilo)|armors\.(normal|thermal|electric|chemical)|merits\.[0-9]+\.effect)$/;
- if(!allowed.test(path))return;
- const parts=path.split('.');let obj=state;
- for(let i=0;i<parts.length-1;i++)obj=obj[parts[i]];
- const key=parts.at(-1),old=obj[key];
- if(typeof old==='boolean')obj[key]=Boolean(value);
- else if(typeof old==='number')obj[key]=Math.floor(n(value));
- else obj[key]=value;
- if(path==='level')state.level=Math.max(1,Math.floor(state.level));
- if(path.startsWith('attrs.'))state.attrs[key]=Math.max(0,state.attrs[key]);
- if(path==='level'||path.startsWith('attrs.')){
-   state.vitality=clamp(state.vitality,0,baseStats().hp);
-   state.resolution=clamp(state.resolution,0,baseStats().resolveMax);
- }
- if(path==='vitality')state.vitality=clamp(state.vitality,0,baseStats().hp);
- if(path==='luck')state.luck=clamp(state.luck,0,state.luckMax);
- if(path==='resolution')state.resolution=clamp(state.resolution,0,baseStats().resolveMax);
- save();
-}
-function advanceTurn(){const c=state.combat;for(let id of ['k','m','d']){if(c[id].active===0&&c[id].cd>0)c[id].cd--;}let kJustEnded=false;for(let id of ['k','m','d']){if(c[id].active>0){c[id].active--;if(c[id].active===0){c[id].cd=cooldown(id==='m'?8:3);if(id==='k')kJustEnded=true}}}if(kJustEnded&&level('defenzikov')>=1&&c.d.cd===0&&c.d.active===0)c.d.active=dDuration();c.round++;save();render('combate')}
-function activate(id){let sys=state.combat[id];if(!sys||sys.active||sys.cd)return;if(id==='k'&&level('kerenzikov')>=1)sys.active=kDuration();if(id==='m'&&level('mirror')>=1)sys.active=2;save();render('combate')}
-function actionResource(id,delta){const max=id==='vitality'?baseStats().hp:id==='resolution'?baseStats().resolveMax:state.luckMax;state[id]=clamp(n(state[id])+n(delta),0,max);save();render('combate')}
-function rollDie(){const selected=skillInfo(state.rollSkill),sty=skillInfo('estilo');let threshold=state.styleRoll?Math.min(selected.total+n(state.rollBonus),sty.total):selected.total+n(state.rollBonus);let crit=state.styleRoll?Math.min(selected.crit,sty.crit):selected.crit;const die=1+Math.floor(Math.random()*100);let status='fail',label='Fallo';if(die>=95){status='fumble';label='Pifia automática'}else if(die>=90){status='fail';label='Fallo automático'}else if(die<=crit){status='crit';label='Crítico'}else if(die<=threshold){status='good';label='Éxito'}state.rollResult={die,threshold,crit,status,label,name:selected.name,styled:state.styleRoll};save();render('combate')}
-function handleAction(action,el){const id=el.dataset.id;switch(action){case 'nextTurn':advanceTurn();return;case 'activate':activate(id);return;case 'adjustCD':{let x=state.combat[id];x.cd=Math.max(0,x.cd+n(el.dataset.val));save();render('combate');return}case 'setAnchor':if(confirm('¿Usar nivel y atributos actuales como referencia inicial para los próximos puntos de nivel?')){state.progression={anchorLevel:state.level,anchorAttrs:{...state.attrs}};save();render('perfil');toast('Referencia de puntos actualizada')}return;case 'resetCombat':if(confirm('¿Reiniciar turno y estados activos de implantes?')){state.combat=clone(DEFAULT.combat);save();render('combate')}return;case 'resource':actionResource(id,el.dataset.val);return;case 'resetResolution':state.resolution=baseStats().resolveMax;save();render('combate');return;case 'roll':rollDie();return;case 'tier':{const newLv=n(el.dataset.val),imp=IMPLANTS.find(x=>x.id===id);if(!imp)return;const oldLv=level(id);state.implants[id]=newLv;state.vitality=clamp(state.vitality,0,baseStats().hp);if(oldLv<6&&newLv===6)state.implantLoad[id]=imp.load6;if(oldLv===6&&newLv<6)state.implantLoad[id]=imp.load;save();render('implantes');toast(`${imp.name}: Tier ${newLv}`);return}case 'export':{const blob=new Blob([JSON.stringify({format:'vergil-cyberpunk-v2',exportedAt:new Date().toISOString(),character:state},null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='Vergil-ficha-respaldo.json';document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);toast('Respaldo exportado');return}case 'import':document.getElementById('importFile')?.click();return;case 'resetAll':if(confirm('¿Borrar todas las modificaciones locales y volver a la ficha inicial?')){state=clone(DEFAULT);save();render();toast('Ficha restablecida')}return;}}
-document.addEventListener('click',e=>{let tab=e.target.closest('[data-tab]');if(tab){setTab(tab.dataset.tab);return}let go=e.target.closest('[data-goto]');if(go){setTab(go.dataset.goto);return}let act=e.target.closest('[data-action]');if(act){handleAction(act.dataset.action,act)}});
-document.addEventListener('change',async e=>{const t=e.target;if(t.id==='importFile'){const file=t.files?.[0];if(!file)return;try{const obj=JSON.parse(await file.text());const loaded=obj.character||obj;if(!loaded.attrs||!loaded.implants||!loaded.skillMods)throw Error('Formato inválido');if(!confirm('¿Reemplazar la ficha local por el archivo importado?'))return;state=deepMerge(clone(DEFAULT),loaded);delete state.statsOverride;delete state.reflexIncludesKiroshi;delete state.skillExtra;state.luckMax=50;state.vitality=clamp(state.vitality,0,baseStats().hp);state.resolution=clamp(state.resolution,0,baseStats().resolveMax);save();render();setTab('resumen');toast('Ficha importada')}catch(err){alert('No se pudo importar el archivo. Revisá que sea un respaldo JSON de esta app.')}return}const field=t.dataset.field;if(!field)return;fieldUpdate(field,t.type==='checkbox'?t.checked:t.value);const tab=t.closest('.panel').id.replace('tab-','');render(tab)});
-render();if('serviceWorker' in navigator&&location.protocol.startsWith('http'))window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(err=>console.warn('Sin modo offline automático',err)));
-</script>
+<script src="rules.js"></script>
+<script src="catalog.js"></script>
+<script src="app.js"></script>
 </body>
 </html>
