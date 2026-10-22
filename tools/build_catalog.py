@@ -60,7 +60,7 @@ GENERAL_MERITS = """
 4|Rata de laboratorio|CON 50|1|Reduce los efectos negativos de sustancias consumidas en 50%
 4|Soy tu Huckleberry|Puntería 60|1|Permite realizar disparos apuntados a 15m o menos por el coste de un disparo rápido
 4|Visión nocturna|PER 60|1|Mitad de penalizador por baja luminosidad
-4|Evasivo|-|2|+5 Evasión
+4|Evasivo|-|2|+10 Evasión
 5|99.1% puro|INT 60, CON 40|1|Aumenta los efectos positivos de sustancias consumidas en un 50%
 5|Acróbata|Atletismo: Acrobacia 60|1|Mitad de PA para realizar maniobras acrobáticas
 5|Dureza|CON 60, DET 60|2|+5% RD y +10 Fortaleza

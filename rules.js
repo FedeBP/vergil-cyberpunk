@@ -29,7 +29,7 @@ const SECONDARY = [
   ['implantes', 'Límite de implantes', 'DET+CON/2', a => a.det + a.con / 2],
   ['ram', 'RAM', 'Sistema operativo', () => 0],
   ['icewall', 'Icewall', 'Sistema operativo', () => 0]];
-const INITIAL_POINTS = 320; // puntos de características al crear el personaje
+const INITIAL_POINTS = 320, LEVEL_POINTS = 5; // características: al crear el personaje y por cada nivel subido
 const RD = [['normal', 'Normal'], ['termal', 'Termal'], ['electrica', 'Eléctrica'], ['quimica', 'Química']];
 // Ranura -> cantidad máxima de implantes (casilleros de la planilla de implantes). Chips sin límite.
 const SLOT_LIMITS = {'Cara / Ojos': 1, 'Corteza frontal': 3, 'Sistema operativo': 1, 'Sistema nervioso': 3,
@@ -137,7 +137,7 @@ function compute(ch) {
     raw, attrs, def, sec, rd, skills, imps, cdr,
     points: {
       ini: {avail: INITIAL_POINTS, spent: ATTRS.reduce((t, [k]) => t + (+ch.attrs[k].ini || 0), 0)},
-      attr: {avail: 10 * (ch.level - 1) + sum(mods.pts), spent: ATTRS.reduce((t, [k]) => t + (+ch.attrs[k].lvl || 0), 0)},
+      attr: {avail: LEVEL_POINTS * (ch.level - 1) + sum(mods.pts), spent: ATTRS.reduce((t, [k]) => t + (+ch.attrs[k].lvl || 0), 0)},
       // Iniciales INT/2+30 al crear, más PH × NV por cada nivel subido.
       skill: {avail: F(raw.int / 2 + 30) + sec.ph.total * (ch.level - 1), spent: ch.skills.reduce((t, s) => t + (F(+s.mod) || 0), 0)},
     },
@@ -213,6 +213,6 @@ function normalize(ch) {
   return out;
 }
 
-globalThis.Rules = {F, norm, TARGETS, SLOT_LIMITS, slotUse, slotFull, ATTRS, DEFAULT_SKILLS, DEFENSES, SECONDARY, RD, SLOTS, parseEffect, implantInfo,
+globalThis.Rules = {F, norm, LEVEL_POINTS, TARGETS, SLOT_LIMITS, slotUse, slotFull, ATTRS, DEFAULT_SKILLS, DEFENSES, SECONDARY, RD, SLOTS, parseEffect, implantInfo,
   compute, unmetReqs, rollStatus, activate, nextTurn, blankCharacter, normalize};
 })();

@@ -2080,7 +2080,7 @@ null
 "name": "Evasivo",
 "req": "-",
 "max": 2,
-"desc": "+5 Evasión"
+"desc": "+10 Evasión"
 },
 {
 "lvl": 4,

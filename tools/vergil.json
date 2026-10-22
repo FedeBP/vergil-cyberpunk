@@ -174,7 +174,7 @@
     "name": "Evasivo",
     "req": "-",
     "max": 2,
-    "desc": "+5 Evasión",
+    "desc": "+10 Evasión",
     "ranks": 1
    }
   ],

@@ -19,7 +19,9 @@ function fillResources(c) {
   c.vitality = sh.sec.vitalidad.total; c.resolution = sh.sec.resolucion.total; c.luck = sh.sec.suerte.total;
   return c;
 }
-function addChar(c) { const id = uid(); db.chars[id] = R.normalize(c); db.current = id; }
+// Los méritos del catálogo toman siempre la versión vigente (ej. si el DM cambia un efecto); los personalizados no se tocan.
+function refreshMerits(c) { c.merits = c.merits.map(m => (!m.custom && catMerit(m.name)) ? {...catMerit(m.name), ranks: Math.min(m.ranks || 1, catMerit(m.name).max)} : m); return c; }
+function addChar(c) { const id = uid(); db.chars[id] = refreshMerits(R.normalize(c)); db.current = id; }
 
 // Convierte el guardado de la versión anterior (ficha fija de Vergil) al formato genérico.
 function fromV2(o) {
@@ -47,7 +49,7 @@ function load() {
     try { old = JSON.parse(localStorage.getItem(OLD)); } catch (e) { /* sin guardado viejo */ }
     addChar(old?.attrs ? fromV2(old) : fillResources(R.blankCharacter()));
   }
-  for (const id in db.chars) db.chars[id] = R.normalize(db.chars[id]);
+  for (const id in db.chars) db.chars[id] = refreshMerits(R.normalize(db.chars[id]));
   if (!db.chars[db.current]) db.current = Object.keys(db.chars)[0];
 }
 function save() { try { localStorage.setItem(STORE, JSON.stringify(db)); } catch (e) { toast('No se pudo guardar; exportá un respaldo'); } }
@@ -146,7 +148,7 @@ function renderCombat(c, sh) {
     heading('03', 'Recursos') + `<div class="grid two">
       ${res('vitality', 'Vitalidad', sh.sec.vitalidad.total, [[-10], [-1], [1], [10]], `Curación ${sh.sec.curacion.total} por turno`)}
       ${res('luck', 'Suerte', sh.sec.suerte.total, [[-half('Tocado por la fortuna', 5), `Retirar fallo −${half('Tocado por la fortuna', 5)}`], [-half('Tocado por la fortuna', 10), `Retirar pifia −${half('Tocado por la fortuna', 10)}`], [1], [5]], 'Se regenera aceptando pifias')}
-      ${res('resolution', 'Resolución', sh.sec.resolucion.total, [[-half('Fuerza de voluntad', 5), `Éxito automático −${half('Fuerza de voluntad', 5)}`], [1]], `<button class="btn tiny ghost" data-a="session">Nueva sesión (restaurar)</button>`)}
+      ${res('resolution', 'Resolución', sh.sec.resolucion.total, [[-half('Fuerza de voluntad', 5), `Éxito automático −${half('Fuerza de voluntad', 5)}`], [1]], 'Se recupera cumpliendo el rol del personaje')}
       <div class="resource-card"><h3>Resistencias</h3>${R.RD.map(([k, l]) => `<div class="readonly-stat"><strong>${l}</strong><b>${sh.rd[k].total}</b></div>`).join('')}</div></div>` +
     heading('04', 'Dado porcentual', 'd100: éxito si sale ≤ al valor. 90–94 siempre falla, 95–100 es pifia.') +
     `<div class="card"><div class="field-grid">
@@ -193,11 +195,11 @@ function renderPerfil(c, sh) {
   const lvls = [...new Set(C.merits.map(m => m.lvl))];
   return heading('01', 'Personajes', 'Todo se guarda en este dispositivo. Exportá para pasarlo a otro.') +
     `<div class="card"><div class="select-roll"><select data-a-change="switch">${Object.entries(db.chars).map(([id, x]) => `<option value="${id}" ${id === db.current ? 'selected' : ''}>${esc(x.name || 'Sin nombre')}${x.player ? ' — ' + esc(x.player) : ''}</option>`).join('')}</select><button class="btn primary" data-a="newChar">Nuevo</button></div>
-      <div class="actions" style="margin-top:10px"><button class="btn" data-a="dupChar">Duplicar</button><button class="btn" data-a="export">Exportar JSON</button><button class="btn" data-a="import">Importar JSON</button><button class="btn" data-a="example">Cargar ejemplo (Vergil)</button><button class="btn danger" data-a="delChar">Borrar</button><input type="file" id="importFile" accept=".json,application/json" hidden></div></div>` +
+      <div class="actions" style="margin-top:10px"><button class="btn" data-a="dupChar">Duplicar</button><button class="btn" data-a="export">Exportar JSON</button><button class="btn" data-a="import">Importar JSON</button><button class="btn danger" data-a="delChar">Borrar</button><input type="file" id="importFile" accept=".json,application/json" hidden></div></div>` +
     heading('02', 'Identidad') +
     `<div class="card"><div class="field-grid">${field('Personaje', 'name', c.name)}${field('Jugador', 'player', c.player)}${field('Nivel', 'level', c.level, 'number', 'min="1"')}${field('Experiencia', 'exp', c.exp, 'number', 'min="0"')}${field('Rol', 'role', c.role)}${field('Profesión', 'profession', c.profession)}${area('Descripción del rol', 'roleDesc', c.roleDesc)}${field('Edad', 'age', c.age)}${field('Estatura', 'height', c.height)}${field('Peso', 'weight', c.weight)}${field('Aspecto', 'look', c.look)}${area('Apariencia', 'appearance', c.appearance)}</div></div>` +
-    heading('03', 'Características', 'Inicial: lo que tenías al crear el personaje. Por nivel: los 10 puntos que ganás en cada nivel subido.') +
-    `<div class="grid two">${[['Iniciales', sh.points.ini, 'al crear el personaje'], ['Por nivel', pa, `10 × ${c.level - 1} niveles${pa.avail !== 10 * (c.level - 1) ? ' + méritos' : ''}`]].map(([l, x, sub]) => { const left = x.avail - x.spent; return plain(l, `${x.spent}/${x.avail}`, left ? (left < 0 ? `Te pasaste ${-left}` : `Quedan ${left}`) + ' · ' + sub : sub, left < 0 ? 'bad' : left ? 'emph' : ''); }).join('')}</div>
+    heading('03', 'Características', 'Inicial: lo que tenías al crear el personaje. Por nivel: los ${R.LEVEL_POINTS} puntos que ganás en cada nivel subido.') +
+    `<div class="grid two">${[['Iniciales', sh.points.ini, 'al crear el personaje'], ['Por nivel', pa, `${R.LEVEL_POINTS} × ${c.level - 1} niveles${pa.avail !== R.LEVEL_POINTS * (c.level - 1) ? ' + méritos' : ''}`]].map(([l, x, sub]) => { const left = x.avail - x.spent; return plain(l, `${x.spent}/${x.avail}`, left ? (left < 0 ? `Te pasaste ${-left}` : `Quedan ${left}`) + ' · ' + sub : sub, left < 0 ? 'bad' : left ? 'emph' : ''); }).join('')}</div>
      <div class="card"><div class="attr-row head"><span>CARACT.</span><span>INICIAL</span><span>POR NIVEL</span><span>+/-</span><span>TOTAL</span></div>${R.ATTRS.map(([k, l, ab]) => `<div class="attr-row"><strong title="${l}">${ab}</strong>${inp(`attrs.${k}.ini`, c.attrs[k].ini, 'number', 'min="0"')}${inp(`attrs.${k}.lvl`, c.attrs[k].lvl, 'number', 'min="0"')}<span class="yellow mono" title="${why(sh.attrs[k])}">${sg(sh.attrs[k].mod)}</span><b class="mono">${sh.attrs[k].total}</b></div>`).join('')}</div>` +
     heading('04', 'Méritos', `1 por nivel, máximo 10 · ${sh.merits.count}/${sh.merits.max}`) +
     `<div class="card">${merits || '<p class="empty">Sin méritos.</p>'}<label style="margin-top:12px">Agregar mérito</label><div class="select-roll"><select id="addMerit"><option value="">Elegí…</option>${lvls.map(l => `<optgroup label="Nivel ${l}">${C.merits.filter(m => m.lvl === l).map(m => `<option ${l > c.level ? 'disabled' : ''}>${esc(m.name)}</option>`).join('')}</optgroup>`).join('')}<option value="*">Personalizado…</option></select><button class="btn primary" data-a="addMerit">Agregar</button></div></div>` +
@@ -260,7 +262,6 @@ const ACTIONS = {
   activate(el) { R.activate(ch(), +el.dataset.i); },
   cd(el) { const im = ch().implants[+el.dataset.i]; im.cdLeft = Math.max(0, im.cdLeft + +el.dataset.v); },
   res(el) { ch()[el.dataset.id] += +el.dataset.v; clampResources(); },
-  session() { ch().resolution = R.compute(ch()).sec.resolucion.total; },
   roll() {
     const c = ch(), sh = R.compute(c), a = sh.skills[ui.rs], b = ui.rw >= 0 && ui.rw !== ui.rs ? sh.skills[ui.rw] : null;
     const extra = (Number(ui.rb) || 0) + 20 * ui.rt.length;
@@ -299,10 +300,6 @@ const ACTIONS = {
   },
   export() { download(`${(ch().name || 'personaje').replace(/[^\w-]+/g, '_')}.json`, {format: 'ficha-cyberpunk', exportedAt: new Date().toISOString(), character: ch()}); return false; },
   import() { $('importFile').click(); return false; },
-  async example() {
-    try { importChar(await (await fetch('vergil.json')).json()); ui.roll = null; save(); render(); toast('Ejemplo cargado'); } catch (e) { toast('No se pudo cargar el ejemplo'); }
-    return false;
-  },
 };
 
 document.addEventListener('click', e => {
