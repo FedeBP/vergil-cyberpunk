@@ -17,6 +17,7 @@ assert.strictEqual(sh.def.voluntad.total, 35);
 const s = k => sh.sec[k].total;
 assert.deepStrictEqual([s('pa'), s('vitalidad'), s('potencia'), s('rango'), s('iniciativa'), s('curacion'), s('resolucion'), s('ph')],
   [11, 70, 5, 25, 14, 2, 37, 15]);
+assert.deepStrictEqual([sh.points.ini.spent, sh.points.ini.avail, sh.points.attr.avail], [325, 320, 30]);
 assert.deepStrictEqual([sh.load.used, sh.load.max, sh.cdr], [93, 100, 50]);
 const ker = ch.implants.findIndex(i => i.name === 'Kerenzikov'), def = ch.implants.findIndex(i => i.name === 'Defenzikov');
 assert.deepStrictEqual([sh.imps[ker].dur, sh.imps[ker].cdEff], [1, 2], 'Boost T4 sin +1 duración; Newton -50% CD redondeado arriba');

@@ -29,6 +29,7 @@ const SECONDARY = [
   ['implantes', 'Límite de implantes', 'DET+CON/2', a => a.det + a.con / 2],
   ['ram', 'RAM', 'Sistema operativo', () => 0],
   ['icewall', 'Icewall', 'Sistema operativo', () => 0]];
+const INITIAL_POINTS = 320; // puntos de características al crear el personaje
 const RD = [['normal', 'Normal'], ['termal', 'Termal'], ['electrica', 'Eléctrica'], ['quimica', 'Química']];
 const SLOTS = ['Cara / Ojos', 'Corteza frontal', 'Sistema operativo', 'Sistema nervioso', 'Sistema circulatorio',
   'Sistema integumentario', 'Esqueleto', 'Brazo derecho', 'Brazo izquierdo', 'Mano derecha', 'Mano izquierda', 'Piernas'];
@@ -129,6 +130,7 @@ function compute(ch) {
   return {
     raw, attrs, def, sec, rd, skills, imps, cdr,
     points: {
+      ini: {avail: INITIAL_POINTS, spent: ATTRS.reduce((t, [k]) => t + (+ch.attrs[k].ini || 0), 0)},
       attr: {avail: 10 * (ch.level - 1) + sum(mods.pts), spent: ATTRS.reduce((t, [k]) => t + (+ch.attrs[k].lvl || 0), 0)},
       skill: {avail: sec.ph.total * ch.level, spent: ch.skills.reduce((t, s) => t + (F(+s.mod) || 0), 0)},
     },

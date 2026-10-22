@@ -92,6 +92,7 @@ function renderHero(c, sh) {
 
 function renderResumen(c, sh) {
   const warn = [];
+  if (sh.points.ini.spent !== sh.points.ini.avail) warn.push(`Características iniciales: ${sh.points.ini.spent} asignados de ${sh.points.ini.avail}.`);
   if (sh.points.attr.spent > sh.points.attr.avail) warn.push(`Características: ${sh.points.attr.spent} puntos por nivel asignados de ${sh.points.attr.avail}.`);
   if (sh.points.skill.spent > sh.points.skill.avail) warn.push(`Habilidades: ${sh.points.skill.spent} PH asignados de ${sh.points.skill.avail}.`);
   if (sh.merits.count > sh.merits.max) warn.push(`Méritos: ${sh.merits.count} de ${sh.merits.max} permitidos.`);
@@ -190,7 +191,7 @@ function renderPerfil(c, sh) {
     heading('02', 'Identidad') +
     `<div class="card"><div class="field-grid">${field('Personaje', 'name', c.name)}${field('Jugador', 'player', c.player)}${field('Nivel', 'level', c.level, 'number', 'min="1"')}${field('Experiencia', 'exp', c.exp, 'number', 'min="0"')}${field('Rol', 'role', c.role)}${field('Profesión', 'profession', c.profession)}${area('Descripción del rol', 'roleDesc', c.roleDesc)}${field('Edad', 'age', c.age)}${field('Estatura', 'height', c.height)}${field('Peso', 'weight', c.weight)}${field('Aspecto', 'look', c.look)}${area('Apariencia', 'appearance', c.appearance)}</div></div>` +
     heading('03', 'Características', 'Inicial: lo que tenías al crear el personaje. Por nivel: los 10 puntos que ganás en cada nivel subido.') +
-    `<div class="grid three">${plain('Puntos por nivel', pa.avail, `10 × ${c.level - 1} niveles${pa.avail !== 10 * (c.level - 1) ? ' + méritos' : ''}`)}${plain('Asignados', pa.spent, '')}${plain('Saldo', pa.avail - pa.spent, pa.avail - pa.spent < 0 ? 'Te pasaste' : 'para distribuir', pa.avail - pa.spent < 0 ? 'bad' : 'emph')}</div>
+    `<div class="grid two">${[['Iniciales', sh.points.ini, 'al crear el personaje'], ['Por nivel', pa, `10 × ${c.level - 1} niveles${pa.avail !== 10 * (c.level - 1) ? ' + méritos' : ''}`]].map(([l, x, sub]) => { const left = x.avail - x.spent; return plain(l, `${x.spent}/${x.avail}`, left ? (left < 0 ? `Te pasaste ${-left}` : `Quedan ${left}`) + ' · ' + sub : sub, left < 0 ? 'bad' : left ? 'emph' : ''); }).join('')}</div>
      <div class="card"><div class="attr-row head"><span>CARACT.</span><span>INICIAL</span><span>POR NIVEL</span><span>+/-</span><span>TOTAL</span></div>${R.ATTRS.map(([k, l, ab]) => `<div class="attr-row"><strong title="${l}">${ab}</strong>${inp(`attrs.${k}.ini`, c.attrs[k].ini, 'number', 'min="0"')}${inp(`attrs.${k}.lvl`, c.attrs[k].lvl, 'number', 'min="0"')}<span class="yellow mono" title="${why(sh.attrs[k])}">${sg(sh.attrs[k].mod)}</span><b class="mono">${sh.attrs[k].total}</b></div>`).join('')}</div>` +
     heading('04', 'Méritos', `1 por nivel, máximo 10 · ${sh.merits.count}/${sh.merits.max}`) +
     `<div class="card">${merits || '<p class="empty">Sin méritos.</p>'}<label style="margin-top:12px">Agregar mérito</label><div class="select-roll"><select id="addMerit"><option value="">Elegí…</option>${lvls.map(l => `<optgroup label="Nivel ${l}">${C.merits.filter(m => m.lvl === l).map(m => `<option ${l > c.level ? 'disabled' : ''}>${esc(m.name)}</option>`).join('')}</optgroup>`).join('')}<option value="*">Personalizado…</option></select><button class="btn primary" data-a="addMerit">Agregar</button></div></div>` +

@@ -5,7 +5,7 @@ Ficha de personaje editable y offline (PWA) para la campaña de Cyberpunk. Cualq
 ## Qué hace
 
 - Varios personajes por dispositivo, con importación/exportación JSON. Incluye a Vergil como ejemplo (`vergil.json`).
-- **Características**: valor inicial + puntos por nivel (10 por nivel subido). Los implantes y méritos van en el +/-.
+- **Características**: 320 puntos iniciales + 10 por cada nivel subido (`INITIAL_POINTS` en `rules.js`). Los implantes y méritos van en el +/-.
 - **Habilidades**: base = (A+B)/5+10. El jugador asigna sus PH (PH × NV = INT/5+5 por nivel). La especialidad suma +20 y duplica los PH asignados. Se pueden agregar habilidades propias (ej. Estilo = DET×2).
 - **Defensas y secundarias** calculadas; el +/- muestra de dónde sale cada bono (tocá el valor).
 - **Implantes** desde el catálogo del Excel (o personalizados). Cada efecto escrito como `+N Objetivo` se aplica solo; lo condicional queda como texto. `D 2T, CD 6T` vuelve al implante activable (sus bonos solo valen activo). `+N X al usar Kerenzikov` vale con ese implante activo.
