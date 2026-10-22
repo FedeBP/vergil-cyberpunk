@@ -34,7 +34,7 @@ const p = R.parseEffect('10 Icewall | +4 PA, D 3T, CD 6T, +10 Reflejos. +10 Punt
 assert.deepStrictEqual([p.dur, p.cd, p.mods.map(m => m.target)], [3, 6, ['icewall', 'pa', 'reflejos', 'puntería con armas smart'.normalize('NFD').replace(/[̀-ͯ]/g, '')]]);
 assert.strictEqual(R.parseEffect('+20 Fuerza, +1 a los PA cuando tus PGs bajen').mods.length, 0);
 assert.deepStrictEqual(R.unmetReqs('DES 70, Pelea: Agarres 40, Hab. 50', ch, R.compute(ch)), ['DES 70']);
-assert.deepStrictEqual([R.rollStatus(9, 0, 0), R.rollStatus(10, 0, 0)], ['exito', 'fallo'], '1–9 éxito automático');
+assert.deepStrictEqual([R.rollStatus(10, 0, 0), R.rollStatus(11, 0, 0)], ['exito', 'fallo'], '1–10 éxito automático');
 assert.deepStrictEqual([R.rollStatus(92, 100, 10), R.rollStatus(97, 100, 10), R.rollStatus(5, 50, 5), R.rollStatus(40, 50, 5), R.rollStatus(60, 50, 5)],
   ['fallo', 'pifia', 'critico', 'exito', 'fallo']);
 

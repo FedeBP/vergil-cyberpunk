@@ -160,12 +160,12 @@ function unmetReqs(req, ch, sh) {
   }).map(s => s.trim());
 }
 
-// d100: 90–94 fallo y 95–100 pifia siempre; crítico si sale ≤ crítico; 1–9 éxito automático; si no, éxito si ≤ umbral.
+// d100: 90–94 fallo y 95–100 pifia siempre; crítico si sale ≤ crítico; 1–10 éxito automático; si no, éxito si ≤ umbral.
 function rollStatus(die, threshold, crit) {
   if (die >= 95) return 'pifia';
   if (die >= 90) return 'fallo';
   if (die <= crit) return 'critico';
-  return die < 10 || die <= threshold ? 'exito' : 'fallo';
+  return die <= 10 || die <= threshold ? 'exito' : 'fallo';
 }
 
 function activate(ch, i) {
