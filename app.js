@@ -108,13 +108,15 @@ function renderResumen(c, sh) {
       .map(([k, l, f]) => tile(l, sh.sec[k], `<br>${f}`)).join('')}${plain('Carga de implantes', `${sh.load.used}/${sh.load.max}`, 'DET+CON/2', sh.load.used > sh.load.max ? 'bad' : '')}</div>`;
 }
 
+const ab = k => R.ATTRS.find(a => a[0] === k)[2];
+const formula = s => (s.a === s.b ? `(${ab(s.a)}×2)` : `(${ab(s.a)}+${ab(s.b)})`) + '/5+10';
 function renderSkills(c, sh) {
   const pts = sh.points.skill;
   const rows = c.skills.map((s, i) => {
     const p = sh.skills[i];
     const head = s.custom
-      ? `<div class="custom-skill">${inp(`skills.${i}.name`, s.name, 'text', 'aria-label="Nombre"')}<div class="pair">(${attrSelect(`skills.${i}.a`, s.a)}+${attrSelect(`skills.${i}.b`, s.b)})/5+10</div></div>`
-      : `<div class="skill-name">${esc(s.name)}${s.spec ? ' <span class="yellow">★</span>' : ''}</div><div class="skill-formula">(${R.ATTRS.find(a => a[0] === s.a)[2]}+${R.ATTRS.find(a => a[0] === s.b)[2]})/5+10</div>`;
+      ? `<div class="custom-skill">${inp(`skills.${i}.name`, s.name, 'text', 'aria-label="Nombre"')}<div class="pair">(${attrSelect(`skills.${i}.a`, s.a)}+${attrSelect(`skills.${i}.b`, s.b)})/5+10</div><div class="skill-formula">${formula(s)} · para ×2 elegí el mismo atributo dos veces</div></div>`
+      : `<div class="skill-name">${esc(s.name)}${s.spec ? ' <span class="yellow">★</span>' : ''}</div><div class="skill-formula">${formula(s)}</div>`;
     return `<div class="skill-row"><div>${head}<div class="skill-note">base ${p.base} · ${p.src.map(x => `${esc(x.src)} ${sg(x.v)}`).join(' · ') || 'sin modificadores'}</div>
       <div class="row-tools"><label class="check-inline"><input type="checkbox" data-f="skills.${i}.spec" ${s.spec ? 'checked' : ''}> Especialidad</label>${s.custom ? `<button class="btn tiny ghost" data-a="delSkill" data-i="${i}">Quitar</button>` : ''}</div></div>
       ${inp(`skills.${i}.mod`, s.mod, 'number', `aria-label="Puntos en ${esc(s.name)}"`)}<div class="skill-score ${s.spec ? 'yellow' : ''}">${p.total}</div><div class="skill-score">${p.crit}</div></div>`;
