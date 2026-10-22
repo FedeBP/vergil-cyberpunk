@@ -9,7 +9,7 @@ const ATTRS = [['fue', 'Fuerza', 'FUE'], ['des', 'Destreza', 'DES'], ['per', 'Pe
   ['int', 'Inteligencia', 'INT'], ['det', 'Determinación', 'DET'], ['con', 'Constitución', 'CON']];
 const DEFAULT_SKILLS = [['Investigación', 'per', 'int'], ['Pericia', 'des', 'int'], ['Conocimiento', 'int', 'int'],
   ['Social', 'det', 'int'], ['Atletismo', 'con', 'des'], ['Sigilo', 'des', 'per'], ['Pelea', 'fue', 'des'],
-  ['Puntería', 'des', 'per'], ['Informática', 'int', 'des']];
+  ['Puntería', 'des', 'per'], ['Informática', 'int', 'des'], ['Estilo', 'det', 'det']];
 const DEFENSES = [
   ['evasion', 'Evasión', '(DES+PER)/10', a => (a.des + a.per) / 10],
   ['reflejos', 'Reflejos', '(DES+PER)/5+10', a => (a.des + a.per) / 5 + 10],
@@ -208,6 +208,12 @@ function normalize(ch) {
   out.attrs = Object.fromEntries(ATTRS.map(([k]) => [k, {...b.attrs[k], ...(ch.attrs?.[k] || {})}]));
   out.armor = {...b.armor, ...(ch.armor || {})};
   for (const k of ['skills', 'traits', 'merits', 'implants']) if (!Array.isArray(out[k])) out[k] = b[k];
+  // Fichas viejas: agrega las habilidades por defecto que falten (ej. Estilo) y convierte la versión personalizada en la estándar.
+  for (const [name, a, bb] of DEFAULT_SKILLS) {
+    const s = out.skills.find(x => norm(x.name) === norm(name));
+    if (s) Object.assign(s, {name, a, b: bb, custom: false});
+    else out.skills.push({name, a, b: bb, mod: 0, spec: false, custom: false});
+  }
   const OLD_SLOTS = {'Brazo derecho': 'Brazos', 'Brazo izquierdo': 'Brazos', 'Mano derecha': 'Manos', 'Mano izquierda': 'Manos'};
   out.implants.forEach(im => { im.slot = OLD_SLOTS[im.slot] || im.slot; im.on ||= 0; im.cdLeft ||= 0; im.tiers = Array.from({length: 6}, (_, i) => im.tiers?.[i] ?? null); });
   return out;

@@ -50,4 +50,7 @@ assert.deepStrictEqual([s2.sec.pa.total, s2.attrs.fue.total, s2.sec.potencia.tot
   '"5 PA" es coste de ataque, "-15 RD" es perforación, "+10 Vitalidad máxima" suma');
 assert.ok(R.slotFull(n2, 'Brazos') && !R.slotFull(n2, 'Sistema integumentario') && !R.slotFull(n2, 'Chips'));
 assert.strictEqual(R.normalize({...n2, implants: [{name: 'x', slot: 'Mano derecha', tiers: []}]}).implants[0].slot, 'Manos');
+const old = R.blankCharacter(); old.skills = old.skills.filter(x => x.name !== 'Estilo');
+assert.deepStrictEqual(R.normalize(old).skills.at(-1), {name: 'Estilo', a: 'det', b: 'det', mod: 0, spec: false, custom: false}, 'fichas viejas reciben Estilo');
+assert.strictEqual(ch.skills.find(x => x.name === 'Estilo').custom, false, 'el Estilo personalizado pasa a ser el estándar');
 console.log('OK');

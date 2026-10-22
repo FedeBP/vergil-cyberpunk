@@ -29,7 +29,6 @@ function fromV2(o) {
   Object.assign(c, {name: o.name, player: o.player, role: o.role, roleDesc: o.roleDesc, level: o.level, exp: o.exp,
     vitality: o.vitality, luck: o.luck, resolution: o.resolution, notes: o.notes || ''});
   for (const [k] of R.ATTRS) c.attrs[k].ini = +o.attrs?.[k] || 0;
-  c.skills.push({name: 'Estilo', a: 'det', b: 'det', mod: 0, spec: false, custom: true});
   for (const s of c.skills) { const id = R.norm(s.name); s.mod = +o.skillMods?.[id] || 0; s.spec = !!o.specialties?.[id]; }
   c.traits = (o.traits || []).map(([text, skill]) => ({text, skill: String(skill).split(' / ')[0]}));
   c.merits = (o.merits || []).map(m => ({...(catMerit(m.name) || {name: m.name, lvl: 1, req: '-', max: 1, desc: m.effect || ''}), ranks: 1}));
