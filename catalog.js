@@ -261,7 +261,7 @@ null,
 "slot": "Sistema operativo",
 "minTier": 1,
 "load": 26,
-"load6": 26,
+"load6": 39,
 "price": 12000,
 "tiers": [
 "20 Icewall | 5 RAM, 6 SLOTS |+20 tecnología al hackear desde otros dispositivos",
@@ -2382,6 +2382,2008 @@ null
 "req": "-",
 "max": 1,
 "desc": "Los rumores de tus hazañas (positivas o negativas) son reconocidos mundialmente, muchas veces incluso exagerados"
+}
+],
+"items": [
+{
+"kind": "weapon",
+"cat": "Revolveres",
+"name": "Metel",
+"tipo": "NORMAL",
+"modo": "SEMI",
+"calibre": ".42",
+"rec": "4",
+"rango": "30",
+"precision": "-15",
+"efecto": "-2PA,-10RD",
+"pa": "4",
+"cap": "8",
+"marca": "Techtronika",
+"base": "10",
+"dados": "3d6"
+},
+{
+"kind": "weapon",
+"cat": "Revolveres",
+"name": "DR-5 Nova",
+"tipo": "NORMAL",
+"modo": "SEMI",
+"calibre": ".42",
+"rec": "4",
+"rango": "40",
+"precision": "0",
+"efecto": "-2PA,-10RD",
+"pa": "4",
+"cap": "6",
+"marca": "Darra Polytechnic",
+"base": "12",
+"dados": "3d6"
+},
+{
+"kind": "weapon",
+"cat": "Revolveres",
+"name": "Overture",
+"tipo": "NORMAL",
+"modo": "SEMI",
+"calibre": ".42",
+"rec": "4",
+"rango": "70",
+"precision": "10",
+"efecto": "-2PA,-10RD",
+"pa": "4",
+"cap": "6",
+"marca": "Malorian",
+"base": "16",
+"dados": "3d6"
+},
+{
+"kind": "weapon",
+"cat": "Revolveres",
+"name": "DR-12 Quasar",
+"tipo": "TECH",
+"modo": "SEM/AUT",
+"calibre": "9 ST",
+"rec": "5",
+"rango": "40",
+"precision": "10/-20",
+"efecto": "-1PA,-15RD",
+"pa": "4-A3",
+"cap": "16",
+"marca": "Darra Polytechnic",
+"base": "9",
+"dados": "2d6"
+},
+{
+"kind": "weapon",
+"cat": "Revolveres",
+"name": "RT-46 Burya",
+"tipo": "TECH",
+"modo": "SEMI/HIPER",
+"calibre": "12 ST",
+"rec": "5",
+"rango": "80",
+"precision": "0/-20",
+"efecto": "-2PA,-15RD/-4PA,-30RD",
+"pa": "5/8",
+"cap": "4",
+"marca": "Techtronika",
+"base": "18/30",
+"dados": "3d6/d6"
+},
+{
+"kind": "weapon",
+"cat": "Pistolas",
+"name": "Slaught-O-Matic",
+"tipo": "NORMAL",
+"modo": "AUTO",
+"calibre": "9mm",
+"rec": "",
+"rango": "30",
+"precision": "-30",
+"efecto": "-1PA",
+"pa": "A3",
+"cap": "12",
+"marca": "Budget Arms",
+"base": "8",
+"dados": "2d6"
+},
+{
+"kind": "weapon",
+"cat": "Pistolas",
+"name": "M10-AF Lexington",
+"tipo": "NORMAL",
+"modo": "SEM/AUT",
+"calibre": "9mm",
+"rec": "3",
+"rango": "50",
+"precision": "0/-30",
+"efecto": "-1PA",
+"pa": "4/A3",
+"cap": "20",
+"marca": "Militech",
+"base": "8",
+"dados": "2d6"
+},
+{
+"kind": "weapon",
+"cat": "Pistolas",
+"name": "Liberty",
+"tipo": "NORMAL",
+"modo": "SEMI",
+"calibre": "9mm",
+"rec": "3",
+"rango": "70",
+"precision": "10",
+"efecto": "-1PA,-10RD",
+"pa": "5",
+"cap": "14",
+"marca": "Constitutional Arms",
+"base": "13",
+"dados": "2d6"
+},
+{
+"kind": "weapon",
+"cat": "Pistolas",
+"name": "Unity",
+"tipo": "NORMAL",
+"modo": "SEMI",
+"calibre": ".45",
+"rec": "3",
+"rango": "50",
+"precision": "0",
+"efecto": "-2PA",
+"pa": "4",
+"cap": "12",
+"marca": "Constitutional Arms",
+"base": "9",
+"dados": "2d8"
+},
+{
+"kind": "weapon",
+"cat": "Pistolas",
+"name": "Tamayura",
+"tipo": "NORMAL",
+"modo": "SEMI",
+"calibre": ".45",
+"rec": "3",
+"rango": "50",
+"precision": "0",
+"efecto": "-2PA",
+"pa": "5",
+"cap": "8",
+"marca": "Arasaka",
+"base": "12",
+"dados": "2d8"
+},
+{
+"kind": "weapon",
+"cat": "Pistolas",
+"name": "Nue",
+"tipo": "NORMAL",
+"modo": "SEMI",
+"calibre": ".45",
+"rec": "3",
+"rango": "60",
+"precision": "5",
+"efecto": "-2PA",
+"pa": "5",
+"cap": "10",
+"marca": "Tsunami",
+"base": "12",
+"dados": "2d8"
+},
+{
+"kind": "weapon",
+"cat": "Pistolas",
+"name": "3516",
+"tipo": "NORMAL",
+"modo": "SEMI",
+"calibre": "Custom",
+"rec": "4",
+"rango": "80",
+"precision": "15",
+"efecto": "-2PA,-20RD",
+"pa": "5",
+"cap": "10",
+"marca": "Malorian Arms",
+"base": "10",
+"dados": "3d8"
+},
+{
+"kind": "weapon",
+"cat": "Pistolas",
+"name": "Ticon",
+"tipo": "TECH",
+"modo": "SEMI/RAF",
+"calibre": "9 ST",
+"rec": "4",
+"rango": "40",
+"precision": "0/-10",
+"efecto": "-1PA,-10RD",
+"pa": "4-9x3",
+"cap": "21",
+"marca": "Militech",
+"base": "6",
+"dados": "2d6"
+},
+{
+"kind": "weapon",
+"cat": "Pistolas",
+"name": "JKE-X2 Kenshin",
+"tipo": "TECH",
+"modo": "SEMI/RAF",
+"calibre": "9 ST",
+"rec": "4",
+"rango": "40",
+"precision": "10/0",
+"efecto": "-1PA,-10RD",
+"pa": "4-9x3",
+"cap": "20",
+"marca": "Arasaka",
+"base": "6",
+"dados": "2d6"
+},
+{
+"kind": "weapon",
+"cat": "Pistolas",
+"name": "M-76e Omaha",
+"tipo": "TECH",
+"modo": "SEMI/RAF",
+"calibre": "9 ST",
+"rec": "4",
+"rango": "40",
+"precision": "5/-5",
+"efecto": "-1PA,-10RD",
+"pa": "4-9x3",
+"cap": "13",
+"marca": "Militech",
+"base": "9",
+"dados": "2d6"
+},
+{
+"kind": "weapon",
+"cat": "Pistolas",
+"name": "A-22B Chao",
+"tipo": "SMART",
+"modo": "AUT/RAF",
+"calibre": "Micro 9",
+"rec": "4",
+"rango": "20",
+"precision": "-10/20",
+"efecto": "-15RD",
+"pa": "A4-5x3 (L2x1T)",
+"cap": "21",
+"marca": "Kang Tao",
+"base": "5",
+"dados": "2d6"
+},
+{
+"kind": "weapon",
+"cat": "Pistolas",
+"name": "HJKE-11 Yukimura",
+"tipo": "SMART",
+"modo": "AUT/RAF",
+"calibre": "Micro 9",
+"rec": "4",
+"rango": "20",
+"precision": "0/30",
+"efecto": "-15RD",
+"pa": "A4-5x2 (L2x2T)",
+"cap": "30",
+"marca": "Arasaka",
+"base": "5",
+"dados": "2d6"
+},
+{
+"kind": "weapon",
+"cat": "Sub-metralladoras",
+"name": "Guillotine",
+"tipo": "NORMAL",
+"modo": "SEM/AUT",
+"calibre": "9mm",
+"rec": "4",
+"rango": "50",
+"precision": "-5/-30",
+"efecto": "-1PA",
+"pa": "5-A3",
+"cap": "20",
+"marca": "Budget Arms",
+"base": "10",
+"dados": "2d6"
+},
+{
+"kind": "weapon",
+"cat": "Sub-metralladoras",
+"name": "DS1 Pulsar",
+"tipo": "NORMAL",
+"modo": "SEM/AUT",
+"calibre": "9mm",
+"rec": "4",
+"rango": "50",
+"precision": "0/-25",
+"efecto": "-1PA",
+"pa": "5-A3",
+"cap": "50",
+"marca": "Darra Polytechnic",
+"base": "10",
+"dados": "2d6"
+},
+{
+"kind": "weapon",
+"cat": "Sub-metralladoras",
+"name": "M221 Saratoga",
+"tipo": "NORMAL",
+"modo": "SEM/AUT",
+"calibre": "9mm",
+"rec": "4",
+"rango": "70",
+"precision": "5/-20",
+"efecto": "-1PA",
+"pa": "4-A2",
+"cap": "25",
+"marca": "Militech",
+"base": "10",
+"dados": "2d6"
+},
+{
+"kind": "weapon",
+"cat": "Sub-metralladoras",
+"name": "Shigure",
+"tipo": "NORMAL",
+"modo": "SEM/AUT",
+"calibre": ".45",
+"rec": "4",
+"rango": "60",
+"precision": "5/-20",
+"efecto": "-1PA",
+"pa": "5-A2",
+"cap": "20",
+"marca": "Arasaka",
+"base": "14",
+"dados": "2d8"
+},
+{
+"kind": "weapon",
+"cat": "Sub-metralladoras",
+"name": "Senkoh LX",
+"tipo": "SMART",
+"modo": "AUT/RAF",
+"calibre": "Micro 9",
+"rec": "4",
+"rango": "20",
+"precision": "-5/25",
+"efecto": "-15RD",
+"pa": "A4-8x3 (L2x2T)",
+"cap": "30",
+"marca": "Arasaka",
+"base": "6",
+"dados": "2d6"
+},
+{
+"kind": "weapon",
+"cat": "Sub-metralladoras",
+"name": "G-58 Dian",
+"tipo": "SMART",
+"modo": "AUT/RAF",
+"calibre": "Micro 9",
+"rec": "5",
+"rango": "25",
+"precision": "0/30",
+"efecto": "-15RD / T2 x 1T",
+"pa": "A4-7x3 (L2x1T)",
+"cap": "45",
+"marca": "Kang Tao",
+"base": "8",
+"dados": "2d6"
+},
+{
+"kind": "weapon",
+"cat": "Sub-metralladoras",
+"name": "TKI-20 Shingen",
+"tipo": "SMART",
+"modo": "AUT/RAF",
+"calibre": "Micro 9",
+"rec": "5",
+"rango": "35",
+"precision": "10/40",
+"efecto": "-15RD / T3 x 2T",
+"pa": "A4-8x3 (L2x2T)",
+"cap": "30",
+"marca": "Arasaka",
+"base": "8",
+"dados": "2d6"
+},
+{
+"kind": "weapon",
+"cat": "Rifles de asalto",
+"name": "DA8 Umbra",
+"tipo": "NORMAL",
+"modo": "SEM/AUT",
+"calibre": "5.56mm",
+"rec": "4",
+"rango": "150",
+"precision": "-5/-20",
+"efecto": "-1PA,-15RD",
+"pa": "5-A4",
+"cap": "40",
+"marca": "Darra Polytechnic",
+"base": "14",
+"dados": "d8"
+},
+{
+"kind": "weapon",
+"cat": "Rifles de asalto",
+"name": "D5 Copperhead",
+"tipo": "NORMAL",
+"modo": "SEM/AUT",
+"calibre": "5.56mm",
+"rec": "4",
+"rango": "150",
+"precision": "10/-10",
+"efecto": "-1PA,-15RD",
+"pa": "5-A4",
+"cap": "30",
+"marca": "Nokota",
+"base": "15",
+"dados": "d8"
+},
+{
+"kind": "weapon",
+"cat": "Rifles de asalto",
+"name": "Nowaki",
+"tipo": "NORMAL",
+"modo": "SEM/AUT",
+"calibre": "6.5mm",
+"rec": "4",
+"rango": "125",
+"precision": "5/-10",
+"efecto": "-1PA,-20RD",
+"pa": "5-10x3",
+"cap": "24",
+"marca": "Arasaka",
+"base": "16",
+"dados": "d10"
+},
+{
+"kind": "weapon",
+"cat": "Rifles de asalto",
+"name": "HJSH-18 Masamune",
+"tipo": "NORMAL",
+"modo": "SEM/AUT",
+"calibre": "6.5mm",
+"rec": "4",
+"rango": "125",
+"precision": "10/-10",
+"efecto": "-1PA,-20RD",
+"pa": "5-10x3",
+"cap": "24",
+"marca": "Arasaka",
+"base": "18",
+"dados": "d10"
+},
+{
+"kind": "weapon",
+"cat": "Rifles de asalto",
+"name": "M251s Ajax",
+"tipo": "NORMAL",
+"modo": "SEM/AUT",
+"calibre": "7.62mm S",
+"rec": "4",
+"rango": "100",
+"precision": "0/-20",
+"efecto": "-2PA,-30RD",
+"pa": "5-A4",
+"cap": "30",
+"marca": "Militech",
+"base": "15",
+"dados": "2d8"
+},
+{
+"kind": "weapon",
+"cat": "Rifles de asalto",
+"name": "D5 Sidewinder",
+"tipo": "SMART",
+"modo": "AUT/RAF",
+"calibre": "Micro 5",
+"rec": "4",
+"rango": "50",
+"precision": "0/30",
+"efecto": "-25RD",
+"pa": "A4-8x3 (L2x2T)",
+"cap": "30",
+"marca": "Nokota",
+"base": "10",
+"dados": "d8"
+},
+{
+"kind": "weapon",
+"cat": "Rifles de precisión",
+"name": "Kyubi",
+"tipo": "NORMAL",
+"modo": "SEMI",
+"calibre": "7.62mm S",
+"rec": "4",
+"rango": "125",
+"precision": "10",
+"efecto": "-2PA,-30RD",
+"pa": "5",
+"cap": "20",
+"marca": "Tsunami",
+"base": "17",
+"dados": "2d8"
+},
+{
+"kind": "weapon",
+"cat": "Rifles de precisión",
+"name": "SOR-22",
+"tipo": "NORMAL",
+"modo": "SEMI",
+"calibre": "7.62mm L",
+"rec": "5",
+"rango": "200",
+"precision": "10",
+"efecto": "-2PA,-40RD",
+"pa": "5",
+"cap": "10",
+"marca": "Midnight Arms",
+"base": "20",
+"dados": "2d10"
+},
+{
+"kind": "weapon",
+"cat": "Rifles de precisión",
+"name": "Kolac",
+"tipo": "NORMAL",
+"modo": "SEMI",
+"calibre": "12.7mm",
+"rec": "5",
+"rango": "500",
+"precision": "10",
+"efecto": "-5PA,-60RD",
+"pa": "6",
+"cap": "6",
+"marca": "Rostović",
+"base": "25",
+"dados": "3d10"
+},
+{
+"kind": "weapon",
+"cat": "Rifles de precisión",
+"name": "M-179e Achilles",
+"tipo": "TECH",
+"modo": "SEMI/HIPER",
+"calibre": "7 LT",
+"rec": "5",
+"rango": "150",
+"precision": "10/-10",
+"efecto": "-2PA,-25RD/-4PA,-50RD",
+"pa": "5/8",
+"cap": "9",
+"marca": "Techtronika",
+"base": "14/30",
+"dados": "3d8/d8"
+},
+{
+"kind": "weapon",
+"cat": "R. de francotirador",
+"name": "SPT32 Grad",
+"tipo": "NORMAL",
+"modo": "SEMI",
+"calibre": "12.7mm",
+"rec": "5",
+"rango": "700",
+"precision": "20",
+"efecto": "-5PA,-70RD",
+"pa": "5",
+"cap": "4",
+"marca": "Techtronika",
+"base": "30",
+"dados": "3d10"
+},
+{
+"kind": "weapon",
+"cat": "R. de francotirador",
+"name": "Nekomata",
+"tipo": "TECH",
+"modo": "SEMI/HIPER",
+"calibre": "9 LT",
+"rec": "5",
+"rango": "250",
+"precision": "20/-10",
+"efecto": "-3PA,-30RD/-6PA,-60RD",
+"pa": "5/8",
+"cap": "4",
+"marca": "Tsunami",
+"base": "20/40",
+"dados": "3d10/d10"
+},
+{
+"kind": "weapon",
+"cat": "R. de francotirador",
+"name": "Ashura",
+"tipo": "SMART",
+"modo": "SEMI",
+"calibre": "Smart dart",
+"rec": "5",
+"rango": "300",
+"precision": "-10/50",
+"efecto": "-2PA,-40RD",
+"pa": "5 (L3x3T)",
+"cap": "1",
+"marca": "Tsunami",
+"base": "20",
+"dados": "2d10"
+},
+{
+"kind": "weapon",
+"cat": "Escopetas",
+"name": "DB-2 Testera",
+"tipo": "NORMAL",
+"modo": "DOBLE",
+"calibre": "Cal. 8",
+"rec": "2x1",
+"rango": "10",
+"precision": "10",
+"efecto": "-4PA",
+"pa": "5",
+"cap": "2",
+"marca": "Rostović",
+"base": "15",
+"dados": "4d8"
+},
+{
+"kind": "weapon",
+"cat": "Escopetas",
+"name": "DB-4 Igla",
+"tipo": "NORMAL",
+"modo": "DOBLE",
+"calibre": "Cal. 8",
+"rec": "2x1",
+"rango": "20",
+"precision": "20",
+"efecto": "-4PA",
+"pa": "5",
+"cap": "2",
+"marca": "Rostović",
+"base": "22",
+"dados": "4d8"
+},
+{
+"kind": "weapon",
+"cat": "Escopetas",
+"name": "Carnage",
+"tipo": "NORMAL",
+"modo": "PUMP",
+"calibre": "Cal. 4",
+"rec": "3x1",
+"rango": "30",
+"precision": "10",
+"efecto": "-5PA",
+"pa": "6",
+"cap": "4",
+"marca": "Budget Arms",
+"base": "22",
+"dados": "4d10"
+},
+{
+"kind": "weapon",
+"cat": "Escopetas",
+"name": "M2038 Tactician",
+"tipo": "NORMAL",
+"modo": "PUMP",
+"calibre": "Cal. 12",
+"rec": "2x1",
+"rango": "50",
+"precision": "10",
+"efecto": "-3PA",
+"pa": "5",
+"cap": "8",
+"marca": "Constitutional Arms",
+"base": "22",
+"dados": "4d6"
+},
+{
+"kind": "weapon",
+"cat": "Escopetas",
+"name": "Crusher",
+"tipo": "NORMAL",
+"modo": "AUTO",
+"calibre": "Cal. 12",
+"rec": "5",
+"rango": "30",
+"precision": "0",
+"efecto": "-3PA",
+"pa": "5",
+"cap": "12",
+"marca": "Militech",
+"base": "15",
+"dados": "4d6"
+},
+{
+"kind": "weapon",
+"cat": "Escopetas",
+"name": "VST-37 Pozhar",
+"tipo": "NORMAL",
+"modo": "AUTO",
+"calibre": "Cal. 12",
+"rec": "5",
+"rango": "20",
+"precision": "-10",
+"efecto": "-3PA",
+"pa": "5",
+"cap": "12",
+"marca": "Techtronika",
+"base": "15",
+"dados": "4d6"
+},
+{
+"kind": "weapon",
+"cat": "Escopetas",
+"name": "DB-2 Satara",
+"tipo": "TECH",
+"modo": "DOBLE/HIPER",
+"calibre": "Custom",
+"rec": "2x1",
+"rango": "20",
+"precision": "0/-20",
+"efecto": "-2PA,-20RD/-6PA,-40RD",
+"pa": "5/8",
+"cap": "2",
+"marca": "Rostović",
+"base": "14/30",
+"dados": "3d8/d8"
+},
+{
+"kind": "weapon",
+"cat": "Escopetas",
+"name": "DB-4 Palica",
+"tipo": "SMART",
+"modo": "DOBLE",
+"calibre": "Micro 12",
+"rec": "2x1",
+"rango": "15",
+"precision": "25",
+"efecto": "-2PA,-15RD",
+"pa": "5 (L3x1T)",
+"cap": "2",
+"marca": "Rostović",
+"base": "10",
+"dados": "4d6"
+},
+{
+"kind": "weapon",
+"cat": "Escopetas",
+"name": "L-69 Zhuo",
+"tipo": "SMART",
+"modo": "SEMI",
+"calibre": "Micro 12",
+"rec": "5",
+"rango": "25",
+"precision": "30",
+"efecto": "-2PA,-15RD",
+"pa": "5 (L2x3T)",
+"cap": "4",
+"marca": "Kang Tao",
+"base": "10",
+"dados": "4d6"
+},
+{
+"kind": "weapon",
+"cat": "Armas pesadas",
+"name": "M2067 Defender",
+"tipo": "NORMAL",
+"modo": "AUTO",
+"calibre": "5.56mm",
+"rec": "8",
+"rango": "200",
+"precision": "-30",
+"efecto": "-1PA,-15RD",
+"pa": "A3",
+"cap": "80",
+"marca": "Constitutional Arms",
+"base": "14",
+"dados": "d8"
+},
+{
+"kind": "weapon",
+"cat": "Armas pesadas",
+"name": "MA70 HB",
+"tipo": "NORMAL",
+"modo": "AUTO",
+"calibre": "7.62mm E",
+"rec": "8",
+"rango": "150",
+"precision": "-30",
+"efecto": "-3PA,-40RD",
+"pa": "A4",
+"cap": "60",
+"marca": "Midnight Arms",
+"base": "15",
+"dados": "2d8"
+},
+{
+"kind": "weapon",
+"cat": "Armas pesadas",
+"name": "Mk. 31 HMG",
+"tipo": "NORMAL",
+"modo": "AUTO",
+"calibre": "12.7mm E",
+"rec": "15",
+"rango": "300",
+"precision": "-30",
+"efecto": "-4PA,-50RD",
+"pa": "A4",
+"cap": "200",
+"marca": "Militech",
+"base": "20",
+"dados": "2d10"
+},
+{
+"kind": "item",
+"cat": "Consumibles",
+"name": "Bounce Back I",
+"attrs": {
+"Precio": "50",
+"Aplicación": "Inhalación",
+"Duración": "3T (6T*)",
+"Efecto": "Recupera 5 (10**) de Vitalidad (-1 sangrado***)"
+}
+},
+{
+"kind": "item",
+"cat": "Consumibles",
+"name": "Bounce Back II",
+"attrs": {
+"Precio": "100",
+"Aplicación": "Inhalación",
+"Duración": "3T (6T*)",
+"Efecto": "Recupera 10 (20**) de Vitalidad (-2 sangrado***)"
+}
+},
+{
+"kind": "item",
+"cat": "Consumibles",
+"name": "Bounce Back III",
+"attrs": {
+"Precio": "200",
+"Aplicación": "Inhalación",
+"Duración": "3T (6T*)",
+"Efecto": "Recupera 15 (30**) de Vitalidad (-3 sangrado***)"
+}
+},
+{
+"kind": "item",
+"cat": "Consumibles",
+"name": "Max Doc I",
+"attrs": {
+"Precio": "100",
+"Aplicación": "Inyectable",
+"Efecto": "Recupera 30% (60%**) de Vitalidad (-1 sangrado***)"
+}
+},
+{
+"kind": "item",
+"cat": "Consumibles",
+"name": "Max Doc II",
+"attrs": {
+"Precio": "200",
+"Aplicación": "Inyectable",
+"Efecto": "Recupera 50% (100%**) de Vitalidad  (-2 sangrado***)"
+}
+},
+{
+"kind": "item",
+"cat": "Consumibles",
+"name": "Max Doc III",
+"attrs": {
+"Precio": "400",
+"Aplicación": "Inyectable",
+"Efecto": "Recupera 80% (100%**) de Vitalidad  (-3 sangrado***)"
+}
+},
+{
+"kind": "item",
+"cat": "Consumibles",
+"name": "Coagulante I",
+"attrs": {
+"Precio": "50",
+"Aplicación": "Spray",
+"Efecto": "Detiene 3 (6**) de sangrado (Recupera 10 de Vitalidad***)"
+}
+},
+{
+"kind": "item",
+"cat": "Consumibles",
+"name": "Coagulante II",
+"attrs": {
+"Precio": "100",
+"Aplicación": "Spray",
+"Efecto": "Detiene 6 (12**) de sangrado (Recupera 15 de Vitalidad***)"
+}
+},
+{
+"kind": "item",
+"cat": "Consumibles",
+"name": "Coagulante III",
+"attrs": {
+"Precio": "200",
+"Aplicación": "Spray",
+"Efecto": "Detiene 10 (20**) de sangrado (Recupera 20 de Vitalidad***)"
+}
+},
+{
+"kind": "item",
+"cat": "Consumibles",
+"name": "Bullet Time I",
+"attrs": {
+"Precio": "100",
+"Aplicación": "Inhalación",
+"Duración": "5 min (10 min*)",
+"Efecto": "+1 (2**) PA, +5 (10**) reflejos (+5 Crítico***)",
+"Efectos secundarios": "-5 Vitalidad máx."
+}
+},
+{
+"kind": "item",
+"cat": "Consumibles",
+"name": "Bullet Time II",
+"attrs": {
+"Precio": "200",
+"Aplicación": "Inhalación",
+"Duración": "5 min (10 min*)",
+"Efecto": "+2 (4**) PA, +10 (20**) reflejos (+5 Crítico***)",
+"Efectos secundarios": "-5 Vitalidad máx."
+}
+},
+{
+"kind": "item",
+"cat": "Consumibles",
+"name": "Bullet Time III",
+"attrs": {
+"Precio": "400",
+"Aplicación": "Inhalación",
+"Duración": "5 min (10 min*)",
+"Efecto": "+3 (6**) PA, +15 (30**) reflejos (+5 Crítico***)",
+"Efectos secundarios": "-5 Vitalidad máx."
+}
+},
+{
+"kind": "item",
+"cat": "Consumibles",
+"name": "Dorph I",
+"attrs": {
+"Precio": "150",
+"Aplicación": "Inhalación",
+"Duración": "10 min (20 min*)",
+"Efecto": "+10 (20**) Fortaleza , niega penalizadores por daños (+10 RD***)",
+"Efectos secundarios": "-5 Vitalidad máx."
+}
+},
+{
+"kind": "item",
+"cat": "Consumibles",
+"name": "Dorph II",
+"attrs": {
+"Precio": "300",
+"Aplicación": "Inhalación",
+"Duración": "10 min (20 min*)",
+"Efecto": "+15 (30**) Fortaleza, niega penalizadores por daños (+15 RD***)",
+"Efectos secundarios": "-5 Vitalidad máx."
+}
+},
+{
+"kind": "item",
+"cat": "Consumibles",
+"name": "Dorph III",
+"attrs": {
+"Precio": "600",
+"Aplicación": "Inhalación",
+"Duración": "10 min (20 min*)",
+"Efecto": "+20 (40**) Fortaleza, niega penalizadores por daños (+20 RD***)",
+"Efectos secundarios": "-5 Vitalidad máx."
+}
+},
+{
+"kind": "item",
+"cat": "Consumibles",
+"name": "Ojo Rojo I",
+"attrs": {
+"Precio": "100",
+"Aplicación": "Spray ocular",
+"Duración": "5 min (10 min*)",
+"Efecto": "+5 (10**) precisión, +10 (20**) Percepción (Visión nocturna***)",
+"Efectos secundarios": "-5 Vitalidad máx."
+}
+},
+{
+"kind": "item",
+"cat": "Consumibles",
+"name": "Ojo Rojo II",
+"attrs": {
+"Precio": "200",
+"Aplicación": "Spray ocular",
+"Duración": "5 min (10 min*)",
+"Efecto": "+10 (20**) precisión, +15 (30**) Percepción (Visión nocturna***)",
+"Efectos secundarios": "-5 Vitalidad máx."
+}
+},
+{
+"kind": "item",
+"cat": "Consumibles",
+"name": "Ojo Rojo III",
+"attrs": {
+"Precio": "400",
+"Aplicación": "Spray ocular",
+"Duración": "5 min (10 min*)",
+"Efecto": "+15 (30**) precisión, +20 (40**) Percepción (Visión nocturna***)",
+"Efectos secundarios": "-5 Vitalidad máx."
+}
+},
+{
+"kind": "item",
+"cat": "Consumibles",
+"name": "Mr Hide I",
+"attrs": {
+"Precio": "150",
+"Aplicación": "Inyectable",
+"Duración": "10 min (20 min*)",
+"Efecto": "+3 (6**) Potencia, +10 (20**) Fortaleza (Ignora penalizadores y daño por tiempo***)",
+"Efectos secundarios": "-5 Vitalidad máx., Vitalidad oculta para el jugador"
+}
+},
+{
+"kind": "item",
+"cat": "Consumibles",
+"name": "Mr Hide II",
+"attrs": {
+"Precio": "300",
+"Aplicación": "Inyectable",
+"Duración": "10 min (20 min*)",
+"Efecto": "+5 (10**) Potencia, +15 (30**) Fortaleza (Ignora penalizadores y daño por tiempo***)",
+"Efectos secundarios": "-5 Vitalidad máx., Vitalidad oculta para el jugador"
+}
+},
+{
+"kind": "item",
+"cat": "Consumibles",
+"name": "Mr Hide III",
+"attrs": {
+"Precio": "600",
+"Aplicación": "Inyectable",
+"Duración": "10 min (20 min*)",
+"Efecto": "+7 (14**) Potencia, +20 (40**) Fortaleza (Ignora penalizadores y daño por tiempo***)",
+"Efectos secundarios": "-5 Vitalidad máx., Vitalidad oculta para el jugador"
+}
+},
+{
+"kind": "item",
+"cat": "Consumibles",
+"name": "Booster I",
+"attrs": {
+"Precio": "200",
+"Aplicación": "Inhalación",
+"Duración": "5min (10 min*)",
+"Efecto": "+5 (10**) a cualquier acción (+5 Crítico***)",
+"Efectos secundarios": "-5 Vitalidad máx."
+}
+},
+{
+"kind": "item",
+"cat": "Consumibles",
+"name": "Booster II",
+"attrs": {
+"Precio": "400",
+"Aplicación": "Inhalación",
+"Duración": "5min (10 min*)",
+"Efecto": "+10 (20**) a cualquier acción (+5 Crítico***)",
+"Efectos secundarios": "-5 Vitalidad máx."
+}
+},
+{
+"kind": "item",
+"cat": "Consumibles",
+"name": "Booster III",
+"attrs": {
+"Precio": "800",
+"Aplicación": "Inhalación",
+"Duración": "5min (10 min*)",
+"Efecto": "+15 (30**) a cualquier acción (+5 Crítico***)",
+"Efectos secundarios": "-5 Vitalidad máx."
+}
+},
+{
+"kind": "item",
+"cat": "Consumibles",
+"name": "Ram Jolt I",
+"attrs": {
+"Precio": "100",
+"Aplicación": "Pastillas",
+"Duración": "30 min (1 hora*)",
+"Efecto": "+2 RAM, +1 RAM Regen",
+"Efectos secundarios": "-5 Vitalidad máx."
+}
+},
+{
+"kind": "item",
+"cat": "Consumibles",
+"name": "Ram Jolt II",
+"attrs": {
+"Precio": "200",
+"Aplicación": "Pastillas",
+"Duración": "30 min (1 hora*)",
+"Efecto": "+4 RAM, +1 RAM Regen",
+"Efectos secundarios": "-5 Vitalidad máx."
+}
+},
+{
+"kind": "item",
+"cat": "Consumibles",
+"name": "Ram Jolt III",
+"attrs": {
+"Precio": "400",
+"Aplicación": "Pastillas",
+"Duración": "30 min (1 hora*)",
+"Efecto": "+6 RAM, +1 RAM Regen",
+"Efectos secundarios": "-5 Vitalidad máx."
+}
+},
+{
+"kind": "item",
+"cat": "Consumibles",
+"name": "Syncomp",
+"attrs": {
+"Precio": "100",
+"Aplicación": "Inyectable",
+"Duración": "1 hora (2 horas*)",
+"Efecto": "Antidoto (+20 Fortaleza***)",
+"Efectos secundarios": "-10 Reflejos x 1h"
+}
+},
+{
+"kind": "item",
+"cat": "Consumibles",
+"name": "Stim",
+"attrs": {
+"Precio": "300",
+"Aplicación": "Inhalación",
+"Duración": "1 hora (2 horas*)",
+"Efecto": "+5 (10**) a estadísticas primarias y secundarias (+5 Crítico***)",
+"Efectos secundarios": "Alucinaciones x 1h"
+}
+},
+{
+"kind": "item",
+"cat": "Consumibles",
+"name": "Black Lace",
+"attrs": {
+"Precio": "300",
+"Aplicación": "Inhalación",
+"Duración": "1 hora (2 horas*)",
+"Efecto": "+5 (10**) Crítico, +15 (+30**) RD (+10 estadísticas primarias y secundarias***)",
+"Efectos secundarios": "-30 Resolución, puede causar cyberpsicosis"
+}
+},
+{
+"kind": "item",
+"cat": "Consumibles",
+"name": "Synthcoke",
+"attrs": {
+"Precio": "300",
+"Aplicación": "Inhalación",
+"Duración": "30 min (1 hora*)",
+"Efecto": "Euforia, hipervigilancia",
+"Efectos secundarios": "Paranoia x 1h"
+}
+},
+{
+"kind": "item",
+"cat": "Consumibles",
+"name": "Blue Glass",
+"attrs": {
+"Precio": "100",
+"Aplicación": "Inhalación",
+"Duración": "30 min (1 hora*)",
+"Efecto": "Causa alucinaciones",
+"Efectos secundarios": "30% de quedarse en blanco en situaciones de estress"
+}
+},
+{
+"kind": "item",
+"cat": "Consumibles",
+"name": "Midnight Express",
+"attrs": {
+"Precio": "500",
+"Aplicación": "Chicle",
+"Duración": "1 hora (2 horas*)",
+"Efecto": "Causa euforia, incremento en el líbido, resistencia y desinhibición"
+}
+},
+{
+"kind": "item",
+"cat": "Mejoras · Mira corta",
+"name": "Add-Vantage",
+"attrs": {
+"Efecto": "+5 Precisión, +10 Rango de tiro",
+"Precio": "300",
+"Marca": "Budget Arms"
+}
+},
+{
+"kind": "item",
+"cat": "Mejoras · Mira corta",
+"name": "OS-1 GimletEye",
+"attrs": {
+"Efecto": "+10 Precisión, +5 Rango de tiro",
+"Precio": "500",
+"Marca": "Kiroshi"
+}
+},
+{
+"kind": "item",
+"cat": "Mejoras · Mira corta",
+"name": "Hyakume",
+"attrs": {
+"Efecto": "+10 Precisión, +10 Rango de tiro",
+"Precio": "800",
+"Marca": "Tsunami"
+}
+},
+{
+"kind": "item",
+"cat": "Mejoras · Mira corta",
+"name": "CQO Kanone MINI Mk.72",
+"attrs": {
+"Efecto": "+10 Precisión, +15 Rango de tiro, -1 PA apuntado",
+"Precio": "1600",
+"Marca": "Militech"
+}
+},
+{
+"kind": "item",
+"cat": "Mejoras · Mira corta",
+"name": "Type 2067",
+"attrs": {
+"Efecto": "+5 Precisión, +5 Rango de tiro, -10 Penalizador por fuego automático",
+"Precio": "1300",
+"Marca": "Kang Tao"
+}
+},
+{
+"kind": "item",
+"cat": "Mejoras · Mira corta",
+"name": "Handyman",
+"attrs": {
+"Efecto": "+10 Precisión, +10 Rango de tiro, -10 Penalizador al apuntar",
+"Precio": "3700",
+"Marca": "SoftSys"
+}
+},
+{
+"kind": "item",
+"cat": "Mejoras · Mira corta",
+"name": "Kanetsugu",
+"attrs": {
+"Efecto": "+5 Precisión, +5 Rango de tiro, +5 Crítico",
+"Precio": "4500",
+"Marca": "Arasaka"
+}
+},
+{
+"kind": "item",
+"cat": "Mejoras · Mira larga",
+"name": "Kairo SA-1",
+"attrs": {
+"Efecto": "+15 Precisión, x3 Rango de tiro",
+"Precio": "800"
+}
+},
+{
+"kind": "item",
+"cat": "Mejoras · Mira larga",
+"name": "ClearVue Mk.8",
+"attrs": {
+"Efecto": "+15 Precisión, x3 Rango de tiro, -1 PA apuntado",
+"Precio": "2900",
+"Marca": "Militech"
+}
+},
+{
+"kind": "item",
+"cat": "Mejoras · Mira larga",
+"name": "Mk.2x Grandstand",
+"attrs": {
+"Efecto": "+20 Precisión, x4 Rango de tiro, -1 PA apuntado",
+"Precio": "3400",
+"Marca": "Militech"
+}
+},
+{
+"kind": "item",
+"cat": "Mejoras · Mira larga",
+"name": "E255 Percipient",
+"attrs": {
+"Efecto": "+25 Precisión, x5 Rango de tiro, -1 PA apuntado",
+"Precio": "4200",
+"Marca": "Nokota"
+}
+},
+{
+"kind": "item",
+"cat": "Mejoras · Mira larga",
+"name": "Jue",
+"attrs": {
+"Efecto": "+35 Precisión, x10 Rango de tiro, +2 PA apuntado, +1 Letalidad",
+"Precio": "5000",
+"Marca": "Kang Tao"
+}
+},
+{
+"kind": "item",
+"cat": "Mejoras · Mira larga",
+"name": "SO-21 Saika",
+"attrs": {
+"Efecto": "+15 Precisión, x3 Rango de tiro, -1 PA apuntado, +5 crítico",
+"Precio": "5700",
+"Marca": "Arasaka"
+}
+},
+{
+"kind": "item",
+"cat": "Mejoras · Mira precisión",
+"name": "E305 Prospecta",
+"attrs": {
+"Efecto": "+30 Precisión, x15 Rango de tiro, +3 PA apuntado, +2 Letalidad",
+"Precio": "12000",
+"Marca": "Nokota"
+}
+},
+{
+"kind": "item",
+"cat": "Mejoras · Mira precisión",
+"name": "Gaki",
+"attrs": {
+"Efecto": "+40 Precisión, x20 Rango de tiro, +4 PA apuntado, +2 Letalidad",
+"Precio": "14000",
+"Marca": "Tsunami"
+}
+},
+{
+"kind": "item",
+"cat": "Mejoras · Mira precisión",
+"name": "HPO Kanone MAX Mk.77",
+"attrs": {
+"Efecto": "+30 Precisión, x30 Rango de tiro, +4 PA apuntado, +2 Letalidad",
+"Precio": "15000",
+"Marca": "Militech"
+}
+},
+{
+"kind": "item",
+"cat": "Mejoras · Supresores",
+"name": "CS-1 Taipan",
+"attrs": {
+"Efecto": "Reducción de sonido 50%",
+"Precio": "500",
+"Marca": "Militech"
+}
+},
+{
+"kind": "item",
+"cat": "Mejoras · Supresores",
+"name": "XC-10 Strix",
+"attrs": {
+"Efecto": "Reducción de sonido 75%",
+"Precio": "1500",
+"Marca": "Militech"
+}
+},
+{
+"kind": "item",
+"cat": "Mejoras · Supresores",
+"name": "TSX Tocororo",
+"attrs": {
+"Efecto": "+5 Crítico, Reducción de sonido 75%",
+"Precio": "7000",
+"Marca": "Militech"
+}
+},
+{
+"kind": "item",
+"cat": "Mejoras · Supresores",
+"name": "XC-10 Cetus",
+"attrs": {
+"Efecto": "+5 Crítico, +1 Letalidad, Reducción de sonido 75%",
+"Precio": "8000",
+"Marca": "Militech"
+}
+},
+{
+"kind": "item",
+"cat": "Mejoras · Estabilizador pequeño",
+"name": "RC-7 Yokai",
+"attrs": {
+"Efecto": "+5 Precisión, -5 Penalizador por fuego automático",
+"Precio": "2800",
+"Marca": "Militech"
+}
+},
+{
+"kind": "item",
+"cat": "Mejoras · Estabilizador pequeño",
+"name": "RC-7 Kutrub",
+"attrs": {
+"Efecto": "-15 Penalizador por fuego automático",
+"Precio": "3000",
+"Marca": "Militech"
+}
+},
+{
+"kind": "item",
+"cat": "Mejoras · Estabilizador pequeño",
+"name": "RC-7 Liger",
+"attrs": {
+"Efecto": "+5 Precisión, -1 PA",
+"Precio": "5200",
+"Marca": "Militech"
+}
+},
+{
+"kind": "item",
+"cat": "Mejoras · Estabilizador pequeño",
+"name": "RC-7 Dybbuk",
+"attrs": {
+"Efecto": "+5 Precisión, -1 PA, +5 Crítico",
+"Precio": "6000",
+"Marca": "Militech"
+}
+},
+{
+"kind": "item",
+"cat": "Mejoras · Estabilizador pequeño",
+"name": "RC-7 Babaroga",
+"attrs": {
+"Efecto": "-15 Penalizador por fuego automático, -1 PA Auto, +5 Crítico Auto 2",
+"Precio": "6500",
+"Marca": "Militech"
+}
+},
+{
+"kind": "item",
+"cat": "Mejoras · Estabilizador grande",
+"name": "RC-7 Zaar",
+"attrs": {
+"Efecto": "+5 Precisión, -10 Penalizador por fuego automático",
+"Precio": "3000",
+"Marca": "Militech"
+}
+},
+{
+"kind": "item",
+"cat": "Mejoras · Estabilizador grande",
+"name": "RC-7 Ifrit",
+"attrs": {
+"Efecto": "-20 Penalizador por fuego automático",
+"Precio": "3500",
+"Marca": "Militech"
+}
+},
+{
+"kind": "item",
+"cat": "Mejoras · Estabilizador grande",
+"name": "RC-7 Aswang",
+"attrs": {
+"Efecto": "-15 Penalizador por fuego automático, -1 PA Auto",
+"Precio": "5800",
+"Marca": "Militech"
+}
+},
+{
+"kind": "item",
+"cat": "Mejoras · Estabilizador grande",
+"name": "RC-7 Varkolak",
+"attrs": {
+"Efecto": "+10 Precisión, -1 PA, +5 Crítico",
+"Precio": "7500",
+"Marca": "Militech"
+}
+},
+{
+"kind": "item",
+"cat": "Mejoras · Estabilizador grande",
+"name": "RC-7 Strigoi",
+"attrs": {
+"Efecto": "-20 Penalizador por fuego automático, -1 PA Auto, +5 Crítico Auto 3",
+"Precio": "8500",
+"Marca": "Militech"
+}
+},
+{
+"kind": "item",
+"cat": "Quickhacks · Subterfugio",
+"name": "Ping I",
+"attrs": {
+"Precio": "500",
+"RAM": "2",
+"PA": "3",
+"Duración": "3T",
+"Efecto": "Revela los dispositivos cercanos conectados una red local. 15m radio"
+}
+},
+{
+"kind": "item",
+"cat": "Quickhacks · Subterfugio",
+"name": "Ping II",
+"attrs": {
+"Precio": "2500",
+"RAM": "4",
+"PA": "3",
+"Duración": "4T",
+"Efecto": "Revela los dispositivos cercanos conectados una red local. 25m radio"
+}
+},
+{
+"kind": "item",
+"cat": "Quickhacks · Subterfugio",
+"name": "Ping III",
+"attrs": {
+"Precio": "12500",
+"RAM": "6",
+"PA": "3",
+"Duración": "5T",
+"Efecto": "Revela los dispositivos cercanos conectados una red local. 50m radio"
+}
+},
+{
+"kind": "item",
+"cat": "Quickhacks · Subterfugio",
+"name": "Silencio I",
+"attrs": {
+"Precio": "500",
+"RAM": "3",
+"PA": "3",
+"Duración": "10T",
+"Efecto": "Deshabilita las comunicaciones del objetivo"
+}
+},
+{
+"kind": "item",
+"cat": "Quickhacks · Subterfugio",
+"name": "Silencio II",
+"attrs": {
+"Precio": "2500",
+"RAM": "5",
+"PA": "3",
+"Duración": "10T",
+"Efecto": "Deshabilita las comunicaciones del objetivo. Genera un loop de respuesta por parte del objetivo mientras se encuentre con vida"
+}
+},
+{
+"kind": "item",
+"cat": "Quickhacks · Subterfugio",
+"name": "Borrado De Memoria I",
+"attrs": {
+"Precio": "2000",
+"RAM": "4",
+"PA": "3",
+"Duración": "INSTAN.",
+"Efecto": "Causa confusión en el enemigo reduciendo en 4 sus PA"
+}
+},
+{
+"kind": "item",
+"cat": "Quickhacks · Subterfugio",
+"name": "Borrado De Memoria II",
+"attrs": {
+"Precio": "10000",
+"RAM": "6",
+"PA": "3",
+"Duración": "INSTAN.",
+"Efecto": "Causa confusión en el enemigo reduciendo en 8 sus PA"
+}
+},
+{
+"kind": "item",
+"cat": "Quickhacks · Subterfugio",
+"name": "Borrado De Memoria III",
+"attrs": {
+"Precio": "100000",
+"RAM": "8",
+"PA": "3",
+"Duración": "INSTAN.",
+"Efecto": "Causa confusión en el enemigo reduciendo en 12 sus PA"
+}
+},
+{
+"kind": "item",
+"cat": "Quickhacks · Control",
+"name": "Control I",
+"attrs": {
+"Precio": "500",
+"RAM": "2",
+"PA": "5",
+"Duración": "CON",
+"Efecto": "Permite tomar control de artefáctos electrónicos pequeños que no esten conectados a un sistema orgánico (Ej: cámaras)"
+}
+},
+{
+"kind": "item",
+"cat": "Quickhacks · Control",
+"name": "Control II",
+"attrs": {
+"Precio": "2500",
+"RAM": "4",
+"PA": "5",
+"Duración": "CON",
+"Efecto": "Permite tomar control de artefáctos electrónicos grandes que no esten conectados a un sistema orgánico (Ej: vehículos)"
+}
+},
+{
+"kind": "item",
+"cat": "Quickhacks · Control",
+"name": "Reiniciar Sistema I",
+"attrs": {
+"Precio": "3000",
+"RAM": "4",
+"PA": "6",
+"Duración": "2(5)T",
+"Efecto": "Reinicia las ópticas del objetivo (puede ser utilizado en cámaras)"
+}
+},
+{
+"kind": "item",
+"cat": "Quickhacks · Control",
+"name": "Reiniciar Sistema II",
+"attrs": {
+"Precio": "15000",
+"RAM": "6",
+"PA": "6",
+"Duración": "2(5)T",
+"Efecto": "Reinicia los brazos o piernas del objetivo. Puede ser utilizado en dispositivos de vigilancia complejos (Ej: scanner biométrico)"
+}
+},
+{
+"kind": "item",
+"cat": "Quickhacks · Control",
+"name": "Reiniciar Sistema III",
+"attrs": {
+"Precio": "150000",
+"RAM": "8",
+"PA": "6",
+"Duración": "2(5)T",
+"Efecto": "Reinicia todos los sistemas no vitales del objetivo. Puede ser utilizado en dispositivos de vigilancia complejos (Ej: scanner de adn)"
+}
+},
+{
+"kind": "item",
+"cat": "Quickhacks · Control",
+"name": "Glitch I",
+"attrs": {
+"Precio": "1200",
+"RAM": "2",
+"PA": "4",
+"Duración": "2T",
+"Efecto": "Causa fallos en el funcionamiento de armas y equipamientos electrónicos. Aumenta la pifia en 10"
+}
+},
+{
+"kind": "item",
+"cat": "Quickhacks · Control",
+"name": "Glitch II",
+"attrs": {
+"Precio": "6000",
+"RAM": "4",
+"PA": "4",
+"Duración": "2T",
+"Efecto": "Causa fallos en el funcionamiento de armas y equipamientos electrónicos. Aumenta la pifia en 20"
+}
+},
+{
+"kind": "item",
+"cat": "Quickhacks · Control",
+"name": "Glitch III",
+"attrs": {
+"Precio": "60000",
+"RAM": "6",
+"PA": "4",
+"Duración": "2T",
+"Efecto": "Causa fallos en el funcionamiento de armas y equipamientos electrónicos. Aumenta la pifia en 30"
+}
+},
+{
+"kind": "item",
+"cat": "Quickhacks · Soporte",
+"name": "Rompehielos I",
+"attrs": {
+"Precio": "2000",
+"RAM": "2",
+"PA": "4",
+"Duración": "2T",
+"Efecto": "-10 resistencia al siguiente hack. Atravieza resistencia a hacks"
+}
+},
+{
+"kind": "item",
+"cat": "Quickhacks · Soporte",
+"name": "Rompehielos II",
+"attrs": {
+"Precio": "10000",
+"RAM": "4",
+"PA": "4",
+"Duración": "2T",
+"Efecto": "-20 resistencia al siguiente hack. Atravieza resistencia a hacks"
+}
+},
+{
+"kind": "item",
+"cat": "Quickhacks · Soporte",
+"name": "Rompehielos III",
+"attrs": {
+"Precio": "100000",
+"RAM": "6",
+"PA": "4",
+"Duración": "2T",
+"Efecto": "-30 resistencia al siguiente hack. Atravieza resistencia a hacks"
+}
+},
+{
+"kind": "item",
+"cat": "Quickhacks · Soporte",
+"name": "Overclock I",
+"attrs": {
+"Precio": "1500",
+"RAM": "4",
+"PA": "8",
+"Duración": "5T",
+"Efecto": "Proporciona bonificadores a los implantes afectados (1 implante)"
+}
+},
+{
+"kind": "item",
+"cat": "Quickhacks · Soporte",
+"name": "Overclock II",
+"attrs": {
+"Precio": "7500",
+"RAM": "6",
+"PA": "8",
+"Duración": "5T",
+"Efecto": "Proporciona bonificadores a los implantes afectado (2 implantes)"
+}
+},
+{
+"kind": "item",
+"cat": "Quickhacks · Soporte",
+"name": "Overclock III",
+"attrs": {
+"Precio": "75000",
+"RAM": "8",
+"PA": "8",
+"Duración": "5T",
+"Efecto": "Proporciona bonificadores a los implantes afectado (3 implantes)"
+}
+},
+{
+"kind": "item",
+"cat": "Quickhacks · Soporte",
+"name": "Icewall I",
+"attrs": {
+"Precio": "2000",
+"RAM": "1",
+"PA": "4",
+"Duración": "5T",
+"Efecto": "+10 Icewall"
+}
+},
+{
+"kind": "item",
+"cat": "Quickhacks · Soporte",
+"name": "Icewall II",
+"attrs": {
+"Precio": "10000",
+"RAM": "3",
+"PA": "4",
+"Duración": "5T",
+"Efecto": "+20 Icewall"
+}
+},
+{
+"kind": "item",
+"cat": "Quickhacks · Soporte",
+"name": "Icewall III",
+"attrs": {
+"Precio": "100000",
+"RAM": "5",
+"PA": "4",
+"Duración": "5T",
+"Efecto": "Cancela el siguiente hack entrante"
+}
+},
+{
+"kind": "item",
+"cat": "Quickhacks · Combate",
+"name": "Contagio I",
+"attrs": {
+"Precio": "2500",
+"RAM": "6",
+"PA": "10",
+"Duración": "3T",
+"Efecto": "2+1D6 de daño. Afecta a objetivos (máx. 3) a 10mts de distancia. Fortaleza 1/2"
+}
+},
+{
+"kind": "item",
+"cat": "Quickhacks · Combate",
+"name": "Contagio II",
+"attrs": {
+"Precio": "12500",
+"RAM": "8",
+"PA": "10",
+"Duración": "3T",
+"Efecto": "2+2D6 de daño. Afecta a objetivos (máx. 4) a 10mts de distancia. Fortaleza 1/2"
+}
+},
+{
+"kind": "item",
+"cat": "Quickhacks · Combate",
+"name": "Contagio III",
+"attrs": {
+"Precio": "62500",
+"RAM": "10",
+"PA": "10",
+"Duración": "3T",
+"Efecto": "2+3D6 de daño. Afecta a objetivos (máx. 5) a 10mts de distancia. Fortaleza 1/2"
+}
+},
+{
+"kind": "item",
+"cat": "Quickhacks · Combate",
+"name": "Cortocircuito I",
+"attrs": {
+"Precio": "2000",
+"RAM": "1",
+"PA": "5",
+"Duración": "INSTAN.",
+"Efecto": "10+2d6 daño por malfuncionamiento de implantes. (no-letal)"
+}
+},
+{
+"kind": "item",
+"cat": "Quickhacks · Combate",
+"name": "Cortocircuito II",
+"attrs": {
+"Precio": "10000",
+"RAM": "3",
+"PA": "5",
+"Duración": "INSTAN.",
+"Efecto": "10+2d8 daño por malfuncionamiento de implantes. (no-letal)"
+}
+},
+{
+"kind": "item",
+"cat": "Quickhacks · Combate",
+"name": "Cortocircuito III",
+"attrs": {
+"Precio": "50000",
+"RAM": "5",
+"PA": "5",
+"Duración": "INSTAN.",
+"Efecto": "10+2d10 daño por malfuncionamiento de implantes. (no-letal)"
+}
+},
+{
+"kind": "item",
+"cat": "Quickhacks · Combate",
+"name": "Sobrecarga I",
+"attrs": {
+"Precio": "2000",
+"RAM": "3",
+"PA": "6",
+"Duración": "2T",
+"Efecto": "5+1d8 daño por sobrecalentamiento de implantes."
+}
+},
+{
+"kind": "item",
+"cat": "Quickhacks · Combate",
+"name": "Sobrecarga II",
+"attrs": {
+"Precio": "10000",
+"RAM": "5",
+"PA": "7",
+"Duración": "2T",
+"Efecto": "5+2d8 daño por sobrecalentamiento de implantes."
+}
+},
+{
+"kind": "item",
+"cat": "Quickhacks · Combate",
+"name": "Sobrecarga III",
+"attrs": {
+"Precio": "50000",
+"RAM": "7",
+"PA": "8",
+"Duración": "2T",
+"Efecto": "5+3d8 daño por sobrecalentamiento de implantes."
+}
+},
+{
+"kind": "item",
+"cat": "Quickhacks · Combate",
+"name": "Quemadura De Sinapsis I",
+"attrs": {
+"Precio": "3000",
+"RAM": "6",
+"PA": "5",
+"Duración": "INSTAN.",
+"Efecto": "Causa daños dependiendo de la cantidad de RAM disponible. 10+(RAM máx.-RAM actual)x2"
+}
+},
+{
+"kind": "item",
+"cat": "Quickhacks · Combate",
+"name": "Quemadura De Sinapsis II",
+"attrs": {
+"Precio": "15000",
+"RAM": "8",
+"PA": "5",
+"Duración": "INSTAN.",
+"Efecto": "Causa daños dependiendo de la cantidad de RAM disponible. 10+(RAM máx.-RAM actual)x3"
+}
+},
+{
+"kind": "item",
+"cat": "Quickhacks · Combate",
+"name": "Quemadura De Sinapsis III",
+"attrs": {
+"Precio": "75000",
+"RAM": "10",
+"PA": "5",
+"Duración": "INSTAN.",
+"Efecto": "Causa daños dependiendo de la cantidad de RAM disponible. 10+(RAM máx.-RAM actual)x4"
+}
+},
+{
+"kind": "item",
+"cat": "Quickhacks · Subterfugio",
+"name": "Fantasma",
+"attrs": {
+"RAM": "10",
+"PA": "4",
+"Duración": "2T",
+"Efecto": "Impide que el objetivo puede detectar al usuario hasta que el mismo realice una acción ofensiva"
+}
+},
+{
+"kind": "item",
+"cat": "Quickhacks · Control",
+"name": "Cyberpsicosis",
+"attrs": {
+"RAM": "10",
+"PA": "8",
+"Duración": "5T",
+"Efecto": "Afecta la mente del objetivo y lo vuelve berserker sin distinguir aliados de enemigos"
+}
+},
+{
+"kind": "item",
+"cat": "Quickhacks · Soporte",
+"name": "Impulso",
+"attrs": {
+"RAM": "8",
+"PA": "4",
+"Duración": "4T",
+"Efecto": "+4 PA, +5 Crítico, +15 Defensas"
+}
+},
+{
+"kind": "item",
+"cat": "Quickhacks · Combate",
+"name": "Nuke",
+"attrs": {
+"RAM": "10",
+"PA": "8",
+"Duración": "INSTAN.",
+"Efecto": "Inflije 1d10 por cada punto de RAM utilizado en el ataque"
+}
 }
 ]
 };

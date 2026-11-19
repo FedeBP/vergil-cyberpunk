@@ -16,7 +16,7 @@ assert.strictEqual(sh.def.fortaleza.total, 30);
 assert.strictEqual(sh.def.voluntad.total, 35);
 const s = k => sh.sec[k].total;
 assert.deepStrictEqual([s('pa'), s('vitalidad'), s('potencia'), s('rango'), s('iniciativa'), s('curacion'), s('resolucion'), s('ph')],
-  [11, 70, 5, 25, 14, 2, 37, 15]);
+  [11, 70, 5, 25, 14, 2, 7, 15]);
 assert.deepStrictEqual([sh.points.ini.spent, sh.points.ini.avail, sh.points.attr.avail, sh.points.skill.avail, sh.points.skill.spent], [325, 320, 15, 100, 100]);
 assert.deepStrictEqual([sh.load.used, sh.load.max, sh.cdr], [93, 100, 50]);
 const ker = ch.implants.findIndex(i => i.name === 'Kerenzikov'), def = ch.implants.findIndex(i => i.name === 'Defenzikov');
@@ -34,9 +34,6 @@ const p = R.parseEffect('10 Icewall | +4 PA, D 3T, CD 6T, +10 Reflejos. +10 Punt
 assert.deepStrictEqual([p.dur, p.cd, p.mods.map(m => m.target)], [3, 6, ['icewall', 'pa', 'reflejos', 'puntería con armas smart'.normalize('NFD').replace(/[̀-ͯ]/g, '')]]);
 assert.strictEqual(R.parseEffect('+20 Fuerza, +1 a los PA cuando tus PGs bajen').mods.length, 0);
 assert.deepStrictEqual(R.unmetReqs('DES 70, Pelea: Agarres 40, Hab. 50', ch, R.compute(ch)), ['DES 70']);
-assert.deepStrictEqual([R.rollStatus(10, 0, 0), R.rollStatus(11, 0, 0)], ['exito', 'fallo'], '1–10 éxito automático');
-assert.deepStrictEqual([R.rollStatus(92, 100, 10), R.rollStatus(97, 100, 10), R.rollStatus(5, 50, 5), R.rollStatus(40, 50, 5), R.rollStatus(60, 50, 5)],
-  ['fallo', 'pifia', 'critico', 'exito', 'fallo']);
 
 // Catálogo completo del Excel: Defenzikov con su texto original, implantes-arma y límites por ranura.
 require('../catalog.js');
@@ -53,4 +50,8 @@ assert.strictEqual(R.normalize({...n2, implants: [{name: 'x', slot: 'Mano derech
 const old = R.blankCharacter(); old.skills = old.skills.filter(x => x.name !== 'Estilo');
 assert.deepStrictEqual(R.normalize(old).skills.at(-1), {name: 'Estilo', a: 'det', b: 'det', mod: 0, spec: false, custom: false}, 'fichas viejas reciben Estilo');
 assert.strictEqual(ch.skills.find(x => x.name === 'Estilo').custom, false, 'el Estilo personalizado pasa a ser el estándar');
+const burya = CATALOG.items.find(i => i.name === 'RT-46 Burya');
+assert.deepStrictEqual([burya.base, burya.dados, CATALOG.items.filter(i => i.kind === 'weapon').length], ['18/30', '3d6/d6', 49], 'armas: daño separado por modo');
+assert.ok(!CATALOG.items.some(i => i.name === 'Sistema Operativo'), 'la tabla de Overclock no es un quickhack');
+assert.deepStrictEqual(R.normalize({...R.blankCharacter(), items: undefined}).items, [], 'fichas viejas reciben inventario vacío');
 console.log('OK');

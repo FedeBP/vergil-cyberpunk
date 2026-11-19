@@ -1,7 +1,7 @@
 """Genera catalog.js a partir del Excel de campaña.
 
 Uso: python tools/build_catalog.py ruta/al/Cyberpunk.xlsx > catalog.js
-Hojas leídas: las de implantes (ver SHEETS), Chips y Méritos.
+Hojas leídas: las de implantes (ver SHEETS), Chips, Méritos, Armas de fuego, Consumibles, Mejoras y Quickhacks.
 Los méritos generales (imagen de la tabla) van abajo, a mano.
 """
 import json
@@ -154,6 +154,64 @@ def implants(wb):
     return out
 
 
+WEAPON_COLS = ['tipo', 'modo', 'calibre', 'rec', 'rango', 'precision', 'dano', 'efecto', 'pa', 'cap', 'marca']
+
+
+def split_damage(d):
+    """'18+3d6/30+d6' -> ('18/30', '3d6/d6'): daño base y dados por modo de disparo."""
+    parts = [re.match(r'\s*(\d+)\s*\+\s*(.+?)\s*$', m) for m in str(d).split('/')]
+    if not all(parts):
+        return str(d), ''
+    return '/'.join(m.group(1) for m in parts), '/'.join(m.group(2) for m in parts)
+
+
+def title(name):
+    """'PING II' -> 'Ping II' (title() dejaría 'Ping Ii')."""
+    return re.sub(r'\b[ivx]+\b', lambda m: m.group(0).upper(), str(name).strip().title(), flags=re.I)
+
+
+def clean(v):
+    return '' if v is None or str(v).strip() in ('-', '?') else str(v).strip()
+
+
+def items(wb):
+    out = []
+    ws, cat = wb['Armas de fuego'], None
+    for r in range(1, ws.max_row + 1):
+        row = [ws.cell(r, c).value for c in range(1, 13)]
+        if row[1] == 'TIPO':  # fila de encabezado de cada categoría
+            cat = str(row[0]).strip().capitalize()
+        elif row[0]:
+            w = dict(zip(WEAPON_COLS, (clean(v) for v in row[1:12])))
+            w['base'], w['dados'] = split_damage(w.pop('dano'))
+            out.append({'kind': 'weapon', 'cat': cat, 'name': str(row[0]).strip(), **w})
+    ws = wb['Consumibles']
+    for r in range(2, ws.max_row + 1):
+        price, name, app, dur, desc, side = (ws.cell(r, c).value for c in range(1, 7))
+        if name and name != 'MEDICAMENTOS':
+            out.append({'kind': 'item', 'cat': 'Consumibles', 'name': title(name), 'attrs': {k: clean(v) for k, v in
+                        [('Precio', price), ('Aplicación', app), ('Duración', dur), ('Efecto', desc), ('Efectos secundarios', side)] if clean(v)}})
+    ws, cat = wb['Mejoras'], None
+    for r in range(1, ws.max_row + 1):
+        a, b, c, d = (ws.cell(r, k).value for k in range(1, 5))
+        if b == 'EFECTO':
+            cat = 'Mejoras · ' + str(a).strip().capitalize()
+        elif b and ws.cell(r + 3, 1).value:  # el nombre está 3 filas debajo del efecto
+            out.append({'kind': 'item', 'cat': cat, 'name': str(ws.cell(r + 3, 1).value).strip(),
+                        'attrs': {k: clean(v) for k, v in [('Efecto', b), ('Precio', c), ('Marca', d)] if clean(v)}})
+    ws, cat = wb['Quickhacks'], None
+    for r in range(2, ws.max_row + 1):
+        typ, price, name, ram, pa, dur, desc = (ws.cell(r, k).value for k in range(1, 8))
+        if r >= 44:  # quickhacks legendarios: el tipo está en la columna B y no tienen precio
+            typ, price = price, None
+        if typ:
+            cat = 'Quickhacks · ' + str(typ).strip().capitalize()
+        if name and isinstance(ram, (int, float)):  # abajo hay una tabla de Overclock que no son quickhacks
+            out.append({'kind': 'item', 'cat': cat, 'name': title(name), 'attrs': {k: clean(v) for k, v in
+                        [('Precio', price), ('RAM', ram), ('PA', pa), ('Duración', dur), ('Efecto', desc)] if clean(v)}})
+    return out
+
+
 def merits(wb):
     rows = [l.split('|') for l in GENERAL_MERITS.strip().splitlines()]
     out = [{'lvl': int(a), 'name': b, 'req': c, 'max': int(d), 'desc': e} for a, b, c, d, e in rows]
@@ -167,8 +225,8 @@ def merits(wb):
 
 
 if __name__ == '__main__':
-    wb = openpyxl.load_workbook(sys.argv[1])
-    data = {'implants': implants(wb), 'merits': merits(wb)}
+    wb = openpyxl.load_workbook(sys.argv[1], data_only=True)  # precios calculados con fórmulas
+    data = {'implants': implants(wb), 'merits': merits(wb), 'items': items(wb)}
     sys.stdout.reconfigure(encoding='utf-8')
     print('// Generado por tools/build_catalog.py; no editar a mano.')
     print('globalThis.CATALOG=' + json.dumps(data, ensure_ascii=False, indent=0) + ';')

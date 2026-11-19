@@ -10,7 +10,8 @@ Ficha de personaje editable y offline (PWA) para la campaña de Cyberpunk. Cualq
 - **Defensas y secundarias** calculadas; el +/- muestra de dónde sale cada bono (tocá el valor).
 - **Implantes**: los 105 del Excel (todas las hojas de implantes y los chips) o personalizados. Límite por parte según la planilla: Cara 1, Corteza frontal 3, Sistema operativo 1, Sistema nervioso 3, Sistema circulatorio 3, Sistema integumentario 3, Esqueleto 3, Brazos 2, Manos 2, Piernas 1; chips sin límite. Cada efecto escrito como `+N Objetivo` se aplica solo; lo condicional queda como texto. `D 2T, CD 6T` vuelve al implante activable (sus bonos solo valen activo). `+N X al usar Kerenzikov` vale con ese implante activo.
 - **Méritos** del catálogo con rangos, requisitos y nivel mínimo.
-- **Combate**: turnos, duración y cooldown de implantes, recursos (vitalidad, suerte, resolución) y d100 (90–94 fallo, 95–100 pifia), con opción de combinar dos habilidades usando la menor (Estilo).
+- **Inventario**: armas, consumibles, mejoras y quickhacks del Excel, o armas y objetos propios (daño base, dados, daño elemental, PA, efecto al golpear, crítico +/- y el resto de columnas de armas).
+- **Combate**: turnos, duración y cooldown de implantes, recursos (vitalidad, suerte, resolución) y vistas desplegables de inventario y de atributos/habilidades. Las tiradas se hacen con dados reales.
 - Redondeo hacia abajo en todo, salvo cooldowns (hacia arriba).
 
 ## Fórmulas
@@ -27,7 +28,7 @@ Ficha de personaje editable y offline (PWA) para la campaña de Cyberpunk. Cualq
 | Rango | PER/2 |
 | Iniciativa | (DES+PER)/10 |
 | Vel. de curación | CON/20 |
-| Resolución | DET/2 |
+| Resolución | DET/10 |
 | Suerte | 50 |
 | Carga máx. | (FUE+CON)/2+20 |
 | Límite de implantes | DET+CON/2 |

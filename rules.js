@@ -22,7 +22,7 @@ const SECONDARY = [
   ['rango', 'Rango', 'PER/2', a => a.per / 2],
   ['iniciativa', 'Iniciativa', '(DES+PER)/10', a => (a.des + a.per) / 10],
   ['curacion', 'Vel. de curación', 'CON/20', a => a.con / 20],
-  ['resolucion', 'Resolución', 'DET/2', a => a.det / 2],
+  ['resolucion', 'Resolución', 'DET/10', a => a.det / 10],
   ['suerte', 'Suerte', '50', () => 50],
   ['ph', 'PH × NV', 'INT/5+5', a => a.int / 5 + 5],
   ['carga', 'Carga máx. (kg)', '(FUE+CON)/2+20', a => (a.fue + a.con) / 2 + 20],
@@ -160,14 +160,6 @@ function unmetReqs(req, ch, sh) {
   }).map(s => s.trim());
 }
 
-// d100: 90–94 fallo y 95–100 pifia siempre; crítico si sale ≤ crítico; 1–10 éxito automático; si no, éxito si ≤ umbral.
-function rollStatus(die, threshold, crit) {
-  if (die >= 95) return 'pifia';
-  if (die >= 90) return 'fallo';
-  if (die <= crit) return 'critico';
-  return die <= 10 || die <= threshold ? 'exito' : 'fallo';
-}
-
 function activate(ch, i) {
   const im = ch.implants[i], x = compute(ch).imps[i];
   if (!x.dur || im.on > 0 || im.cdLeft > 0) return false;
@@ -199,7 +191,7 @@ function blankCharacter() {
     attrs: Object.fromEntries(ATTRS.map(([k]) => [k, {ini: 50, lvl: 0}])),
     skills: DEFAULT_SKILLS.map(([name, a, b]) => ({name, a, b, mod: 0, spec: false, custom: false})),
     traits: [], merits: [], implants: [], armor: {normal: 0, termal: 0, electrica: 0, quimica: 0},
-    vitality: 0, luck: 50, resolution: 0, round: 1, inventory: '', quick: '', roleDetails: '', notes: ''};
+    items: [], vitality: 0, luck: 50, resolution: 0, round: 1, inventory: '', quick: '', roleDetails: '', notes: ''};
 }
 
 // Completa campos faltantes (personajes importados o de versiones viejas) sin pisar lo existente.
@@ -207,7 +199,7 @@ function normalize(ch) {
   const b = blankCharacter(), out = {...b, ...ch};
   out.attrs = Object.fromEntries(ATTRS.map(([k]) => [k, {...b.attrs[k], ...(ch.attrs?.[k] || {})}]));
   out.armor = {...b.armor, ...(ch.armor || {})};
-  for (const k of ['skills', 'traits', 'merits', 'implants']) if (!Array.isArray(out[k])) out[k] = b[k];
+  for (const k of ['skills', 'traits', 'merits', 'implants', 'items']) if (!Array.isArray(out[k])) out[k] = b[k];
   // Fichas viejas: agrega las habilidades por defecto que falten (ej. Estilo) y convierte la versión personalizada en la estándar.
   for (const [name, a, bb] of DEFAULT_SKILLS) {
     const s = out.skills.find(x => norm(x.name) === norm(name));
@@ -220,5 +212,5 @@ function normalize(ch) {
 }
 
 globalThis.Rules = {F, norm, LEVEL_POINTS, TARGETS, SLOT_LIMITS, slotUse, slotFull, ATTRS, DEFAULT_SKILLS, DEFENSES, SECONDARY, RD, SLOTS, parseEffect, implantInfo,
-  compute, unmetReqs, rollStatus, activate, nextTurn, blankCharacter, normalize};
+  compute, unmetReqs, activate, nextTurn, blankCharacter, normalize};
 })();
