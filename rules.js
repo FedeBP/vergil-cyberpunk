@@ -91,8 +91,12 @@ function compute(ch) {
   const add = (t, v, src) => (mods[t] ??= []).push({v, src});
   const active = name => ch.implants.some(i => norm(i.name) === norm(name) && i.on > 0);
   let cdr = 0, loadPct = 0;
-  const imps = ch.implants.map(im => {
+  // Par de implantes iguales (ambos brazos, manos o piernas): sus efectos cuentan una vez, los del de tier más alto.
+  const pairOf = (im, k) => PAIRED.includes(im.slot) ? im.slot + '|' + norm(im.name) : k, best = {};
+  ch.implants.forEach((im, k) => { const key = pairOf(im, k); if (best[key] == null || im.tier > ch.implants[best[key]].tier) best[key] = k; });
+  const imps = ch.implants.map((im, k) => {
     const x = implantInfo(im);
+    if (best[pairOf(im, k)] !== k) return x;
     cdr += x.cdr; loadPct += x.loadPct;
     for (const m of x.mods) {
       const t = resolveTarget(m.target, ch.skills);
@@ -154,10 +158,8 @@ function compute(ch) {
     // Carga = costo de humanidad de los implantes (al tier instalado, con reducciones tipo Chrome Compressor) + carga por situaciones.
     load: (() => {
       // El mismo implante en ambos brazos, manos o piernas es un par: su costo cuenta una vez (el del tier más alto).
-      const cost = {};
-      ch.implants.forEach((i, k) => { const key = PAIRED.includes(i.slot) ? i.slot + '|' + norm(i.name) : k;
-        cost[key] = Math.max(cost[key] || 0, +i.costs?.[i.tier - 1] || 0); });
-      const implants = F(Object.values(cost).reduce((t, v) => t + v, 0) * Math.max(0, 1 - loadPct / 100));
+      const cost = Object.values(best).reduce((t, k) => t + (+ch.implants[k].costs?.[ch.implants[k].tier - 1] || 0), 0);
+      const implants = F(cost * Math.max(0, 1 - loadPct / 100));
       return {implants, strain: +ch.strain || 0, used: implants + (+ch.strain || 0), max: sec.implantes.total, pct: loadPct};
     })(),
   };
