@@ -10,7 +10,6 @@ let db;
 
 // ---------- Datos ----------
 const catMerit = name => C.merits.find(m => R.norm(m.name) === R.norm(name));
-const catImplant = (name, tier) => { const m = C.implants.find(x => x.name === name); return m && {...clone(m), tier: tier || m.minTier, on: 0, cdLeft: 0}; };
 const ch = () => db.chars[db.current];
 const hasMerit = (name, c = ch()) => c.merits.some(m => R.norm(m.name) === R.norm(name));
 
@@ -32,9 +31,6 @@ function fromV2(o) {
   for (const s of c.skills) { const id = R.norm(s.name); s.mod = +o.skillMods?.[id] || 0; s.spec = !!o.specialties?.[id]; }
   c.traits = (o.traits || []).map(([text, skill]) => ({text, skill: String(skill).split(' / ')[0]}));
   c.merits = (o.merits || []).map(m => ({...(catMerit(m.name) || {name: m.name, lvl: 1, req: '-', max: 1, desc: m.effect || ''}), ranks: 1}));
-  const names = {kiroshi: 'Kiroshi Clarividente', boost: 'Kerenzikov Boost System', newton: 'Newton Module', kerenzikov: 'Kerenzikov',
-    mirror: 'Zetatech Sandevistan (Mirror)', defenzikov: 'Defenzikov'};
-  c.implants = Object.entries(o.implants || {}).filter(([, t]) => t > 0).map(([id, t]) => catImplant(names[id], t)).filter(Boolean);
   const a = o.armors || {};
   c.armor = {normal: a.normal || 0, termal: a.thermal || 0, electrica: a.electric || 0, quimica: a.chemical || 0};
   return c;
@@ -56,7 +52,7 @@ function toast(msg, ms = 2600) { const el = $('toast'); el.textContent = msg; el
 
 // ---------- Helpers de vista ----------
 const LABELS = Object.fromEntries([...R.ATTRS.map(a => [a[0], a[1]]), ...R.DEFENSES.map(d => [d[0], d[1]]),
-  ...R.SECONDARY.map(s => [s[0], s[1]]), ...R.RD.map(r => ['rd.' + r[0], 'RD ' + r[1]]), ['crit', 'Crítico'], ['pts', 'Puntos de característica']]);
+  ...R.SECONDARY.map(s => [s[0], s[1]]), ...R.RD.map(r => ['rd.' + r[0], 'RD ' + r[1]]), ['rd.all', 'RD general'], ['crit', 'Crítico'], ['pts', 'Puntos de característica']]);
 const heading = (num, title, sub = '') => `<div class="heading"><div><div class="section-number">${num} // NIGHT CITY</div><h2>${title}</h2>${sub ? `<p>${sub}</p>` : ''}</div></div>`;
 const why = p => esc(p.src.map(s => `${s.src} ${sg(s.v)}`).join('\n'));
 const tile = (label, p, extra = '') => `<div class="tile ${p.mod ? 'emph' : ''}" data-a="why" data-why="${why(p)}" title="${why(p)}"><div class="topline">${label}</div><strong class="big mono">${p.total}</strong><div class="below">base ${p.base} · ${sg(p.mod)}${extra}</div></div>`;
@@ -65,17 +61,19 @@ const inp = (path, val, type = 'number', more = '') => `<input data-f="${path}" 
 const field = (label, path, val, type = 'text', more = '') => `<div class="field"><label>${label}</label>${inp(path, val, type, more)}</div>`;
 const area = (label, path, val, ph = '') => `<div class="field span"><label>${label}</label><textarea data-f="${path}" placeholder="${ph}">${esc(val)}</textarea></div>`;
 const attrSelect = (path, val) => `<select data-f="${path}">${R.ATTRS.map(([k, , ab]) => `<option value="${k}" ${k === val ? 'selected' : ''}>${ab}</option>`).join('')}</select>`;
-// Valores fijos ("30 Icewall"): solo cuenta el del tier más alto.
+// Si un efecto se repite en varios tiers, solo cuenta (y se muestra) el del tier más alto.
 const autoChips = (texts, c) => {
   const mods = texts.flatMap(t => R.parseEffect(t).mods);
-  return mods.filter((m, i) => !m.set || !mods.slice(i + 1).some(o => o.set && o.target === m.target)).map(m => {
+  return mods.filter((m, i) => !mods.slice(i + 1).some(o => o.target === m.target && o.when === m.when && o.set === m.set)).map(m => {
     const label = labelFor(m.target, c);
-    return label && `${m.set ? m.v : sg(m.v)} ${label}${m.when ? ' (con ' + m.when + ')' : ''}`;
+    return label && m.v > 0 && `${m.set ? m.v + (m.int10 ? '+INT/10' : '') : sg(m.v)} ${label}${m.when ? ' (con ' + m.when + ')' : ''}`;
   }).filter(Boolean);
 };
 function labelFor(raw, c) {
   const key = R.TARGETS[raw];
   if (key) return key === 'dur' ? 'turno de duración' : LABELS[key];
+  const crit = raw.startsWith('critico ') && c.skills.find(x => R.norm(x.name) === raw.slice(8));
+  if (crit) return 'Crítico ' + crit.name;
   const s = c.skills.find(x => R.norm(x.name) === raw);
   return s ? s.name : null;
 }
@@ -98,7 +96,7 @@ function renderResumen(c, sh) {
   if (sh.points.skill.spent > sh.points.skill.avail) warn.push(`Habilidades: ${sh.points.skill.spent} PH asignados de ${sh.points.skill.avail}.`);
   if (sh.merits.count > sh.merits.max) warn.push(`Méritos: ${sh.merits.count} de ${sh.merits.max} permitidos.`);
   for (const slot of R.SLOTS) if (R.slotUse(c, slot) > R.SLOT_LIMITS[slot]) warn.push(`${slot}: ${R.slotUse(c, slot)} implantes, el máximo es ${R.SLOT_LIMITS[slot]}.`);
-  if (sh.load.used > sh.load.max) warn.push(`Implantes: carga ${sh.load.used} supera el límite ${sh.load.max}.`);
+  if (sh.load.used > sh.load.max) warn.push(`Carga ${sh.load.used} supera la humanidad (${sh.load.max}): riesgo de cyberpsicosis.`);
   return heading('01', 'Panel principal', 'Tocá un valor para ver de dónde sale su +/-.') +
     warn.map(w => `<div class="hint-bubble warn">${esc(w)}</div>`).join('') +
     `<div class="grid four">${plain('Vitalidad', `${c.vitality}/${sh.sec.vitalidad.total}`, 'actual / máx.', 'emph')}${tile('PA', sh.sec.pa)}${plain('Suerte', `${c.luck}/${sh.sec.suerte.total}`, 'recurso')}${plain('Resolución', `${c.resolution}/${sh.sec.resolucion.total}`, 'recurso')}</div>` +
@@ -107,7 +105,7 @@ function renderResumen(c, sh) {
     `<div class="grid four" style="margin-top:10px">${R.RD.map(([k, l]) => tile('RD ' + l, sh.rd[k])).join('')}</div>` +
     heading('04', 'Características secundarias') +
     `<div class="grid three">${R.SECONDARY.filter(s => !['pa', 'vitalidad', 'suerte', 'resolucion'].includes(s[0]) && (!['ram', 'icewall'].includes(s[0]) || sh.sec[s[0]].total))
-      .map(([k, l, f]) => tile(l, sh.sec[k], `<br>${f}`)).join('')}${plain('Carga de implantes', `${sh.load.used}/${sh.load.max}`, 'DET+CON/2', sh.load.used > sh.load.max ? 'bad' : '')}</div>`;
+      .map(([k, l, f]) => tile(l, sh.sec[k], `<br>${f}`)).join('')}${plain('Carga / Humanidad', `${sh.load.used}/${sh.load.max}`, 'CON/2+DET+NV×2', sh.load.used > sh.load.max ? 'bad' : '')}</div>`;
 }
 
 const ab = k => R.ATTRS.find(a => a[0] === k)[2];
@@ -146,29 +144,30 @@ function renderCombat(c, sh) {
     heading('03', 'Recursos') + `<div class="grid two">
       ${res('vitality', 'Vitalidad', sh.sec.vitalidad.total, [[-10], [-1], [1], [10]], `Curación ${sh.sec.curacion.total} por turno`)}
       ${res('luck', 'Suerte', sh.sec.suerte.total, [[-half('Tocado por la fortuna', 5), `Retirar fallo −${half('Tocado por la fortuna', 5)}`], [-half('Tocado por la fortuna', 10), `Retirar pifia −${half('Tocado por la fortuna', 10)}`], [1], [5]], 'Se regenera aceptando pifias')}
+      <div class="resource-card"><h3>Carga / Humanidad</h3><div class="number ${sh.load.used > sh.load.max ? 'red' : ''}">${sh.load.used} <span class="muted small">/ ${sh.load.max}</span></div><div class="mini-bar"><div class="mini-fill" style="width:${Math.min(100, sh.load.used / Math.max(1, sh.load.max) * 100)}%;${sh.load.used > sh.load.max ? 'background:var(--red)' : ''}"></div></div><div class="stat-footer">Implantes ${sh.load.implants} + situaciones ${sh.load.strain}</div><div class="resource-buttons"><button class="btn tiny" data-a="res" data-id="strain" data-v="-1">−1</button><button class="btn tiny" data-a="res" data-id="strain" data-v="1">+1</button><button class="btn tiny" data-a="res" data-id="strain" data-v="5">+5</button><button class="btn tiny ghost" data-a="rest">Descanso</button></div></div>
       ${res('resolution', 'Resolución', sh.sec.resolucion.total, [[-half('Fuerza de voluntad', 5), `Éxito automático −${half('Fuerza de voluntad', 5)}`], [1]], 'Se recupera cumpliendo el rol del personaje')}
       <div class="resource-card"><h3>Resistencias</h3>${R.RD.map(([k, l]) => `<div class="readonly-stat"><strong>${l}</strong><b>${sh.rd[k].total}</b></div>`).join('')}</div></div>`;
 }
 
 // Tiers con texto (un chip solo tiene T1); un implante personalizado vacío muestra los 6.
-const tierList = im => { const l = [1, 2, 3, 4, 5, 6].filter(t => im.tiers[t - 1]); return l.length ? l : [1, 2, 3, 4, 5, 6]; };
+const tierList = im => { const l = [1, 2, 3].filter(t => im.tiers[t - 1]); return l.length ? l : [1, 2, 3]; };
 const slotLabel = (c, slot) => R.SLOT_LIMITS[slot] === Infinity ? '' : ` (${R.slotUse(c, slot)}/${R.SLOT_LIMITS[slot]})`;
 function renderImplants(c, sh) {
   const groups = R.SLOTS.map(slot => [slot, C.implants.filter(i => i.slot === slot)]).filter(([, l]) => l.length);
   return heading('01', 'Implantes', 'Los efectos “+N Algo” se aplican solos al +/- que corresponda. Lo condicional queda como texto.') +
-    `<div class="grid four">${plain('Carga', `${sh.load.used}/${sh.load.max}`, 'DET + CON/2', sh.load.used > sh.load.max ? 'bad' : 'emph')}${plain('Enfriamiento', `−${sh.cdr}%`, 'cooldowns')}${tile('RAM', sh.sec.ram)}${tile('Icewall', sh.sec.icewall)}</div>
+    `<div class="grid four">${plain('Carga / Humanidad', `${sh.load.used}/${sh.load.max}`, `implantes ${sh.load.implants}${sh.load.pct ? ` (−${sh.load.pct}%)` : ''} + situaciones ${sh.load.strain}`, sh.load.used > sh.load.max ? 'bad' : 'emph')}${plain('Enfriamiento', `−${sh.cdr}%`, 'cooldowns')}${tile('RAM', sh.sec.ram)}${tile('ICE', sh.sec.icewall)}</div>
     <div class="mini-bar" style="height:8px;margin:13px 0"><div class="mini-fill" style="width:${Math.min(100, sh.load.used / Math.max(1, sh.load.max) * 100)}%;background:${sh.load.used > sh.load.max ? 'var(--red)' : 'var(--yellow)'}"></div></div>
     <div class="card"><label>Instalar implante</label><div class="select-roll"><select id="addImplant"><option value="">Elegí del catálogo…</option>${groups.map(([slot, l]) => `<optgroup label="${esc(slot)}${slotLabel(c, slot)}">${l.map(i => `<option value="${C.implants.indexOf(i)}" ${R.slotFull(c, slot) ? 'disabled' : ''}>${esc(i.name)}</option>`).join('')}</optgroup>`).join('')}<option value="*">Personalizado…</option></select><button class="btn primary" data-a="addImplant">Instalar</button></div></div>` +
     c.implants.map((im, i) => {
       const x = sh.imps[i], edit = ui.edit === i, chips = autoChips(im.tiers.slice(0, im.tier).filter(Boolean), c);
-      const price = im.price && im.tier < 6 ? im.price * 2 ** (im.tier + 1 - im.minTier) : 0;
-      return `<div class="implant"><div class="implant-top"><div><div class="eyebrow" style="color:var(--muted);font-size:9px">${esc(im.slot).toUpperCase()}</div><h3>${esc(im.name)}</h3>${im.desc ? `<div class="help">${esc(im.desc)}</div>` : ''}<small>Tier ${im.tier} · Carga ${im.tier >= 6 ? im.load6 : im.load}${x.dur ? ` · D ${x.dur}T / CD ${x.cdEff}T` : ''}</small></div><div class="actions"><button class="btn tiny" data-a="editImp" data-i="${i}">${edit ? 'Listo' : 'Editar'}</button><button class="btn tiny danger" data-a="delImp" data-i="${i}">Quitar</button></div></div>
+      const price = im.prices?.[im.tier] || 0;
+      return `<div class="implant"><div class="implant-top"><div><div class="eyebrow" style="color:var(--muted);font-size:9px">${esc(im.slot).toUpperCase()}</div><h3>${esc(im.name)}</h3>${im.desc ? `<div class="help">${esc(im.desc)}</div>` : ''}<small>Tier ${im.tier} · Humanidad ${im.costs[im.tier - 1]}${x.dur ? ` · D ${x.dur}T / CD ${x.cdEff}T` : ''}</small></div><div class="actions"><button class="btn tiny" data-a="editImp" data-i="${i}">${edit ? 'Listo' : 'Editar'}</button><button class="btn tiny danger" data-a="delImp" data-i="${i}">Quitar</button></div></div>
         <div class="tier-wrap">${tierList(im).map(t => `<button class="tier-dot ${t === im.tier ? 'selected' : t < im.tier ? 'past' : ''}" data-a="tier" data-i="${i}" data-v="${t}" aria-label="Tier ${t}">${t}</button>`).join('')}</div>
         ${chips.length ? `<div class="chips">${chips.map(t => `<span class="pill on">${esc(t)}</span>`).join('')}${x.dur ? '<span class="pill">solo activo</span>' : ''}</div>` : ''}
-        ${edit ? `<div class="field-grid" style="margin-top:12px">${field('Nombre', `implants.${i}.name`, im.name)}<div class="field"><label>Ranura</label><select data-f="implants.${i}.slot">${R.SLOTS.map(s => `<option ${s === im.slot ? 'selected' : R.slotFull(c, s) ? 'disabled' : ''}>${s}${slotLabel(c, s)}</option>`).join('')}</select></div>${field('Carga T1–T5', `implants.${i}.load`, im.load, 'number')}${field('Carga T6', `implants.${i}.load6`, im.load6, 'number')}
+        ${edit ? `<div class="field-grid" style="margin-top:12px">${field('Nombre', `implants.${i}.name`, im.name)}<div class="field"><label>Ranura</label><select data-f="implants.${i}.slot">${R.SLOTS.map(s => `<option ${s === im.slot ? 'selected' : R.slotFull(c, s) ? 'disabled' : ''}>${s}${slotLabel(c, s)}</option>`).join('')}</select></div>${im.costs.map((v, k) => field(`Humanidad T${k + 1}`, `implants.${i}.costs.${k}`, v, 'number')).join('')}
           ${im.tiers.map((t, k) => area(`Tier ${k + 1}`, `implants.${i}.tiers.${k}`, t || '', 'Ej: +10 Reflejos, D 2T, CD 6T')).join('')}</div>
-          <p class="help">Se aplica solo lo escrito como “+N Objetivo” (Percepción, Reflejos, PA, RD, Pelea…). “D 2T, CD 6T” lo vuelve activable: sus bonos valen solo activo. “+N X al usar Kerenzikov” vale con ese implante activo. “N RAM” sin signo fija un valor base.</p>`
-        : `<ul class="effect-list">${im.tiers.map((t, k) => k < im.tier && t ? `<li><strong>T${k + 1}:</strong> ${esc(t)}</li>` : '').join('')}</ul>${im.tier < 6 && im.tiers[im.tier] ? `<div class="next-tier"><b>Tier ${im.tier + 1}:</b> ${esc(im.tiers[im.tier])}${price ? ` · <span class="yellow">${price.toLocaleString('es-AR')} €$</span>` : ''}</div>` : ''}`}</div>`;
+          <p class="help">Se aplica solo lo escrito como “+N Objetivo” (Percepción, Reflejos, PA, RD, Pelea…). “D 2T, CD 6T” lo vuelve activable: sus bonos valen solo activo. “+N X al usar Kerenzikov” vale con ese implante activo. “RAM N+INT/10” fija la RAM base. Si un efecto se repite en varios tiers, vale el más alto.</p>`
+        : `<ul class="effect-list">${im.tiers.map((t, k) => k < im.tier && t ? `<li><strong>T${k + 1}:</strong> ${esc(t)}</li>` : '').join('')}</ul>${im.tier < 3 && im.tiers[im.tier] ? `<div class="next-tier"><b>Tier ${im.tier + 1}:</b> ${esc(im.tiers[im.tier])}${price ? ` · <span class="yellow">${price.toLocaleString('es-AR')} €$</span>` : ''}</div>` : ''}`}</div>`;
     }).join('');
 }
 
@@ -288,6 +287,7 @@ function setPath(path, el) {
 function clampResources(c = ch()) {
   const sh = R.compute(c), lim = (v, max, min = 0) => Math.max(min, Math.min(max, Math.floor(+v) || 0));
   c.vitality = lim(c.vitality, sh.sec.vitalidad.total);
+  c.strain = lim(c.strain, Infinity);
   c.luck = lim(c.luck, sh.sec.suerte.total, hasMerit('Trébol de 4 hojas', c) ? Math.min(5, sh.sec.suerte.total) : 0);
   c.resolution = lim(c.resolution, sh.sec.resolucion.total, hasMerit('Rendirse, jamás', c) ? Math.min(5, sh.sec.resolucion.total) : 0);
 }
@@ -313,6 +313,7 @@ const ACTIONS = {
   resetCombat() { if (!confirm('¿Reiniciar turno, efectos activos y cooldowns?')) return false; ch().round = 1; ch().implants.forEach(i => { i.on = 0; i.cdLeft = 0; }); },
   activate(el) { R.activate(ch(), +el.dataset.i); },
   cd(el) { const im = ch().implants[+el.dataset.i]; im.cdLeft = Math.max(0, im.cdLeft + +el.dataset.v); },
+  rest() { ch().strain = 0; toast('Carga por situaciones en 0'); },
   res(el) { ch()[el.dataset.id] += +el.dataset.v; clampResources(); },
   addItem() {
     const v = $('addItem').value;
@@ -333,7 +334,7 @@ const ACTIONS = {
   addImplant() {
     const v = $('addImplant').value;
     if (!v) return false;
-    const im = v === '*' ? {name: 'Implante personalizado', slot: R.SLOTS.find(s => !R.slotFull(ch(), s)), minTier: 1, tier: 1, load: 0, load6: 0, price: null, desc: '', tiers: Array(6).fill(null), on: 0, cdLeft: 0}
+    const im = v === '*' ? {v: 2, name: 'Implante personalizado', slot: R.SLOTS.find(s => !R.slotFull(ch(), s)), minTier: 1, tier: 1, costs: [0, 0, 0], prices: [null, null, null], desc: '', tiers: [null, null, null], on: 0, cdLeft: 0}
       : {...clone(C.implants[+v]), tier: C.implants[+v].minTier, on: 0, cdLeft: 0};
     if (R.slotFull(ch(), im.slot)) { toast(`${im.slot}: ya tenés el máximo (${R.SLOT_LIMITS[im.slot]})`); return false; }
     ch().implants.push(im);

@@ -6,52 +6,52 @@ const ch = R.normalize(require('./vergil.json').character);
 const skill = n => R.compute(ch).skills[ch.skills.findIndex(s => s.name === n)];
 
 let sh = R.compute(ch);
-assert.deepStrictEqual([sh.attrs.per.base, sh.attrs.per.total], [40, 50], 'Kiroshi suma +10 PER en +/-');
-const exp = {Investigación: [28, 30, 3], Pericia: [32, 32, 3], Conocimiento: [30, 40, 4], Social: [35, 45, 4],
-  Atletismo: [32, 50, 5], Sigilo: [30, 40, 4], Pelea: [32, 100, 10], Puntería: [30, 82, 8], Informática: [32, 32, 3], Estilo: [40, 90, 9]};
+assert.strictEqual(ch.implants.length, 0, 'los implantes del sistema viejo (6 tiers) se quitan');
+assert.strictEqual(sh.attrs.per.total, 40);
+const exp = {Investigación: [28, 28, 2], Pericia: [32, 32, 3], Conocimiento: [30, 40, 4], Social: [35, 45, 4],
+  Atletismo: [32, 50, 5], Sigilo: [30, 38, 3], Pelea: [32, 100, 10], Puntería: [30, 80, 8], Tecnología: [32, 32, 3], Estilo: [40, 90, 9]};
 for (const [n, [base, total, crit]] of Object.entries(exp)) assert.deepStrictEqual([skill(n).base, skill(n).total, skill(n).crit], [base, total, crit], n);
-assert.deepStrictEqual([sh.def.evasion.base, sh.def.evasion.total], [10, 31]);
-assert.deepStrictEqual([sh.def.reflejos.base, sh.def.reflejos.total], [30, 42]);
-assert.strictEqual(sh.def.fortaleza.total, 30);
-assert.strictEqual(sh.def.voluntad.total, 35);
+assert.ok(!ch.skills.some(x => x.name === 'Informática'), 'Tecnología reemplaza a Informática');
+assert.deepStrictEqual([sh.def.evasion.total, sh.def.reflejos.total, sh.def.fortaleza.total, sh.def.voluntad.total], [20, 30, 30, 35]);
 const s = k => sh.sec[k].total;
 assert.deepStrictEqual([s('pa'), s('vitalidad'), s('potencia'), s('rango'), s('iniciativa'), s('curacion'), s('resolucion'), s('ph')],
-  [11, 70, 5, 25, 14, 2, 7, 15]);
+  [11, 70, 5, 20, 13, 2, 7, 15]);
 assert.deepStrictEqual([sh.points.ini.spent, sh.points.ini.avail, sh.points.attr.avail, sh.points.skill.avail, sh.points.skill.spent], [325, 320, 15, 100, 100]);
-assert.deepStrictEqual([sh.load.used, sh.load.max, sh.cdr], [93, 100, 50]);
-const ker = ch.implants.findIndex(i => i.name === 'Kerenzikov'), def = ch.implants.findIndex(i => i.name === 'Defenzikov');
-assert.deepStrictEqual([sh.imps[ker].dur, sh.imps[ker].cdEff], [1, 2], 'Boost T4 sin +1 duración; Newton -50% CD redondeado arriba');
-assert.strictEqual(sh.imps[4].cdEff, 4);
+assert.deepStrictEqual([sh.load.used, sh.load.max], [0, 108], 'humanidad = CON/2 + DET + NV×2');
 
+// Implantes del Excel v9: 3 tiers, costo de humanidad total al tier, el mismo efecto en varios tiers vale el más alto.
+require('../catalog.js');
+const cat = (name, tier) => ({...JSON.parse(JSON.stringify(CATALOG.implants.find(i => i.name === name))), tier, on: 0, cdLeft: 0});
+ch.implants = [cat('Kiroshi Clarividente', 3), cat('Kerenzikov', 3), cat('Newton Module', 3), cat('Chrome Compressor', 1), cat('Netwatch Netdriver', 1)];
+ch.strain = 5;
+sh = R.compute(ch);
+assert.strictEqual(sh.def.evasion.total, 50, 'Clarividente T3: +30 Evasión reemplaza al +10 del T1');
+assert.deepStrictEqual([sh.load.implants, sh.load.strain, sh.load.used], [21, 5, 26], '(12+6+12+6+6) −50% Chrome Compressor + situaciones');
+assert.deepStrictEqual([s('ram'), s('ramregen')], [10, 1], 'RAM 5+INT/10');
+const ker = ch.implants.findIndex(i => i.name === 'Kerenzikov');
+assert.deepStrictEqual([sh.imps[ker].dur, sh.imps[ker].cdEff, sh.cdr], [1, 5, 25], 'Newton T3 −25%: CD 6 → 5 (redondea arriba)');
+assert.deepStrictEqual([s('pa'), skill('Puntería').crit], [11, 8], 'Kerenzikov inactivo no suma');
 assert.ok(R.activate(ch, ker));
 sh = R.compute(ch);
-assert.deepStrictEqual([s('pa'), sh.def.reflejos.total, sh.def.evasion.total], [15, 67, 41], 'Kerenzikov activo');
+assert.deepStrictEqual([s('pa'), skill('Puntería').crit], [15, 11], 'Kerenzikov activo: +4 PA, +3 Crítico Puntería');
 R.nextTurn(ch);
-assert.deepStrictEqual([ch.implants[ker].on, ch.implants[ker].cdLeft, ch.implants[def].on], [0, 2, 1], 'termina y dispara Defenzikov');
-assert.deepStrictEqual([R.compute(ch).rd.normal.total, R.compute(ch).rd.termal.total], [20, 0], 'RD sin tipo es RD normal');
-
-const p = R.parseEffect('10 Icewall | +4 PA, D 3T, CD 6T, +10 Reflejos. +10 Puntería con armas SMART');
-assert.deepStrictEqual([p.dur, p.cd, p.mods.map(m => m.target)], [3, 6, ['icewall', 'pa', 'reflejos', 'puntería con armas smart'.normalize('NFD').replace(/[̀-ͯ]/g, '')]]);
+assert.deepStrictEqual([ch.implants[ker].on, ch.implants[ker].cdLeft], [0, 5]);
+const n2 = R.normalize(R.blankCharacter());
+n2.implants = [cat('Brazos Moore Tech', 2), cat('Mantis Arasaka', 2), cat('Mamba Negra', 3), cat('Armadura Subdermal', 1), cat('Editor De Dolor', 1)];
+const s2 = R.compute(n2);
+assert.deepStrictEqual([s2.attrs.fue.total, s2.def.fortaleza.total, s2.rd.normal.total, s2.rd.quimica.total, s2.rd.termal.total], [70, 34, 20, 55, 5],
+  '"-20 Fortaleza"/"-15 RD" son para el enemigo; RD General suma a todas; Mamba Negra T3 = 50');
+assert.ok(R.slotFull(n2, 'Brazos') && !R.slotFull(n2, 'Otros'));
+assert.deepStrictEqual(R.parseEffect('-10% Enfriamiento | -50% Carga de implantes').cdr, 10);
 assert.strictEqual(R.parseEffect('+20 Fuerza, +1 a los PA cuando tus PGs bajen').mods.length, 0);
 assert.deepStrictEqual(R.unmetReqs('DES 70, Pelea: Agarres 40, Hab. 50', ch, R.compute(ch)), ['DES 70']);
-
-// Catálogo completo del Excel: Defenzikov con su texto original, implantes-arma y límites por ranura.
-require('../catalog.js');
-const cat = name => ({...JSON.parse(JSON.stringify(CATALOG.implants.find(i => i.name === name))), on: 0, cdLeft: 0});
-const d = R.parseEffect(cat('Defenzikov').tiers[0]);
-assert.deepStrictEqual([d.trigger, d.dur, d.cd, d.mods.map(m => m.target)], ['kerenzikov', 1, 3, ['rd']]);
-const n2 = R.normalize(R.blankCharacter());
-n2.implants = [{...cat('Brazos Gorila - Arasaka'), tier: 1}, {...cat('Hojas Mantis Arasaka'), tier: 2}, {...cat('Adaptador Celular'), tier: 1}];
-const s2 = R.compute(n2);
-assert.deepStrictEqual([s2.sec.pa.total, s2.attrs.fue.total, s2.sec.potencia.total, s2.rd.normal.total, s2.sec.vitalidad.total], [10, 60, 8, 0, 75],
-  '"5 PA" es coste de ataque, "-15 RD" es perforación, "+10 Vitalidad máxima" suma');
-assert.ok(R.slotFull(n2, 'Brazos') && !R.slotFull(n2, 'Sistema integumentario') && !R.slotFull(n2, 'Chips'));
-assert.strictEqual(R.normalize({...n2, implants: [{name: 'x', slot: 'Mano derecha', tiers: []}]}).implants[0].slot, 'Manos');
 const old = R.blankCharacter(); old.skills = old.skills.filter(x => x.name !== 'Estilo');
 assert.deepStrictEqual(R.normalize(old).skills.at(-1), {name: 'Estilo', a: 'det', b: 'det', mod: 0, spec: false, custom: false}, 'fichas viejas reciben Estilo');
 assert.strictEqual(ch.skills.find(x => x.name === 'Estilo').custom, false, 'el Estilo personalizado pasa a ser el estándar');
 const burya = CATALOG.items.find(i => i.name === 'RT-46 Burya');
-assert.deepStrictEqual([burya.base, burya.dados, CATALOG.items.filter(i => i.kind === 'weapon').length], ['18/30', '3d6/d6', 49], 'armas: daño separado por modo');
+assert.deepStrictEqual([burya.base, burya.dados], ['18/34', '3d8/d8'], 'armas: daño separado por modo');
+const ika = CATALOG.items.find(i => i.name === 'Ikazuchi');
+assert.deepStrictEqual([ika.base, ika.dados, ika.elem, ika.crit], ['POT', 'D6', [{dados: '2D6', tipo: 'Eléctrico'}], 5], 'cuerpo a cuerpo con daño eléctrico');
 assert.ok(!CATALOG.items.some(i => i.name === 'Sistema Operativo'), 'la tabla de Overclock no es un quickhack');
 assert.deepStrictEqual(R.normalize({...R.blankCharacter(), items: undefined}).items, [], 'fichas viejas reciben inventario vacío');
 console.log('OK');

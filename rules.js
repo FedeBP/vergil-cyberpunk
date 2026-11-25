@@ -9,7 +9,7 @@ const ATTRS = [['fue', 'Fuerza', 'FUE'], ['des', 'Destreza', 'DES'], ['per', 'Pe
   ['int', 'Inteligencia', 'INT'], ['det', 'Determinación', 'DET'], ['con', 'Constitución', 'CON']];
 const DEFAULT_SKILLS = [['Investigación', 'per', 'int'], ['Pericia', 'des', 'int'], ['Conocimiento', 'int', 'int'],
   ['Social', 'det', 'int'], ['Atletismo', 'con', 'des'], ['Sigilo', 'des', 'per'], ['Pelea', 'fue', 'des'],
-  ['Puntería', 'des', 'per'], ['Informática', 'int', 'des'], ['Estilo', 'det', 'det']];
+  ['Puntería', 'des', 'per'], ['Tecnología', 'int', 'des'], ['Estilo', 'det', 'det']];
 const DEFENSES = [
   ['evasion', 'Evasión', '(DES+PER)/10', a => (a.des + a.per) / 10],
   ['reflejos', 'Reflejos', '(DES+PER)/5+10', a => (a.des + a.per) / 5 + 10],
@@ -26,39 +26,43 @@ const SECONDARY = [
   ['suerte', 'Suerte', '50', () => 50],
   ['ph', 'PH × NV', 'INT/5+5', a => a.int / 5 + 5],
   ['carga', 'Carga máx. (kg)', '(FUE+CON)/2+20', a => (a.fue + a.con) / 2 + 20],
-  ['implantes', 'Límite de implantes', 'DET+CON/2', a => a.det + a.con / 2],
+  ['implantes', 'Humanidad', 'CON/2+DET+NV×2', (a, ch) => a.con / 2 + a.det + 2 * ch.level],
   ['ram', 'RAM', 'Sistema operativo', () => 0],
-  ['icewall', 'Icewall', 'Sistema operativo', () => 0]];
+  ['ramregen', 'RAM Regen', 'Implantes', () => 0],
+  ['icewall', 'ICE', 'Implantes', () => 0]];
 const INITIAL_POINTS = 320, LEVEL_POINTS = 5; // características: al crear el personaje y por cada nivel subido
-const RD = [['normal', 'Normal'], ['termal', 'Termal'], ['electrica', 'Eléctrica'], ['quimica', 'Química']];
-// Ranura -> cantidad máxima de implantes (casilleros de la planilla de implantes). Chips sin límite.
-const SLOT_LIMITS = {'Cara / Ojos': 1, 'Corteza frontal': 3, 'Sistema operativo': 1, 'Sistema nervioso': 3,
-  'Sistema circulatorio': 3, 'Sistema integumentario': 3, 'Esqueleto': 3, 'Brazos': 2, 'Manos': 2, 'Piernas': 1, 'Chips': Infinity};
+const RD = [['normal', 'Normal'], ['termal', 'Termal'], ['electrica', 'Eléctrica'], ['quimica', 'Química'], ['hack', 'vs Quickhacks']];
+// Ranura -> cantidad máxima de implantes (casilleros de la planilla v9.0; "Otros" es una lista libre).
+const SLOT_LIMITS = {'Sistema operativo': 1, 'Ojos': 1, 'Corteza frontal': 2, 'Sistema nervioso': 2, 'Sistema circulatorio': 2,
+  'Sistema integumentario': 2, 'Esqueleto': 2, 'Brazos': 2, 'Manos': 2, 'Piernas': 1, 'Otros': Infinity};
 const SLOTS = Object.keys(SLOT_LIMITS);
 const TARGETS = {fuerza: 'fue', destreza: 'des', percepcion: 'per', inteligencia: 'int', determinacion: 'det', constitucion: 'con',
   fue: 'fue', des: 'des', per: 'per', int: 'int', det: 'det', con: 'con', 'vitalidad maxima': 'vitalidad',
   evasion: 'evasion', reflejos: 'reflejos', fortaleza: 'fortaleza', voluntad: 'voluntad',
   pa: 'pa', 'puntos de accion': 'pa', vitalidad: 'vitalidad', potencia: 'potencia', rango: 'rango', iniciativa: 'iniciativa',
   'velocidad de curacion': 'curacion', resolucion: 'resolucion', suerte: 'suerte', phxnv: 'ph',
-  'limite de implantes': 'implantes', ram: 'ram', icewall: 'icewall',
+  'limite de implantes': 'implantes', humanidad: 'implantes', ram: 'ram', 'ram regen': 'ramregen', icewall: 'icewall', ice: 'icewall',
+  'rd general': 'rd.all', 'rd vs quickhacks': 'rd.hack', 'critico general': 'crit',
   rd: 'rd.normal', 'rd normal': 'rd.normal', 'rd termal': 'rd.termal', 'rd electrica': 'rd.electrica', 'rd quimica': 'rd.quimica', // "+N RD" sin tipo es RD normal
   'resultado de critico': 'crit', caracteristica: 'pts', 'turno de duracion': 'dur'};
 
 // Lee un texto de efecto ("+4 PA, D 3T, CD 6T, +10 Reflejos") y devuelve modificadores numéricos.
 // Solo cuenta frases exactas "+N Objetivo"; lo condicional ("+10 Puntería con armas SMART") queda como texto.
 function parseEffect(text) {
-  const out = {mods: [], dur: null, cd: null, trigger: null, cdr: 0};
+  const out = {mods: [], dur: null, cd: null, trigger: null, cdr: 0, loadPct: 0};
   // "(se activa cuando…)" solo describe cuándo activarlo; se activa a mano desde Combate.
   for (const seg of norm(text).replace(/\(se activa[^)]*\)/g, '').split(/\.(?!\d)|\|/)) {
     let s = seg.replace(/mientras (este|esta) activo/, ''), m;
     if ((m = s.match(/se activa al terminar (.+)/))) { out.trigger = m[1].trim(); continue; }
     if ((m = s.match(/ al finalizar el efecto de (\S+)/))) { out.trigger = m[1]; s = s.replace(m[0], ''); }
-    if ((m = s.match(/enfriamiento.*?(\d+)\s*%/))) { out.cdr += +m[1]; continue; }
+    if ((m = s.match(/enfriamiento.*?(\d+)\s*%/) || s.match(/(\d+)\s*% enfriamiento/))) { out.cdr += +m[1]; continue; }
+    if ((m = s.match(/(\d+)\s*% carga de implantes/))) { out.loadPct += +m[1]; continue; }
     if (/\b(cuando|si|grupo)\b/.test(s)) continue;
     for (let ph of s.split(/,| y /)) {
       ph = ph.trim();
       if ((m = ph.match(/^d (\d+)t$/))) { out.dur = +m[1]; continue; }
       if ((m = ph.match(/^cd (\d+)t$/))) { out.cd = +m[1]; continue; }
+      if ((m = ph.match(/^ram (\d+)\s*\+\s*int\/10$/))) { out.mods.push({v: +m[1], set: true, target: 'ram', int10: true, when: null}); continue; }
       m = ph.match(/^([+-])?\s*(\d+)\s+(?:a (?:los |las |la )?)?(.+?)(?: al usar (.+))?$/);
       if (m) out.mods.push({v: (m[1] === '-' ? -1 : 1) * m[2], set: !m[1], target: m[3], when: m[4] || null});
     }
@@ -68,31 +72,34 @@ function parseEffect(text) {
 
 function resolveTarget(raw, skills) {
   if (TARGETS[raw]) return TARGETS[raw];
+  if (raw.startsWith('critico ')) { const sk = skills.find(s => norm(s.name) === raw.slice(8)); return sk ? 'crit:' + norm(sk.name) : null; }
   const sk = skills.find(s => norm(s.name) === raw);
   return sk ? 'skill:' + norm(sk.name) : null;
 }
 
+// Efectos hasta el tier instalado. Si un mismo efecto se repite (Mamba Negra +15/+30/+50 RD Química), vale el del tier más alto.
 function implantInfo(im) {
   const eff = im.tiers.slice(0, im.tier).map(parseEffect);
-  const last = k => eff.reduce((v, e) => e[k] ?? v, null);
-  return {eff, dur: last('dur'), cd: last('cd'), trigger: last('trigger'), cdr: eff.reduce((t, e) => t + e.cdr, 0)};
+  const last = k => eff.reduce((v, e) => e[k] || v, null);
+  const mods = Object.values(Object.fromEntries(eff.flatMap(e => e.mods).map(m => [`${m.target}|${m.when}|${m.set}`, m])));
+  return {mods, dur: last('dur'), cd: last('cd'), trigger: last('trigger'), cdr: last('cdr') || 0, loadPct: last('loadPct') || 0};
 }
 
 function compute(ch) {
   const mods = {}, sets = {}, durBonus = {};
   const add = (t, v, src) => (mods[t] ??= []).push({v, src});
   const active = name => ch.implants.some(i => norm(i.name) === norm(name) && i.on > 0);
-  let cdr = 0;
+  let cdr = 0, loadPct = 0;
   const imps = ch.implants.map(im => {
     const x = implantInfo(im);
-    cdr += x.cdr;
-    for (const e of x.eff) for (const m of e.mods) {
+    cdr += x.cdr; loadPct += x.loadPct;
+    for (const m of x.mods) {
       const t = resolveTarget(m.target, ch.skills);
       if (!t) continue;
       if (t === 'dur') { if (m.when) durBonus[norm(m.when)] = (durBonus[norm(m.when)] || 0) + m.v; continue; }
       // Un número sin signo solo fija RAM/Icewall del sistema operativo ("5 PA" en armas es el coste del ataque).
-      if (m.set) { if (['ram', 'icewall'].includes(t) && (!sets[t] || m.v > sets[t].v)) sets[t] = {v: m.v, src: im.name}; continue; }
-      if (t.startsWith('rd') && m.v < 0) continue; // "-15 RD" en implantes-arma es perforación de la RD enemiga
+      if (m.set) { if (['ram', 'icewall'].includes(t) && (!sets[t] || m.v > sets[t].v)) sets[t] = {v: m.v, int10: m.int10, src: im.name}; continue; }
+      if (m.v < 0) continue; // en implantes los negativos son para el enemigo ("-15 RD" perforación, "-20 Reflejos" del objetivo)
       if (m.when ? active(m.when) : (!x.dur || im.on > 0)) add(t, m.v, im.name);
     }
     return x;
@@ -111,9 +118,10 @@ function compute(ch) {
     attrs[k] = {base: raw[k], mod: sum(mods[k]), src: mods[k] || []};
     attrs[k].total = tot[k] = raw[k] + attrs[k].mod;
   }
+  for (const k in sets) if (sets[k].int10) sets[k].v += F(tot.int / 10); // "RAM 5+INT/10" del cyberdeck
   // Base: fórmula con características sin modificar. +/-: diferencia por características modificadas + bonos directos.
   const part = (fn, key, extra = []) => {
-    const base = F(fn(raw)) + (sets[key]?.v || 0), delta = F(fn(tot)) - F(fn(raw));
+    const base = F(fn(raw, ch)) + (sets[key]?.v || 0), delta = F(fn(tot, ch)) - F(fn(raw, ch));
     const src = [...(sets[key] ? [{v: sets[key].v, src: sets[key].src + ' (base)'}] : []),
       ...(delta ? [{v: delta, src: 'Características modificadas'}] : []), ...(mods[key] || []), ...extra];
     const mod = delta + sum(mods[key]) + sum(extra);
@@ -121,7 +129,7 @@ function compute(ch) {
   };
   const def = Object.fromEntries(DEFENSES.map(([k, , , fn]) => [k, part(fn, k)]));
   const sec = Object.fromEntries(SECONDARY.map(([k, , , fn]) => [k, part(fn, k)]));
-  const rd = Object.fromEntries(RD.map(([k]) => [k, part(() => +ch.armor[k] || 0, 'rd.' + k)]));
+  const rd = Object.fromEntries(RD.map(([k]) => [k, part(() => +ch.armor[k] || 0, 'rd.' + k, mods['rd.all'])]));
   const pro = ch.merits.some(m => norm(m.name) === 'el profesional');
   const skills = ch.skills.map(s => {
     const p = part(a => (a[s.a] + a[s.b]) / 5 + 10, 'skill:' + norm(s.name));
@@ -130,7 +138,7 @@ function compute(ch) {
     if (own) p.src.push({v: own, src: s.spec ? 'Puntos ×2 (especialidad)' : 'Puntos asignados'});
     p.mod += own + (s.spec ? 20 : 0);
     p.total = p.base + p.mod;
-    p.crit = (F(p.total / 10) + sum(mods.crit)) * (pro ? 2 : 1);
+    p.crit = (F(p.total / 10) + sum(mods.crit) + sum(mods['crit:' + norm(s.name)])) * (pro ? 2 : 1);
     return p;
   });
   return {
@@ -142,7 +150,11 @@ function compute(ch) {
       skill: {avail: F(raw.int / 2 + 30) + sec.ph.total * (ch.level - 1), spent: ch.skills.reduce((t, s) => t + (F(+s.mod) || 0), 0)},
     },
     merits: {count: ch.merits.reduce((t, m) => t + (m.ranks || 1), 0), max: Math.min(ch.level, 10)},
-    load: {used: ch.implants.reduce((t, i) => t + (+(i.tier >= 6 ? i.load6 : i.load) || 0), 0), max: sec.implantes.total},
+    // Carga = costo de humanidad de los implantes (al tier instalado, con reducciones tipo Chrome Compressor) + carga por situaciones.
+    load: (() => {
+      const implants = F(ch.implants.reduce((t, i) => t + (+i.costs?.[i.tier - 1] || 0), 0) * Math.max(0, 1 - loadPct / 100));
+      return {implants, strain: +ch.strain || 0, used: implants + (+ch.strain || 0), max: sec.implantes.total, pct: loadPct};
+    })(),
   };
 }
 
@@ -190,7 +202,7 @@ function blankCharacter() {
     age: '', height: '', weight: '', profession: '', appearance: '', look: '',
     attrs: Object.fromEntries(ATTRS.map(([k]) => [k, {ini: 50, lvl: 0}])),
     skills: DEFAULT_SKILLS.map(([name, a, b]) => ({name, a, b, mod: 0, spec: false, custom: false})),
-    traits: [], merits: [], implants: [], armor: {normal: 0, termal: 0, electrica: 0, quimica: 0},
+    traits: [], merits: [], implants: [], strain: 0, armor: {normal: 0, termal: 0, electrica: 0, quimica: 0, hack: 0},
     items: [], vitality: 0, luck: 50, resolution: 0, round: 1, inventory: '', quick: '', roleDetails: '', notes: ''};
 }
 
@@ -201,13 +213,17 @@ function normalize(ch) {
   out.armor = {...b.armor, ...(ch.armor || {})};
   for (const k of ['skills', 'traits', 'merits', 'implants', 'items']) if (!Array.isArray(out[k])) out[k] = b[k];
   // Fichas viejas: agrega las habilidades por defecto que falten (ej. Estilo) y convierte la versión personalizada en la estándar.
+  for (const s of out.skills) if (norm(s.name) === 'informatica') s.name = 'Tecnología'; // Tecnología reemplaza a Informática
+  for (const t of out.traits) if (norm(t.skill) === 'informatica') t.skill = 'Tecnología';
   for (const [name, a, bb] of DEFAULT_SKILLS) {
     const s = out.skills.find(x => norm(x.name) === norm(name));
     if (s) Object.assign(s, {name, a, b: bb, custom: false});
     else out.skills.push({name, a, b: bb, mod: 0, spec: false, custom: false});
   }
-  const OLD_SLOTS = {'Brazo derecho': 'Brazos', 'Brazo izquierdo': 'Brazos', 'Mano derecha': 'Manos', 'Mano izquierda': 'Manos'};
-  out.implants.forEach(im => { im.slot = OLD_SLOTS[im.slot] || im.slot; im.on ||= 0; im.cdLeft ||= 0; im.tiers = Array.from({length: 6}, (_, i) => im.tiers?.[i] ?? null); });
+  // Implantes del sistema anterior (6 tiers) se quitan: cada jugador reinstala desde el catálogo nuevo.
+  out.implants = out.implants.filter(im => im.v === 2);
+  out.implants.forEach(im => { im.on ||= 0; im.cdLeft ||= 0; im.tiers = Array.from({length: 3}, (_, i) => im.tiers?.[i] ?? null);
+    im.costs = Array.from({length: 3}, (_, i) => +im.costs?.[i] || 0); im.tier = Math.min(3, Math.max(im.minTier || 1, +im.tier || 1)); });
   return out;
 }
 

@@ -1,7 +1,7 @@
 """Genera catalog.js a partir del Excel de campaña.
 
 Uso: python tools/build_catalog.py ruta/al/Cyberpunk.xlsx > catalog.js
-Hojas leídas: las de implantes (ver SHEETS), Chips, Méritos, Armas de fuego, Consumibles, Mejoras y Quickhacks.
+Hojas leídas: las de implantes (ver SHEETS), Méritos, Armas, Consumibles, Mejoras y Quickhacks.
 Los méritos generales (imagen de la tabla) van abajo, a mano.
 """
 import json
@@ -10,17 +10,11 @@ import sys
 
 import openpyxl
 
-SHEETS = {  # hoja -> (ranura, columna de precio, columna de icewall)
-    'Ojos': ('Cara / Ojos', 'D', None),
-    'Corteza Frontal': ('Corteza frontal', 'D', None),
-    'Sistema operativo': ('Sistema operativo', 'E', 'D'),
-    'Sistema Nervioso': ('Sistema nervioso', 'D', None),
-    'Sistema Circulatorio': ('Sistema circulatorio', 'D', None),
-    'Sistema Tegumentario': ('Sistema integumentario', 'D', None),
-    'Esqueleto': ('Esqueleto', 'D', None),
-    'Manos': ('Manos', 'D', None),
-    'Brazos': ('Brazos', 'D', None),
-    'Piernas': ('Piernas', 'D', None),
+SHEETS = {  # hoja -> ranura en la planilla de implantes
+    'Ojos': 'Ojos', 'Corteza Frontal': 'Corteza frontal', 'Sistema operativo': 'Sistema operativo',
+    'Sistema Nervioso': 'Sistema nervioso', 'Sistema Circulatorio': 'Sistema circulatorio',
+    'Sistema Tegumentario': 'Sistema integumentario', 'Esqueleto': 'Esqueleto', 'Manos': 'Manos', 'Brazos': 'Brazos',
+    'Piernas': 'Piernas',
 }
 
 # Méritos generales (tabla de la imagen): nivel, nombre, requisito, rangos, descripción.
@@ -101,56 +95,52 @@ def num(v):
     return v if isinstance(v, (int, float)) else None
 
 
-def tier_of(ws, r):
-    m = re.match(r'\s*TIER\s*(\d)\s*\|\s*(.*)', str(ws[f'C{r}'].value or ''), re.S)
-    return (int(m.group(1)), re.sub(r'\s+', ' ', m.group(2)).strip()) if m else (None, None)
-
-
 def implants(wb):
+    """Cada implante: filas con TIER 1-3 (costo de humanidad total a ese tier, efecto, precio) y filas de
+    continuación con más efectos. La última columna dice si es ACTIVABLE y su duración/enfriamiento."""
     out = []
-    for sheet, (slot, price_col, ice_col) in SHEETS.items():
+    for sheet, slot in SHEETS.items():
         ws = wb[sheet]
-        # Un bloque empieza cuando el número de TIER no sigue subiendo; el nombre (columna A) puede estar arriba, abajo o en medio.
-        starts, last = [], 99
+        so = sheet == 'Sistema operativo'  # tiene una columna extra de tipo (Cyberdeck, Sandevistan...)
+        typ_c, name_c, tier_c, cost_c, eff_c, price_c, extra_c = (1, 2, 3, 4, 5, 6, 7) if so else (None, 1, 2, 3, 4, 5, 6)
+        blocks, last = [], 99
         for r in range(2, ws.max_row + 1):
-            t, _ = tier_of(ws, r)
-            if t:
-                if t <= last:
-                    starts.append(r)
-                last = t
-        for i, start in enumerate(starts):
-            end = starts[i + 1] - 1 if i + 1 < len(starts) else ws.max_row
-            rows = range(start, end + 1)
-            name = next((str(ws[f'A{r}'].value).strip() for r in rows if ws[f'A{r}'].value), None)
-            if not name:
+            v = lambda c: ws.cell(r, c).value if c else None
+            if so and v(typ_c) == 'OVERCLOCK' and not v(tier_c):
+                continue  # fila que explica qué es el Overclock, no pertenece a ningún implante
+            t = v(tier_c) if isinstance(v(tier_c), int) else None
+            if t and t <= last:
+                blocks.append({'name': None, 'tiers': [None] * 3, 'costs': [None] * 3, 'prices': [None] * 3,
+                               'desc': [], 'type': None, 'act': None, 'cur': t})
+            if not blocks:
                 continue
-            tiers, desc, load, load6, price = [None] * 6, [], None, None, None
-            for r in rows:
-                t, text = tier_of(ws, r)
-                b = num(ws[f'B{r}'].value)
-                if not t:
-                    if ws[f'C{r}'].value:
-                        desc.append(str(ws[f'C{r}'].value).strip())
-                    continue
-                if ice_col and num(ws[f'{ice_col}{r}'].value) is not None:
-                    text = f'{ws[f"{ice_col}{r}"].value} Icewall | {text}'
-                tiers[t - 1] = text
-                if b is not None:
-                    if t == 6:
-                        load6 = b
-                    elif load is None:
-                        load = b
-                if price is None:
-                    price = num(ws[f'{price_col}{r}'].value)
-            out.append({'name': name.title(), 'slot': slot, 'minTier': next(k + 1 for k, t in enumerate(tiers) if t),
-                        'load': load or load6 or 0, 'load6': load6 or load or 0, 'price': price, 'tiers': tiers,
-                        'desc': ' '.join(desc)})
-    ws = wb['Chips']  # chips: un solo nivel, sin carga
-    for r in range(2, ws.max_row + 1):
-        price, model, _, desc = (ws.cell(r, c).value for c in range(1, 5))
-        if model:
-            out.append({'name': f'Chip {model}', 'slot': 'Chips', 'minTier': 1, 'load': 0, 'load6': 0, 'price': None,
-                        'tiers': [str(desc).capitalize()] + [None] * 5, 'desc': f'{price:,} €$'.replace(',', '.')})
+            b = blocks[-1]
+            if t:
+                b['cur'], last = t, t
+                b['costs'][t - 1], b['prices'][t - 1] = num(v(cost_c)), num(v(price_c))
+            b['name'] = b['name'] or v(name_c)
+            b['type'] = b['type'] or v(typ_c)
+            if v(eff_c):
+                i = b['cur'] - 1
+                b['tiers'][i] = ' | '.join(filter(None, [b['tiers'][i], re.sub(r'\s+', ' ', str(v(eff_c))).strip()]))
+            x = str(v(extra_c) or '').strip()
+            m = re.search(r'Duraci[oó]n (\d+) turnos?, Enfriamiento (\d+) turnos?', x)
+            if m:
+                b['act'] = f'D {m.group(1)}T, CD {m.group(2)}T'
+            elif x and x != 'ACTIVABLE':
+                b['desc'].append('Overclock:' if x == 'OVERCLOCK' else x)
+        for b in blocks:
+            if not b['name']:
+                continue
+            k = next(i for i, t in enumerate(b['tiers']) if t)
+            if b['act']:  # el parser de la ficha reconoce "D 2T, CD 4T" como activable
+                b['tiers'][k] += ' | ' + b['act']
+            for i in range(1, 3):  # tier sin costo propio: mantiene el anterior
+                b['costs'][i] = b['costs'][i] if b['costs'][i] is not None else b['costs'][i - 1]
+            typ = str(b['type'] or '').strip().capitalize()
+            out.append({'v': 2, 'name': title(b['name']), 'slot': 'Otros' if typ == 'Otros' else slot, 'minTier': k + 1,
+                        'costs': [c or 0 for c in b['costs']], 'prices': b['prices'], 'tiers': b['tiers'],
+                        'desc': ' '.join(filter(None, [typ if so and typ != 'Otros' else ''] + b['desc'])).replace('Overclock: ', 'Overclock: ')})
     return out
 
 
@@ -174,13 +164,28 @@ def clean(v):
     return '' if v is None or str(v).strip() in ('-', '?') else str(v).strip()
 
 
+def melee(row):
+    """Fila de cuerpo a cuerpo: nombre, tipo, DES, daño ('POT+D6(+2D6 ELE)'), -, efecto, PA, descripción."""
+    name, typ, des, dmg, _, eff, pa, desc = (clean(v) for v in row[:8])
+    elem = [{'dados': m.upper(), 'tipo': 'Eléctrico'} for m in re.findall(r'\(\+(\w+) ELE\)', dmg)]
+    dmg = re.sub(r'\(\+\w+ ELE\)', '', dmg).strip()
+    m = re.match(r'(.+)\+(\d*d\d+)$', dmg, re.I)  # 'POT(8)+D6' -> base 'POT(8)', dados 'D6'
+    c = re.search(r'\+(\d+)(?:\(\d+\))? cr[ií]tico', eff)
+    return {'kind': 'weapon', 'cat': 'Cuerpo a cuerpo', 'name': title(name), 'skill': 'Pelea', 'tipo': typ,
+            'base': m.group(1) if m else dmg, 'dados': m.group(2).upper() if m else '', 'elem': elem,
+            'crit': int(c.group(1)) if c else 0, 'efecto': eff, 'pa': pa,
+            'notes': ' '.join(filter(None, [f'DES {des}.' if des else '', desc]))}
+
+
 def items(wb):
     out = []
-    ws, cat = wb['Armas de fuego'], None
+    ws, cat = wb['Armas'], None
     for r in range(1, ws.max_row + 1):
         row = [ws.cell(r, c).value for c in range(1, 13)]
-        if row[1] == 'TIPO':  # fila de encabezado de cada categoría
-            cat = str(row[0]).strip().capitalize()
+        if row[1] == 'TIPO':  # fila de encabezado de cada categoría; la de cuerpo a cuerpo no tiene nombre
+            cat = str(row[0]).strip().capitalize() if row[0] else 'Cuerpo a cuerpo'
+        elif row[0] and cat == 'Cuerpo a cuerpo':
+            out.append(melee(row))
         elif row[0]:
             w = dict(zip(WEAPON_COLS, (clean(v) for v in row[1:12])))
             w['base'], w['dados'] = split_damage(w.pop('dano'))

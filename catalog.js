@@ -2,1789 +2,2138 @@
 globalThis.CATALOG={
 "implants": [
 {
+"v": 2,
 "name": "Kiroshi Mk.2",
-"slot": "Cara / Ojos",
+"slot": "Ojos",
 "minTier": 1,
-"load": 5,
-"load6": 7,
-"price": 4500,
-"tiers": [
-"Zoom x 10. +5 Percepción",
-"+10 Investigación",
-"+5 Percepción",
-"+10 Investigación",
-"+5 Percepción",
-"Éxito automático en Percepción e Investigación en tiradas normales o difíciles (0, -30)"
+"costs": [
+2,
+6,
+12
 ],
-"desc": ""
-},
-{
-"name": "Kiroshi Augurio",
-"slot": "Cara / Ojos",
-"minTier": 1,
-"load": 10,
-"load6": 15,
-"price": 9000,
-"tiers": [
-"+5 Percepción",
-"Permite retirar un fallo en un ataque cada 6 turnos",
-"Permite retirar un fallo en un ataque cada 6 turnos",
-"Permite retirar una pifia en ataque cada 10 turnos",
-"Permite cancelar un crítico recibido cada 10 turnos",
-"Reduce el CD de todos los efectos a la mitad"
+"prices": [
+1512,
+6172,
+24636
 ],
-"desc": ""
-},
-{
-"name": "Kiroshi Acechador",
-"slot": "Cara / Ojos",
-"minTier": 1,
-"load": 18,
-"load6": 27,
-"price": 17000,
 "tiers": [
-"Zoom x 20. -5 penalizador al apuntar",
-"-5 penalizador al apuntar",
-"-5 penalizador al apuntar",
-"+10 Crítico al apuntar",
-"+1 Letalidad al apuntar",
-"Letalidad mínima 4 al apuntar"
-],
-"desc": ""
-},
-{
-"name": "Kiroshi Oráculo",
-"slot": "Cara / Ojos",
-"minTier": 1,
-"load": 12,
-"load6": 18,
-"price": 12000,
-"tiers": [
-"Permite usar Ping I sin gasto de RAM cada 10 min",
-"+5 crítico con hacks a enemigos afectados por Ping",
-"Permite usar Ping II sin gasto de RAM cada 10 min",
-"+5 crítico con hacks a enemigos afectados por Ping",
-"Permite usar Ping III sin gasto de RAM cada 10 min",
-"+5 crítico, +1 Letalidad, -15 Resistencia contra hacks contra enemigos afectados por PING"
-],
-"desc": ""
-},
-{
-"name": "Kiroshi Sentinela",
-"slot": "Cara / Ojos",
-"minTier": 1,
-"load": 15,
-"load6": 22,
-"price": 12000,
-"tiers": [
-"+10 Puntería con armas SMART",
-"+1 turno de lock-on",
-"+10 Puntería con armas SMART",
-"+1 turno de lock-on",
-"-2 PA de lock-on",
-"Lock-on a múltiples objetivos"
-],
-"desc": ""
-},
-{
-"name": "Kiroshi Clarividente",
-"slot": "Cara / Ojos",
-"minTier": 1,
-"load": 24,
-"load6": 36,
-"price": 23000,
-"tiers": [
-"Permite ver la trayectoria de los disparos",
-"+10 Evasión",
 "+10 Percepción",
-"+10 Reflejos",
-"Permite usar 1/2 Reflejos para esquivar disparos (Reflejos al 100% usando Kerenzikov o Sandevistan)",
-"Reflejos al 100% para esquivar disparos"
+"Zoom x 6",
+"+30 Investigación"
 ],
 "desc": ""
 },
 {
-"name": "Bioconductor",
-"slot": "Corteza frontal",
+"v": 2,
+"name": "Kiroshi Augurio",
+"slot": "Ojos",
 "minTier": 1,
-"load": 20,
-"load6": 30,
-"price": 12000,
+"costs": [
+2,
+6,
+12
+],
+"prices": [
+1779,
+6398,
+21447
+],
 "tiers": [
-"+1 crítico con Quickhacks. -1 RAM",
-"+2 crítico con Quickhacks. -1 RAM",
-"+3 crítico con Quickhacks. -1 RAM",
-"+4 crítico con Quickhacks. -1 RAM",
-"+1 letalidad con Quickhacks. -1 RAM",
-"Letalidad mínima 4"
+"Detecta dispositivos electrónicos ocultos y los marca por 60 segundos",
+"+20 Investigación",
+"+30 Percepción"
 ],
 "desc": ""
 },
 {
-"name": "Camillo Ram Manager",
-"slot": "Corteza frontal",
-"minTier": 4,
-"load": 10,
-"load6": 15,
-"price": 21120,
+"v": 2,
+"name": "Kiroshi Acechador",
+"slot": "Ojos",
+"minTier": 1,
+"costs": [
+2,
+6,
+12
+],
+"prices": [
+1987,
+5978,
+18189
+],
 "tiers": [
-null,
-null,
-null,
-"Recupera 2 de RAM cuando baja del 20%. +1 RAM",
-"Recupera 4 de RAM cuando baja del 20%. +1 RAM",
-"Recupera toda la RAM (CD 20T)"
+"+10 Puntería",
+"+20 Percepción",
+"Zoom x 8"
 ],
 "desc": ""
 },
 {
-"name": "Ex-Disk",
-"slot": "Corteza frontal",
-"minTier": 3,
-"load": 10,
-"load6": 15,
-"price": 9900,
+"v": 2,
+"name": "Kiroshi Scanner",
+"slot": "Ojos",
+"minTier": 1,
+"costs": [
+2,
+6,
+12
+],
+"prices": [
+1845,
+6921,
+22741
+],
 "tiers": [
-null,
-null,
-"+2 RAM",
-"-1 Coste de PA de Quickhacks (min. 1)",
-"+2 RAM",
-"-1 Coste de RAM de Quickhacks (min. 1)"
+"Revela información básica del objetivo. (Registro policial, nombre, etc)",
+"Revela información del estado del objetivo (Vitalidad, heridas, efectos activos)",
+"Revela información del cyberware, RAM y equipamiento del objetivo."
 ],
 "desc": ""
 },
 {
+"v": 2,
+"name": "Kiroshi Sentinela",
+"slot": "Ojos",
+"minTier": 1,
+"costs": [
+2,
+6,
+12
+],
+"prices": [
+2354,
+6786,
+20456
+],
+"tiers": [
+"Conexión con sistema de armas SMART",
+"+50 Rango",
+"+2 Turnos Lock"
+],
+"desc": ""
+},
+{
+"v": 2,
+"name": "Kiroshi Clarividente",
+"slot": "Ojos",
+"minTier": 1,
+"costs": [
+2,
+6,
+12
+],
+"prices": [
+1754,
+6477,
+25478
+],
+"tiers": [
+"+10 Evasión",
+"Permite esquivar proyectiles",
+"+30 Evasión"
+],
+"desc": ""
+},
+{
+"v": 2,
 "name": "Kerenzikov Boost System",
 "slot": "Corteza frontal",
-"minTier": 3,
-"load": 8,
-"load6": 12,
-"price": 7000,
+"minTier": 1,
+"costs": [
+2,
+6,
+12
+],
+"prices": [
+1845,
+6921,
+22741
+],
 "tiers": [
-null,
-null,
-"+10 Reflejos al usar Kerenzikov",
-"+1 PA al usar Kerenzikov",
-"+1 turno de duración al usar Kerenzikov",
-"Duplica los efectos del Kerenzikov"
+"+3 Iniciativa",
+"-2 PA Recarga",
+"+30 Reflejos"
 ],
 "desc": ""
 },
 {
+"v": 2,
 "name": "Mechatronic Core",
 "slot": "Corteza frontal",
 "minTier": 1,
-"load": 5,
-"load6": 7,
-"price": 3500,
+"costs": [
+2,
+6,
+12
+],
+"prices": [
+2354,
+6786,
+20456
+],
 "tiers": [
-"+25% daño contra robots, torretas, mechas y vehículos.",
-"+25% daño contra robots, torretas, mechas y vehículos.",
-"+25% daño contra robots, torretas, mechas y vehículos.",
-"+25% daño contra robots, torretas, mechas y vehículos.",
-"+1 letalidad contra robots, torretas, mechas y vehículos.",
-"Crítico automático contra robots, torretas, mechas y vehículos"
+"+15% daño contra electrónicos",
+"+30% daño contra electrónicos",
+"+50% daño contra electrónicos"
 ],
 "desc": ""
 },
 {
+"v": 2,
+"name": "Bioconductor",
+"slot": "Corteza frontal",
+"minTier": 1,
+"costs": [
+2,
+6,
+12
+],
+"prices": [
+1512,
+6172,
+24636
+],
+"tiers": [
+"+1 Duración de quickhacks",
+"+3 Crítico Tecnología",
+"+50 RD vs Quickhacks"
+],
+"desc": ""
+},
+{
+"v": 2,
+"name": "Camillo Ram Manager",
+"slot": "Corteza frontal",
+"minTier": 1,
+"costs": [
+2,
+6,
+12
+],
+"prices": [
+1779,
+6398,
+21447
+],
+"tiers": [
+"+10 Voluntad",
+"+2 RAM Regen",
+"-1 PA Tecnología"
+],
+"desc": ""
+},
+{
+"v": 2,
+"name": "Ex-Disk",
+"slot": "Corteza frontal",
+"minTier": 1,
+"costs": [
+2,
+6,
+12
+],
+"prices": [
+1987,
+5978,
+18189
+],
+"tiers": [
+"+3 RAM",
+"+10 Inteligencia",
+"+4 RAM"
+],
+"desc": ""
+},
+{
+"v": 2,
 "name": "Memory Boost",
 "slot": "Corteza frontal",
 "minTier": 1,
-"load": 20,
-"load6": 30,
-"price": 8000,
+"costs": [
+2,
+6,
+12
+],
+"prices": [
+1754,
+6477,
+25478
+],
 "tiers": [
-"+2 RAM",
-"+1 RAM",
-"+2 RAM",
-"+1 RAM",
-"+2 RAM",
-"+7 RAM"
+"+1 RAM Regen",
+"+3 RAM",
+"+30 Inteligencia"
 ],
 "desc": ""
 },
 {
+"v": 2,
 "name": "Newton Module",
 "slot": "Corteza frontal",
-"minTier": 2,
-"load": 14,
-"load6": 21,
-"price": 25000,
+"minTier": 1,
+"costs": [
+2,
+6,
+12
+],
+"prices": [
+1987,
+5978,
+18189
+],
 "tiers": [
-null,
-"Reduce el enfriamiento de todos los implantes en 20%",
-"Reduce el enfriamiento de todos los implantes en 10%",
-"Reduce el enfriamiento de todos los implantes en 10%",
-"Reduce el enfriamiento de todos los implantes en 10%",
-"Reset (CD 10T)"
+"-10% Enfriamiento",
+"-15% Enfriamiento",
+"-25% Enfriamiento"
 ],
 "desc": ""
 },
 {
+"v": 2,
 "name": "Ram Upgrade",
 "slot": "Corteza frontal",
 "minTier": 1,
-"load": 8,
-"load6": 12,
-"price": 18000,
+"costs": [
+2,
+6,
+12
+],
+"prices": [
+1845,
+6921,
+22741
+],
 "tiers": [
-"Regenera 1 RAM por turno.",
-"+1 RAM",
-"Regenera 1 RAM por turno.",
-"+1 RAM",
-"Regenera 1 RAM por turno.",
-"-1 Coste de RAM de Quickhacks (min. 1)"
+"+2 RAM",
+"+20 Inteligencia",
+"+3 RAM Regen"
 ],
 "desc": ""
 },
 {
+"v": 2,
 "name": "Self-Ice",
 "slot": "Corteza frontal",
-"minTier": 3,
-"load": 5,
-"load6": 7,
-"price": 50000,
+"minTier": 1,
+"costs": [
+2,
+6,
+12
+],
+"prices": [
+2354,
+6786,
+20456
+],
 "tiers": [
-null,
-null,
-"+10 Icewall",
-"+10 Icewall, niega un hack cada 10 turnos.",
-"+10 Icewall, Inmune a una rama de hacks",
-"Inmune a otra rama de hacks"
+"+1 ICE",
+"+2 ICE",
+"+3 ICE"
 ],
 "desc": ""
 },
 {
-"name": "Netwatch Netdriver Mk 1 (Triclops)",
+"v": 2,
+"name": "Netwatch Netdriver",
 "slot": "Sistema operativo",
 "minTier": 1,
-"load": 26,
-"load6": 39,
-"price": 12000,
-"tiers": [
-"20 Icewall | 5 RAM, 6 SLOTS |+20 tecnología al hackear desde otros dispositivos",
-"25 Icewall | 6 RAM, 7 SLOTS |+20 Icewall mientras se esté conectado en otros dispositivos",
-"35 Icewall | 7 RAM, 8 SLOTS |-50% RAM para hackear electrónicos y vehículos",
-"40 Icewall | 8 RAM, 9 SLOTS |-1 PA de Quickhacks si se está conectado a otro dispositivo",
-"50 Icewall | 9 RAM, 10 SLOTS |+20% daño y duración de Quickhacks ejecutados a través de dispositivos",
-"60 Icewall | 10 RAM, 12 SLOTS | Conexión a 3 dispositivos en simultáneo"
+"costs": [
+6,
+10,
+16
 ],
-"desc": ""
+"prices": [
+71797,
+87649,
+112099
+],
+"tiers": [
+"-50% de RAM de Quickhacks de Dispositivos y Vehículos | RAM 5+INT/10 | +1 RAM Regen",
+"+20 Tecnología",
+"+3 ICE"
+],
+"desc": "Cyberdeck Overclock: Permite conectarse hasta 3 dispositivos al mismo tiempo por el mismo coste de RAM y PA."
 },
 {
-"name": "Tetratronic Rippler Mk 5 (Omniscience)",
+"v": 2,
+"name": "Tetratronic Rippler",
 "slot": "Sistema operativo",
 "minTier": 1,
-"load": 16,
-"load6": 24,
-"price": 13500,
-"tiers": [
-"10 Icewall | 6 RAM, 6 SLOTS | Mitad de coste de PA para el segundo Quickhack lanzado en el mismo turno contra un solo objetivo",
-"20 Icewall | 7 RAM, 6 SLOTS |+20% duración de Quickhacks de control contra enemigos afectados por Quickhacks de combate",
-"30 Icewall | 8 RAM, 6 SLOTS |+20% daño de Quickhacks de combate contra enemigos afectados por Quickhacks de control",
-"40 Icewall | 9 RAM, 8 SLOTS | Mitad de coste de RAM para el segundo Quickhack lanzado en el mismo turno contra un solo objetivo",
-"50 Icewall | 10 RAM, 8 SLOTS | Reiniciar sistema y Glitch afectan a todos los enemigos en un radio de 8m alrededor del hacker",
-"60 Icewall | 12 RAM, 8 SLOTS | Todos los Quickhacks afectan a todos los objetivos designados en 10m de radio"
+"costs": [
+8,
+12,
+16
 ],
-"desc": ""
+"prices": [
+67825,
+90916,
+111707
+],
+"tiers": [
+"Permite cargar 2 Quickhacks en el objetivo utilizando el mayor costo de PA con mitad de duración | RAM 8+INT/10 | +1 ICE",
+"+3 RAM",
+"+2 RAM Regen"
+],
+"desc": "Cyberdeck Overclock: Se aplica solo el coste de RAM superior entre los dos Quickhacks."
 },
 {
-"name": "Arasaka Mk 5 (Yogen)",
+"v": 2,
+"name": "Arasaka Shadow",
 "slot": "Sistema operativo",
 "minTier": 1,
-"load": 14,
-"load6": 21,
-"price": 16000,
-"tiers": [
-"20 Icewall | 7 RAM, 5 SLOTS |+20 defensa contra hacks para ser rastreado al usar Quickhacks de subterfugio",
-"30 Icewall | 8 RAM, 5 SLOTS |-1 de PA para Quickhacks de subterfugio",
-"40 Icewall | 9 RAM, 6 SLOTS |-1 RAM para Quickhacks de subterfugio",
-"50 Icewall | 10 RAM, 6 SLOTS |-1 RAM para Quickhacks de subterfugio",
-"60 Icewall | 12 RAM, 7 SLOTS | +50% duración de Quickhacks de subterfugio",
-"70 Icewall | 14 RAM, 7 SLOTS | Ping III activo en todo momento a 15m de radio del usuario, -20 Resistencia a hacks enemiga"
+"costs": [
+6,
+10,
+16
 ],
-"desc": ""
+"prices": [
+53913,
+75419,
+96312
+],
+"tiers": [
+"-1 RAM y +50% de duración de Quickhacks de Subterfugio | RAM 2+INT/10 | +2 Duración de Quickhacks",
+"+2 ICE",
+"-1 PA Tecnología"
+],
+"desc": "Cyberdeck Overclock: Mientras OVERLOCK esté activado, los Quickhacks de subterfugio afectan a todos los enemigos en un radio de 10m."
 },
 {
-"name": "Militech Paraline Mk 4 (Aspid)",
+"v": 2,
+"name": "Militech Paraline",
 "slot": "Sistema operativo",
 "minTier": 1,
-"load": 14,
-"load6": 21,
-"price": 17000,
-"tiers": [
-"20 Icewall | 5 RAM, 4 SLOTS |+20 Precisión con Armas inteligentes contra enemigos afectados por Quickhacks",
-"30 Icewall | 6 RAM, 4 SLOTS | Auto-lock a enemigos afectados por Quickhacks",
-"45 Icewall | 7 RAM, 5 SLOTS |+20% daño con Quickhacks de combate",
-"55 Icewall | 8 RAM, 5 SLOTS |+50% Defensas vs enemigos afectados por un Quickhack",
-"70 Icewall | 9 RAM, 6 SLOTS | -50% RD enemiga contra Armas inteligentes mientras se encuentre afectado por un Quickhack",
-"85 Icewall | 10 RAM, 6 SLOTS | Cada 3 impactos con Smart Guns se carga un hack de combate TIER 1 automáticamente al objetivo"
+"costs": [
+6,
+12,
+16
 ],
-"desc": ""
+"prices": [
+69216,
+88215,
+112862
+],
+"tiers": [
+"Auto-lock a objetivos afectados por un Quickhack | RAM 2+INT/10 | +2 RAM Regen",
+"+3 RAM",
+"+3 Duración de Quickhacks"
+],
+"desc": "Cyberdeck Overclock: +50% de daño eléctrico por cada disparo con armas SMART contra enemigos afectados por Quickhacks."
 },
 {
-"name": "Raven Microcyber Mk 3 (Da Bomb)",
+"v": 2,
+"name": "Raven Microcyber",
 "slot": "Sistema operativo",
 "minTier": 1,
-"load": 20,
-"load6": 30,
-"price": 11000,
-"tiers": [
-"20 Icewall | 6 RAM, 3 SLOTS | 50% de afectar a todos los enemigos en un radio de 10m cuando se carga un Quickhack de combate",
-"25 Icewall | 8 RAM, 3 SLOTS |+5m de radio de dispersión",
-"35 Icewall | 10 RAM, 4 SLOTS |+20% daño de Quickhacks de combate",
-"40 Icewall | 12 RAM, 4 SLOTS |+5m de radio de dispersión",
-"50 Icewall | 14 RAM, 5 SLOTS | Aumenta el daño o la duración de Quickhacks en 10% (máximo 100) por cada objetivo",
-"60 Icewall | 16 RAM, 5 SLOTS |+25% de afectar a todos los enemigos en el radio de efecto"
+"costs": [
+6,
+10,
+16
 ],
-"desc": ""
+"prices": [
+53146,
+75122,
+97135
+],
+"tiers": [
+"Quickhacks de combate afectan a todos los objetivos a 5m de radio del inicial gastando +2 RAM | RAM 5+INT/10 | +1 RAM Regen",
+"+30% Daño de quickhacks",
+"+7 Crítico Tecnología"
+],
+"desc": "Cyberdeck Overclock: Mientras OVERLOCK esté activado, los Quickhacks de daño por tiempo hacen el daño de forma instantanea."
 },
 {
-"name": "Biotech Mk 4 (Samurai)",
+"v": 2,
+"name": "Biotech Σ",
 "slot": "Sistema operativo",
 "minTier": 1,
-"load": 16,
-"load6": 24,
-"price": 15000,
-"tiers": [
-"20 Icewall | 6 RAM, 2 SLOTS |+20% duración de Quickhacks de combate",
-"25 Icewall | 7 RAM, 3 SLOTS |+20% daño por tiempo de Quickhacks de combate",
-"30 Icewall | 8 RAM, 3 SLOTS |+20% daño de Monowire contra enemigos afectados por Quickhacks de combate",
-"35 Icewall | 9 RAM, 4 SLOTS | Golpear con Monowire recupera 1RAM",
-"40 Icewall | 10 RAM, 4 SLOTS | Golpear con Monowire resetea los efectos de Quickhacks de combate",
-"50 Icewall | 12 RAM, 5 SLOTS |+15 crítico y +1 letalidad con Monowire contra enemigos afectados por Quickhacks de combate"
+"costs": [
+6,
+10,
+16
 ],
-"desc": ""
+"prices": [
+65547,
+84625,
+102370
+],
+"tiers": [
+"Ataques con Monowire permiten cargar un Quickhack de combate TIER 1 | RAM 2+INT/10 | +2 RAM Regen",
+"+3 Crítico Tecnología",
+"+50% Daño de quickhacks"
+],
+"desc": "Cyberdeck Overclock: Ataques con Monowire recuperan \"RAM Regen\" por golpe. -2 ICE por un turno a objetivos golpeados por un Monowire equipado."
 },
 {
-"name": "Qiant Warp Dancer Sandevistan (Last Dance)",
+"v": 2,
+"name": "Qiant Warp Dancer",
 "slot": "Sistema operativo",
 "minTier": 1,
-"load": 14,
-"load6": 21,
-"price": 18000,
-"tiers": [
-"10 Icewall | +4 PA, D 3T, CD 6T, +10 Reflejos",
-"20 Icewall | +15 Reflejos",
-"30 Icewall | +20 Evasión",
-"45 Icewall | +15 Reflejos",
-"50 Icewall | Anula el daño Termal, Químico y Electrico al activarse",
-"55 Icewall | Reset"
+"costs": [
+26,
+26,
+21
 ],
-"desc": ""
+"prices": [
+73384,
+96678,
+116082
+],
+"tiers": [
+"+6 PA | +50 RD Eléctrica | Permite esquivar proyectiles | D 2T, CD 4T",
+"+30 Reflejos",
+"+50 RD Termal"
+],
+"desc": "Sandevistan"
 },
 {
-"name": "Militech Falcon Sandevistan (Jammer)",
+"v": 2,
+"name": "Militech Falcon",
 "slot": "Sistema operativo",
 "minTier": 1,
-"load": 39,
-"load6": 58,
-"price": 20000,
-"tiers": [
-"10 Icewall | +4 PA, D 3T, CD 6T, +10 Evasión",
-"15 Icewall | +10 Evasión",
-"20 Icewall | +10 Evasión",
-"25 Icewall | +20 Reflejos",
-"30 Icewall | Remueve el tracking de Armas Inteligentes",
-"35 Icewall | Cuando no está en uso, +20 Reflejos contra armas inteligentes"
+"costs": [
+8,
+11,
+14
 ],
-"desc": ""
+"prices": [
+45171,
+60910,
+79088
+],
+"tiers": [
+"+6 PA | +7 Iniciativa | Permite esquivar proyectiles | D 2T, CD 4T",
+"+5 PA Movimiento",
+"+5 Crítico general"
+],
+"desc": "Sandevistan"
 },
 {
-"name": "Zetatech Sandevistan (Mirror)",
+"v": 2,
+"name": "Zetatech Sharpshooter",
 "slot": "Sistema operativo",
 "minTier": 1,
-"load": 20,
-"load6": 30,
-"price": 19000,
-"tiers": [
-"10 Icewall | +6 PA, D 2T, CD 8T, +15 Evasión",
-"15 Icewall | +20 Evasión",
-"25 Icewall | +20 Reflejos",
-"30 Icewall | +30 Reflejos",
-"40 Icewall | Remueve los hacks cargados al activarse",
-"50 Icewall | BOOMERANG III mientras está activo"
+"costs": [
+8,
+11,
+14
 ],
-"desc": ""
+"prices": [
+70433,
+86409,
+103530
+],
+"tiers": [
+"+6 PA | +7 Iniciativa | +20 Puntería | D 2T, CD 4T",
+"+7 Crítico Puntería",
+"-1 PA Puntería"
+],
+"desc": "Sandevistan"
 },
 {
-"name": "Dynalar Sandevistan (Reaper)",
+"v": 2,
+"name": "Dynalar Reaper",
 "slot": "Sistema operativo",
 "minTier": 1,
-"load": 18,
-"load6": 27,
-"price": 21000,
-"tiers": [
-"10 Icewall | +6 PA, D 2T, CD 8T, +20 precisión",
-"15 Icewall | +15 Evasión",
-"20 Icewall | +15 Reflejos",
-"25 Icewall | +5 crítico en combate",
-"30 Icewall | +5 crítico en combate",
-"35 Icewall | Letalidad mínima 4 mientras esté activo"
+"costs": [
+8,
+11,
+14
 ],
-"desc": ""
+"prices": [
+60571,
+78281,
+95105
+],
+"tiers": [
+"+6 PA | +5 PA Movimiento | +20 Pelea | D 2T, CD 4T",
+"+7 Crítico Pelea",
+"-1 PA Pelea"
+],
+"desc": "Sandevistan"
 },
 {
-"name": "Militech Apogee Sandevistan (Omega)",
+"v": 2,
+"name": "Militech Apogee",
 "slot": "Sistema operativo",
 "minTier": 1,
-"load": 44,
-"load6": 66,
-"price": 29000,
-"tiers": [
-"10 Icewall | +10 PA, D 1T, CD 10T, +30 precisión",
-"15 Icewall | +50 Evasión",
-"20 Icewall | +50 Reflejos",
-"25 Icewall | +15 crítico en combate",
-"30 Icewall | +1 letalidad de crítico",
-"35 Icewall | Doble tirada mientras esté activo"
+"costs": [
+8,
+11,
+14
 ],
-"desc": ""
+"prices": [
+59145,
+78754,
+102414
+],
+"tiers": [
+"+6 PA | +7 Iniciativa | Permite esquivar proyectiles | D 2T, CD 4T",
+"+30 Reflejos",
+"+5 PA"
+],
+"desc": "Sandevistan"
 },
 {
-"name": "Zetatech Berserk (Goliath)",
+"v": 2,
+"name": "Zetatech Sandiserk",
 "slot": "Sistema operativo",
 "minTier": 1,
-"load": 16,
-"load6": 24,
-"price": 17500,
-"tiers": [
-"5 Icewall | D 3T, CD 6T, +5 Potencia, +15 Fuerza",
-"10 Icewall | +30 Fortaleza",
-"15 Icewall | -1PA ataques CaC y desarmado",
-"20 Icewall | -50% daño recibido",
-"25 Icewall | Vitalidad no puede bajar del 20%",
-"30 Icewall | Inmune a críticos y pifias mientras esté activo"
+"costs": [
+8,
+11,
+14
 ],
-"desc": ""
+"prices": [
+70821,
+92683,
+117432
+],
+"tiers": [
+"Vitalidad no puede bajar del 25% | Éxito automático en Fortaleza | +4 PA | D 2T, CD 4T",
+"+5 PA Movimiento",
+"+7 Iniciativa"
+],
+"desc": "Berserk"
 },
 {
-"name": "Militech Berserk (Sandiserk)",
+"v": 2,
+"name": "Militech Goliath",
 "slot": "Sistema operativo",
 "minTier": 1,
-"load": 35,
-"load6": 52,
-"price": 19000,
-"tiers": [
-"10 Icewall | D 3T, CD 6T, +10 Potencia, +30 Fuerza",
-"15 Icewall | +50 Fortaleza",
-"25 Icewall | -1PA ataques CaC y desarmado",
-"30 Icewall | +100% Velocidad de movimiento",
-"40 Icewall | +100 Resistencia a Hacks",
-"50 Icewall | +4 PA y +30 Reflejos mientras esté activo"
+"costs": [
+8,
+11,
+14
 ],
-"desc": ""
+"prices": [
+61345,
+84458,
+108145
+],
+"tiers": [
+"Vitalidad no puede bajar del 25% | Éxito automático en Fortaleza | +30 RD Normal | D 2T, CD 4T",
+"+15 RD General",
+"Inmunidad a críticos"
+],
+"desc": "Berserk"
 },
 {
-"name": "Moore Tech Berserk (Second Breath)",
+"v": 2,
+"name": "Moore Tech Medserk",
 "slot": "Sistema operativo",
 "minTier": 1,
-"load": 12,
-"load6": 18,
-"price": 16000,
-"tiers": [
-"10 Icewall | D 3T, CD 6T, +5 Potencia, +15 Fuerza",
-"15 Icewall | +30 Fortaleza",
-"20 Icewall | -1PA ataques CaC y desarmado",
-"30 Icewall | Regenera el triple de la velocidad de curación por turno",
-"35 Icewall | Remueve los efectos de daño por tiempo y el sangrado",
-"40 Icewall | Recupera el 100% de la vitalidad al activarlo"
+"costs": [
+8,
+11,
+14
 ],
-"desc": ""
+"prices": [
+66538,
+85091,
+108400
+],
+"tiers": [
+"Vitalidad no puede bajar del 25% | Éxito automático en Fortaleza | Cura 10+3d10 | D 2T, CD 4T",
+"Para sangrado",
+"Sana daños críticos"
+],
+"desc": "Berserk"
 },
 {
-"name": "Biodyne Berserk (Zombie)",
+"v": 2,
+"name": "Biodyne Vanguard",
 "slot": "Sistema operativo",
 "minTier": 1,
-"load": 20,
-"load6": 30,
-"price": 22000,
-"tiers": [
-"5 Icewall | D 2T, CD 8T, +20 Potencia, +60 Fuerza",
-"10 Icewall | +70 Fortaleza",
-"15 Icewall | -1PA ataques CaC y desarmado",
-"20 Icewall | -80% daño recibido",
-"25 Icewall | +20 crítico en combate CaC",
-"30 Icewall | El usuario no puede morir mientras el Berserk esté activado"
+"costs": [
+8,
+11,
+14
 ],
-"desc": ""
+"prices": [
+70979,
+88253,
+111352
+],
+"tiers": [
+"Vitalidad no puede bajar del 25% | Éxito automático en Fortaleza | +3 Crítico Pelea | D 2T, CD 4T",
+"+5 Potencia",
+"-1 PA Pelea"
+],
+"desc": "Berserk"
 },
 {
+"v": 2,
 "name": "Chrome Compressor",
-"slot": "Sistema operativo",
-"minTier": 5,
-"load": 0,
-"load6": 0,
-"price": 1000000,
-"tiers": [
-null,
-null,
-null,
-null,
-"40 Icewall | +100",
-"50 Icewall | Inmune a efectos de carga de implantes"
-],
-"desc": ""
-},
-{
-"name": "Convertidor De Adrenalina",
-"slot": "Sistema nervioso",
+"slot": "Otros",
 "minTier": 1,
-"load": 6,
-"load6": 9,
-"price": 9000,
+"costs": [
+6,
+12,
+18
+],
+"prices": [
+5812,
+16329,
+56050
+],
 "tiers": [
-"+2 PA en el primer turno de combate",
-"+20 Reflejos en el primer turno de combate",
-"+2 PA en el primer turno de combate",
-"+20 Reflejos en el primer turno de combate",
-"+2 PA",
-"Los efectos persisten hasta el segundo turno de combate"
+"-50% Carga de implantes",
+"+30 Voluntad",
+"+3 ICE"
 ],
 "desc": ""
 },
 {
+"v": 2,
 "name": "Kerenzikov",
 "slot": "Sistema nervioso",
 "minTier": 1,
-"load": 12,
-"load6": 18,
-"price": 9000,
+"costs": [
+2,
+4,
+6
+],
+"prices": [
+4124,
+8269,
+13528
+],
 "tiers": [
-"+2 PA, D 1T, CD 3T, +10 Reflejos",
-"+5 Reflejos",
-"+10 Evasión",
-"+1 PA",
-"+5 crítico",
-"Duplica los efectos anteriores"
+"Permite esquivar proyectiles | D 1T, CD 6T",
+"+3 Crítico Puntería",
+"+4 PA"
 ],
 "desc": ""
 },
 {
-"name": "Neo-Fibra",
+"v": 2,
+"name": "Convertidor De Adrenalina",
 "slot": "Sistema nervioso",
 "minTier": 1,
-"load": 14,
-"load6": 21,
-"price": 7000,
+"costs": [
+2,
+4,
+6
+],
+"prices": [
+3750,
+7473,
+11532
+],
 "tiers": [
-"+5 Evasión",
-"+5 RD",
-"+5 Evasión",
-"+5 RD",
-"+10 Evasión",
-"Inmune a ataques con tiradas de ataque con mas de 70 en los dados"
+"Permite esquivar proyectiles | D 1T, CD 6T",
+"+4 PA Movimiento",
+"+4 Potencia"
 ],
 "desc": ""
 },
 {
+"v": 2,
+"name": "Proxishield",
+"slot": "Sistema nervioso",
+"minTier": 1,
+"costs": [
+2,
+4,
+6
+],
+"prices": [
+15000,
+30000,
+60000
+],
+"tiers": [
+"+20 Voluntad | D 1T, CD 6T",
+"+20 RD vs Quickhacks",
+"+2 ICE"
+],
+"desc": ""
+},
+{
+"v": 2,
 "name": "Sintonizador De Reflejos",
 "slot": "Sistema nervioso",
 "minTier": 1,
-"load": 8,
-"load6": 12,
-"price": 6000,
+"costs": [
+2,
+4,
+6
+],
+"prices": [
+3866,
+7821,
+12140
+],
 "tiers": [
-"+2 PA, D 1T, CD 3T, +10 Reflejos (se activa cuando la Vitalidad baja del 50%)",
-"+10 Evasión",
-"+5 Reflejos",
-"+10 Evasión",
-"+5 Reflejos",
-"Activación controlada"
+"Permite esquivar proyectiles | D 1T, CD 6T",
+"+20 Evasión",
+"+20 Reflejos"
 ],
 "desc": ""
 },
 {
+"v": 2,
 "name": "Acelerador Sinaptico",
 "slot": "Sistema nervioso",
 "minTier": 1,
-"load": 5,
-"load6": 7,
-"price": 8000,
+"costs": [
+2,
+4,
+6
+],
+"prices": [
+3987,
+7992,
+11359
+],
 "tiers": [
-"+2 PA, D 1T, CD 10T (se activa al ser detectado por el enemigo)",
-"-5 penalizador por apuntar",
-"+2 PA",
-"-5 penalizador por apuntar",
-"+1 letalidad",
-"Los efectos persisten un turno mas"
+"Permite esquivar proyectiles | D 1T, CD 6T",
+"+5 Iniciativa",
+"-2 RAM Quickhacks"
 ],
 "desc": ""
 },
 {
+"v": 2,
 "name": "Soporte De Corteza Visual",
 "slot": "Sistema nervioso",
 "minTier": 1,
-"load": 20,
-"load6": 30,
-"price": 15000,
+"costs": [
+2,
+6,
+12
+],
+"prices": [
+1984,
+6327,
+24956
+],
 "tiers": [
-"+5 crítico cada 10m del objetivo (máx. 20)",
-"-5 penalizador por apuntar",
-"-5 penalizador por apuntar",
-"-5 penalizador por apuntar",
-"+1 letalidad a 20m o mas del objetivo",
-"Anula los requerimientos de rango para los efectos"
+"+10 Puntería",
+"+50 Rango",
+"+7 Crítico Puntería"
 ],
 "desc": ""
 },
 {
+"v": 2,
+"name": "Neo-Fibra",
+"slot": "Sistema nervioso",
+"minTier": 1,
+"costs": [
+2,
+6,
+12
+],
+"prices": [
+2175,
+6323,
+19921
+],
+"tiers": [
+"+2 PA",
+"+20 Vitalidad",
+"+30 Fortaleza"
+],
+"desc": ""
+},
+{
+"v": 2,
+"name": "Editor De Dolor",
+"slot": "Sistema nervioso",
+"minTier": 1,
+"costs": [
+2,
+6,
+12
+],
+"prices": [
+8000,
+16000,
+32000
+],
+"tiers": [
+"+5 RD General",
+"+20 Fortaleza",
+"+30 Constitución"
+],
+"desc": ""
+},
+{
+"v": 2,
 "name": "Refuerzo De Adrenalina",
 "slot": "Sistema circulatorio",
 "minTier": 1,
-"load": 14,
-"load6": 21,
-"price": 15000,
+"costs": [
+1,
+3,
+6
+],
+"prices": [
+15000,
+30000,
+60000
+],
 "tiers": [
-"+10 RD cuando se tiene 50% o menos de vitalidad. CD 10T",
-"+1 PA cuando se tiene 50% o menos de vitalidad. CD 10T",
-"CD 8T",
-"+1 PA cuando se tiene 50% o menos de vitalidad. CD 8T",
-"+10RD cuando se tiene 50% o menos de vitalidad. CD 8T",
-"Activación controlada"
+"+10 Fortaleza | D 1T, CD 6T",
+"+5 Iniciativa",
+"+15 RD General"
 ],
 "desc": ""
 },
 {
-"name": "Biomonitor",
-"slot": "Sistema circulatorio",
-"minTier": 1,
-"load": 14,
-"load6": 21,
-"price": 18000,
-"tiers": [
-"Cura 2d10 cuando se tiene 50% o menos de vitalidad. CD 12T",
-"Cura 2d10 cuando se tiene 50% o menos de vitalidad. CD 10T",
-"Cura 3d10 cuando se tiene 50% o menos de vitalidad. CD 10T",
-"Cura 3d10 cuando se tiene 50% o menos de vitalidad. CD 8T",
-"Cura 4d10 cuando se tiene 50% o menos de vitalidad. CD 8T",
-"Cura 100% de la Vitalidad"
-],
-"desc": ""
-},
-{
-"name": "Circuito De Feedback",
-"slot": "Sistema circulatorio",
-"minTier": 1,
-"load": 14,
-"load6": 21,
-"price": 18000,
-"tiers": [
-"+1 PA al utilizar ataques cargados con armas TECH. CD 10T",
-"+2 daño base con armas TECH",
-"CD 8T",
-"+5 daño base con armas TECH",
-"+2 PA al utilizar ataques cargados con armas TECH. CD 6T",
-"Daño crítico automático (Letalidad 1) con ataques cargados de armas TECH"
-],
-"desc": ""
-},
-{
+"v": 2,
 "name": "Threatevac",
 "slot": "Sistema circulatorio",
 "minTier": 1,
-"load": 12,
-"load6": 18,
-"price": 14000,
+"costs": [
+1,
+3,
+6
+],
+"prices": [
+14000,
+28000,
+56000
+],
 "tiers": [
-"+1 PA cuando se tiene 25% o menos de vitalidad. CD 14T",
-"+1 PA cuando se tiene 25% o menos de vitalidad. CD 12T",
-"+1 PA cuando se tiene 25% o menos de vitalidad. CD 10T",
-"+1 PA cuando se tiene 50% o menos de vitalidad. CD 8T",
-"+1 PA cuando se tiene 50% o menos de vitalidad. CD 6T",
-"Efecto constante al tener 50% o menos de vitalidad"
+"Cura 5+2d10 | D 1T, CD 12T",
+"+4 PA Movimiento",
+"Para sangrado"
 ],
 "desc": ""
 },
 {
-"name": "Microrotores",
-"slot": "Sistema circulatorio",
-"minTier": 1,
-"load": 12,
-"load6": 18,
-"price": 25000,
-"tiers": [
-"-1 PA para ataques CaC",
-"+1 Potencia",
-"+1 PA",
-"+1 Potencia",
-"-1 PA para ataques CaC",
-"+15 crítico con ataques CaC"
-],
-"desc": ""
-},
-{
-"name": "Segundo Corazón",
-"slot": "Sistema circulatorio",
-"minTier": 5,
-"load": 30,
-"load6": 45,
-"price": 2000000,
-"tiers": [
-null,
-null,
-null,
-null,
-"Cura el 100% de la Vitalidad cuando esta cae a 0 o menos.",
-"Doble uso"
-],
-"desc": ""
-},
-{
-"name": "Mamba Negra",
-"slot": "Sistema circulatorio",
-"minTier": 1,
-"load": 16,
-"load6": 24,
-"price": 8000,
-"tiers": [
-"Agrega 1d6 de daño químico a los ataques desarmados",
-"Convierte en salud un 50% del daño químico recibido",
-"Agrega 1d6 de daño químico a los ataques desarmados",
-"Convierte en salud un 100% del daño químico recibido",
-"Agrega 1d6 de daño químico a los ataques desarmados",
-"Al efectuar un ataque desarmado, Fortaleza +30 o muerte instantánea"
-],
-"desc": ""
-},
-{
+"v": 2,
 "name": "Bomba De Sangre",
 "slot": "Sistema circulatorio",
 "minTier": 1,
-"load": 15,
-"load6": 22,
-"price": 15000,
+"costs": [
+1,
+3,
+6
+],
+"prices": [
+15000,
+30000,
+60000
+],
 "tiers": [
-"Cura 10+1d10 de Vitalidad. CD 12 T",
-"Cura 10+2d10 de Vitalidad. CD 12 T",
-"Cura 20+2d10 de Vitalidad. CD 10 T",
-"Cura 20+3d10 de Vitalidad. CD 10 T",
-"Cura 30+3d10 de Vitalidad. CD 8 T",
-"Cura 50+5d10 de Vitalidad y anula estados alterados. CD 6 T"
+"Cura 5+2d10 | D 1T, CD 12T",
+"Cura 10+3d10",
+"Cura 15+4d10"
 ],
 "desc": ""
 },
 {
-"name": "Caparazón",
-"slot": "Sistema integumentario",
+"v": 2,
+"name": "Segundo Corazón",
+"slot": "Sistema circulatorio",
+"minTier": 3,
+"costs": [
+0,
+0,
+18
+],
+"prices": [
+null,
+null,
+500000
+],
+"tiers": [
+null,
+null,
+"Cura 100% de Vitalidad al ser reducido a 0 o menos de Vitalidad"
+],
+"desc": "AUTOMÁTICO Enfriamiento 24hs"
+},
+{
+"v": 2,
+"name": "Biomonitor",
+"slot": "Sistema circulatorio",
 "minTier": 1,
-"load": 18,
-"load6": 27,
-"price": 12000,
+"costs": [
+2,
+6,
+12
+],
+"prices": [
+18000,
+36000,
+72000
+],
 "tiers": [
-"+10 RD Normal por la espalda",
-"+10 RD Normal por la espalda",
-"+10 RD Normal por la espalda",
-"+10 RD Normal por la espalda",
-"+10 RD Normal por la espalda",
-"Inmune a críticos por la espalda"
+"+10 Vitalidad",
+"+20 Constitución",
+"+3 Velocidad de curación"
 ],
 "desc": ""
 },
 {
-"name": "Adaptador Celular",
-"slot": "Sistema integumentario",
+"v": 2,
+"name": "Circuito De Feedback",
+"slot": "Sistema circulatorio",
 "minTier": 1,
-"load": 30,
-"load6": 45,
-"price": 18000,
+"costs": [
+6,
+12,
+18
+],
+"prices": [
+18000,
+36000,
+72000
+],
 "tiers": [
-"+10 Vitalidad máxima",
-"+3 Velocidad de curación",
-"+15 Fortaleza",
-"+10 Vitalidad máxima",
-"+3 Velocidad de curación",
-"+30 Vitalidad máxima"
+"-2 PA Carga Tech",
+"+30% daño Carga Tech",
+"+50 RD Eléctrica"
 ],
 "desc": ""
 },
 {
-"name": "Quitina",
-"slot": "Sistema integumentario",
+"v": 2,
+"name": "Microrotores",
+"slot": "Sistema circulatorio",
 "minTier": 1,
-"load": 12,
-"load6": 18,
-"price": 15000,
+"costs": [
+2,
+6,
+12
+],
+"prices": [
+25000,
+50000,
+100000
+],
 "tiers": [
-"+2 Velocidad de curación",
-"+2 Velocidad de curación",
-"+2 Velocidad de curación",
-"+2 Velocidad de curación",
-"+2 Velocidad de curación",
-"Velocidad de curación constante (remueve los efectos anteriores)"
+"+3 Potencia",
+"+20 Destreza",
+"-1 PA Pelea"
 ],
 "desc": ""
 },
 {
-"name": "Contracara",
-"slot": "Sistema integumentario",
+"v": 2,
+"name": "Mamba Negra",
+"slot": "Sistema circulatorio",
 "minTier": 1,
-"load": 12,
-"load6": 18,
-"price": 10000,
+"costs": [
+2,
+6,
+12
+],
+"prices": [
+8000,
+16000,
+32000
+],
 "tiers": [
-"+5 RD cuando se tiene 25% o menos de vitalidad. CD 14T",
-"+5 RD cuando se tiene 25% o menos de vitalidad. CD 12T",
-"+5 RD cuando se tiene 25% o menos de vitalidad. CD 10T",
-"+5 RD cuando se tiene 50% o menos de vitalidad. CD 8T",
-"+5 RD cuando se tiene 50% o menos de vitalidad. CD 6T",
-"Activación controlada"
+"+15 RD Química",
+"+30 RD Química",
+"+50 RD Química"
 ],
 "desc": ""
 },
 {
-"name": "Defenzikov",
-"slot": "Sistema integumentario",
-"minTier": 1,
-"load": 15,
-"load6": 22,
-"price": 10000,
-"tiers": [
-"+5 RD al finalizar el efecto de Kerenzikov. D 1T, CD 3T",
-"+5 RD al finalizar el efecto de Kerenzikov. D 1T, CD 3T",
-"+5 RD al finalizar el efecto de Kerenzikov. D 1T, CD 3T",
-"+5 RD al finalizar el efecto de Kerenzikov. D 1T, CD 3T",
-"+5 RD al finalizar el efecto de Kerenzikov. D 2T, CD 3T",
-"Inmune a críticos en la duración de Kerenzikov"
-],
-"desc": ""
-},
-{
+"v": 2,
 "name": "Camuflaje Óptico",
 "slot": "Sistema integumentario",
 "minTier": 1,
-"load": 20,
-"load6": 30,
-"price": 22000,
+"costs": [
+1,
+3,
+6
+],
+"prices": [
+200000,
+400000,
+800000
+],
 "tiers": [
-"-20% Percepción enemiga",
-"-10% Percepción enemiga",
-"-20% Percepción enemiga",
-"-10% Percepción enemiga",
-"-20% Percepción enemiga",
-"-100% Percepción enemiga (D 3T) (se desactiva al realizar acciones complejas)"
+"-15% Percepción enemiga | D 3T, CD 12T",
+"-30% Percepción enemiga",
+"-50% Percepción enemiga"
 ],
 "desc": ""
 },
 {
-"name": "Editor De Dolor",
+"v": 2,
+"name": "Defenzikov",
 "slot": "Sistema integumentario",
 "minTier": 1,
-"load": 15,
-"load6": 22,
-"price": 12000,
+"costs": [
+3,
+6,
+9
+],
+"prices": [
+25000,
+50000,
+100000
+],
 "tiers": [
-"+5 Vitalidad máxima",
-"+5 Fortaleza",
-"+5 Vitalidad máxima",
-"+5 Fortaleza",
-"+5 Vitalidad máxima",
-"+20 Vitalidad máxima, +10 Fortaleza"
+"+50 RD Normal | D 2T, CD 12T",
+"+15 RD General",
+"+30 Fortaleza"
 ],
 "desc": ""
 },
 {
-"name": "Proxishield",
-"slot": "Sistema integumentario",
-"minTier": 1,
-"load": 14,
-"load6": 21,
-"price": 14000,
-"tiers": [
-"+10 RD Normal vs CaC",
-"+5 RD Normal vs CaC",
-"+10 RD Normal vs CaC",
-"+5 RD Normal vs CaC",
-"+10 RD Normal vs CaC",
-"Inmune a críticos vs CaC"
-],
-"desc": ""
-},
-{
+"v": 2,
 "name": "Rangeguard",
 "slot": "Sistema integumentario",
 "minTier": 1,
-"load": 14,
-"load6": 21,
-"price": 14000,
+"costs": [
+3,
+6,
+9
+],
+"prices": [
+8000,
+16000,
+32000
+],
 "tiers": [
-"+10 RD Normal vs proyectiles",
-"+5 RD Normal vs proyectiles",
-"+10 RD Normal vs proyectiles",
-"+5 RD Normal vs proyectiles",
-"+10 RD Normal vs proyectiles",
-"Inmune a críticos vs protectiles"
+"Permite deflectar proyectiles | D 2T, CD 12T",
+"Interfiere en el SMART Lock",
+"+3 ICE"
 ],
 "desc": ""
 },
 {
+"v": 2,
+"name": "Adaptador Celular",
+"slot": "Sistema integumentario",
+"minTier": 1,
+"costs": [
+6,
+12,
+18
+],
+"prices": [
+18000,
+36000,
+72000
+],
+"tiers": [
+"Dobla la duración de los efectos de los medicamentos y drogas",
+"Dobla los efectos base de los medicamentos y drogas",
+"Agrega un nuevo efecto a los medicamentos y drogas"
+],
+"desc": ""
+},
+{
+"v": 2,
+"name": "Quitina",
+"slot": "Sistema integumentario",
+"minTier": 1,
+"costs": [
+2,
+6,
+12
+],
+"prices": [
+18000,
+36000,
+72000
+],
+"tiers": [
+"+1 Velocidad de curación",
+"+2 Velocidad de curación",
+"+3 Velocidad de curación"
+],
+"desc": ""
+},
+{
+"v": 2,
 "name": "Armadura Subdermal",
 "slot": "Sistema integumentario",
 "minTier": 1,
-"load": 15,
-"load6": 22,
-"price": 16000,
+"costs": [
+2,
+6,
+12
+],
+"prices": [
+15000,
+30000,
+60000
+],
 "tiers": [
-"+5 RD Normal",
-"+5 RD Normal",
-"+5 RD Normal",
-"+5 RD Normal",
-"+5 RD Normal",
-"Reduce 30 de la perforación de armadura de ataques enemigos"
+"+15 RD Normal",
+"+30 RD Normal",
+"+50 RD Normal"
 ],
 "desc": ""
 },
 {
+"v": 2,
 "name": "Fenix",
 "slot": "Sistema integumentario",
 "minTier": 1,
-"load": 18,
-"load6": 27,
-"price": 18000,
+"costs": [
+2,
+6,
+12
+],
+"prices": [
+8000,
+16000,
+32000
+],
 "tiers": [
-"+10 RD Termal",
-"+10 RD Termal",
-"+10 RD Termal",
-"+10 RD Termal",
-"+10 RD Termal",
-"Inmune al daño Termal"
+"+15 RD Termal",
+"+30 RD Termal",
+"+50 RD Termal"
 ],
 "desc": ""
 },
 {
+"v": 2,
+"name": "Caparazón",
+"slot": "Sistema integumentario",
+"minTier": 1,
+"costs": [
+2,
+6,
+12
+],
+"prices": [
+15000,
+30000,
+60000
+],
+"tiers": [
+"+15 RD Eléctrica",
+"+30 RD Eléctrica",
+"+50 RD Eléctrica"
+],
+"desc": ""
+},
+{
+"v": 2,
 "name": "Articulaciones Biónicas",
 "slot": "Esqueleto",
 "minTier": 1,
-"load": 8,
-"load6": 14,
-"price": 14000,
+"costs": [
+2,
+6,
+12
+],
+"prices": [
+18000,
+36000,
+72000
+],
 "tiers": [
-"+5 Fortaleza",
-"+5 RD Normal",
-"+2 Potencia",
-"+5 Fortaleza",
-"+5 RD Normal",
-"Duplica los valores"
+"+10 Pelea",
+"+20 Fuerza",
+"+5 Potencia"
 ],
 "desc": ""
 },
 {
-"name": "Huesos De Titanio",
-"slot": "Esqueleto",
-"minTier": 1,
-"load": 6,
-"load6": 12,
-"price": 10000,
-"tiers": [
-"+5 Fortaleza",
-"+5 Vitalidad máxima",
-"+5 Fortaleza",
-"+5 Vitalidad máxima",
-"75% resistencia a fracturas",
-"Duplica los valores. 100% resistencia a fracturas"
-],
-"desc": ""
-},
-{
-"name": "Esqueleto Epimórfico",
-"slot": "Esqueleto",
-"minTier": 1,
-"load": 30,
-"load6": 45,
-"price": 8000,
-"tiers": [
-"+5 Vitalidad máxima",
-"+5 Vitalidad máxima",
-"+5 Vitalidad máxima",
-"+5 Vitalidad máxima",
-"+5 Vitalidad máxima",
-"+20 Vitalidad máxima"
-],
-"desc": ""
-},
-{
-"name": "Refuerzo Universal",
-"slot": "Esqueleto",
-"minTier": 1,
-"load": 25,
-"load6": 25,
-"price": 14000,
-"tiers": [
-"+5 RD bajo la influencia de drogas o medicamentos",
-"+1 PA bajo la influencia de drogas o medicamentos",
-"+5 RD bajo la influencia de drogas o medicamentos",
-"+1 PA bajo la influencia de drogas o medicamentos",
-"+5 RD bajo la influencia de drogas o medicamentos",
-"Duplica los valores"
-],
-"desc": ""
-},
-{
-"name": "Escarabajo",
-"slot": "Esqueleto",
-"minTier": 1,
-"load": 14,
-"load6": 37,
-"price": 10000,
-"tiers": [
-"+10 RD",
-"+10 Fortaleza, -1PA",
-"+10 RD",
-"+10 Fortaleza, -1PA",
-"+10 RD",
-"Duplica los valores positivos"
-],
-"desc": ""
-},
-{
+"v": 2,
 "name": "Articulaciones De Resorte",
 "slot": "Esqueleto",
 "minTier": 1,
-"load": 16,
-"load6": 24,
-"price": 16000,
+"costs": [
+2,
+6,
+12
+],
+"prices": [
+8000,
+16000,
+32000
+],
 "tiers": [
-"+3 Iniciativa",
-"+1 potencia",
-"+20 Atletísmo",
-"+1 potencia",
-"-1 PA para atletismo",
-"+5 Iniciativa, +2 Potencia, +20 Atletismo"
+"+10 Atletismo",
+"+20 Destreza",
+"+7 Iniciativa"
 ],
 "desc": ""
 },
 {
-"name": "Recuperador De Ram",
+"v": 2,
+"name": "Huesos De Titanio",
 "slot": "Esqueleto",
 "minTier": 1,
-"load": 14,
-"load6": 21,
-"price": 14000,
+"costs": [
+2,
+6,
+12
+],
+"prices": [
+18000,
+36000,
+72000
+],
 "tiers": [
-"Recupera 1 de RAM por cada 10 de daño recibido",
-"+2 RAM",
-"Recupera 1 de RAM por cada 10 de daño recibido",
-"+2 RAM",
-"Recupera 1 de RAM por cada 10 de daño recibido",
-"Recupera el 100% de la RAM por críticos recibidos"
+"+10 Fortaleza",
+"+20 Fuerza",
+"+30 Vitalidad"
 ],
 "desc": ""
 },
 {
-"name": "Para Bellum",
+"v": 2,
+"name": "Esqueleto Epimórfico",
 "slot": "Esqueleto",
 "minTier": 1,
-"load": 25,
-"load6": 37,
-"price": 18000,
+"costs": [
+2,
+6,
+12
+],
+"prices": [
+18000,
+36000,
+72000
+],
 "tiers": [
 "+10 Fortaleza",
-"+10 RD Normal",
-"+10 Fortaleza",
-"+10 RD Normal",
-"+10 Fortaleza",
-"Reducción de daño por Fortaleza es 1/4"
+"+30 RD Normal",
+"-1 Letalidad enemiga"
 ],
 "desc": ""
 },
 {
+"v": 2,
+"name": "Refuerzo Universal",
+"slot": "Esqueleto",
+"minTier": 1,
+"costs": [
+2,
+4,
+6
+],
+"prices": [
+25000,
+50000,
+100000
+],
+"tiers": [
+"+10 Constitución",
+"+10 Fuerza",
+"+10 Destreza"
+],
+"desc": ""
+},
+{
+"v": 2,
 "name": "Densidad Medular",
 "slot": "Esqueleto",
 "minTier": 1,
-"load": 16,
-"load6": 24,
-"price": 11000,
+"costs": [
+2,
+6,
+12
+],
+"prices": [
+15000,
+30000,
+60000
+],
 "tiers": [
-"+3 Potencia +1 PA de coste de ataques cuerpo a cuerpo",
-"+1 Impacto",
-"-10 RD",
-"+1 Impacto",
-"+2 Potencia, +1 PA de coste de ataques cuerpo a cuerpo",
-"Duplica los valores"
+"+1 Potencia",
+"+6 Potencia, +1 PA Pelea",
+"+3 Impacto"
 ],
 "desc": ""
 },
 {
+"v": 2,
+"name": "Recuperador De Ram",
+"slot": "Esqueleto",
+"minTier": 1,
+"costs": [
+2,
+6,
+12
+],
+"prices": [
+15000,
+30000,
+60000
+],
+"tiers": [
+"-1 RAM Quickhacks",
+"10% del daño recibido se convierte en RAM",
+"+4 RAM"
+],
+"desc": ""
+},
+{
+"v": 2,
 "name": "Enlace Inteligente",
 "slot": "Manos",
 "minTier": 1,
-"load": 8,
-"load6": 12,
-"price": 4500,
+"costs": [
+2,
+6,
+12
+],
+"prices": [
+18000,
+36000,
+72000
+],
 "tiers": [
-"Conecta a la interfaz de armas SMART",
-"+5 Puntería con armas SMART",
-"+5 Puntería con armas SMART",
-"+10 Crítico con armas SMART",
-"+1 Letalidad con armas SMART",
-"Críticos individuales por disparo de armas SMART"
+"Conexión con sistema de armas SMART",
+"+1 Turno Lock",
+"-2 PA Lock"
 ],
 "desc": ""
 },
 {
+"v": 2,
 "name": "Coprocesador Balístico",
 "slot": "Manos",
 "minTier": 1,
-"load": 8,
-"load6": 12,
-"price": 4500,
+"costs": [
+2,
+6,
+12
+],
+"prices": [
+18000,
+36000,
+72000
+],
 "tiers": [
-"+5 Puntería",
-"+5 Puntería",
-"+5 Puntería",
-"+5 Crítico",
-"+1 Letalidad",
-"Duplica los valores"
+"-10 Penalizador en modo auto",
+"+3 Crítico Puntería",
+"+30 Puntería"
 ],
 "desc": ""
 },
 {
+"v": 2,
 "name": "Amortiguador",
 "slot": "Manos",
 "minTier": 1,
-"load": 4,
-"load6": 6,
-"price": 4500,
+"costs": [
+2,
+6,
+12
+],
+"prices": [
+25000,
+50000,
+100000
+],
 "tiers": [
-"-5 Penalizador de disparo automático",
-"+10 de Fuerza para requerimientos de armas",
-"-5 Penalizador de disparo automático",
-"+10 de Fuerza para requerimientos de armas",
-"-5 Penalizador de disparo automático",
-"Sin penalizador por disparo automático, +20 Requerimientos de fuerza"
+"-10 Penalizador en modo auto",
+"-20 Penalizador en modo auto",
+"+30 de Fuerza para disparar armas"
 ],
 "desc": ""
 },
 {
+"v": 2,
 "name": "Micro Generador",
 "slot": "Manos",
 "minTier": 1,
-"load": 10,
-"load6": 15,
-"price": 4500,
+"costs": [
+2,
+6,
+12
+],
+"prices": [
+18000,
+36000,
+72000
+],
 "tiers": [
-"-1 PA Carga de armas TECH",
-"+5 daño cargado con armas TECH",
-"-1 PA Carga de armas TECH",
-"+5 crítico con armas TECH",
-"+1 Letalidad con armas TECH",
-"Convierte Vitalidad en daño con armas TECH (máximo 25%)"
+"Causa Daño eléctrico al contacto. D4 daño eléctrico, 10 Impacto. 3 usos c/8h",
+"+D4 daño eléctrico, +2 Impacto. +1 uso",
+"+D4 daño eléctrico, +2 Impacto. +1 uso"
 ],
 "desc": ""
 },
 {
+"v": 2,
 "name": "Multi-Tool",
 "slot": "Manos",
 "minTier": 1,
-"load": 4,
-"load6": 6,
-"price": 4500,
+"costs": [
+2,
+6,
+12
+],
+"prices": [
+25000,
+50000,
+100000
+],
 "tiers": [
-"+10 Pericia (Máx. 1 especialidad)",
-"+10 Pericia (Máx. 1 especialidad)",
-"+10 Pericia (Máx. 2 especialidades)",
-"Convierte pifia en fallos en Pericia",
-"+15 crítico en Pericia",
-"Crítico automático en especialidades de pericia"
+"Juego de herramientas especializadas (Medicina, Mecánica, Tecnología, Sigilo)",
+"+10 Crítico en Pericia (Medicina, Mecánica, Tecnología, Sigilo)",
+"-2 Pifia"
 ],
 "desc": ""
 },
 {
-"name": "Brazos Gorila - Arasaka",
-"slot": "Brazos",
+"v": 2,
+"name": "Tacticool Hands",
+"slot": "Manos",
 "minTier": 1,
-"load": 8,
-"load6": 12,
-"price": 15000,
+"costs": [
+2,
+6,
+12
+],
+"prices": [
+18000,
+36000,
+72000
+],
 "tiers": [
-"5 PA, +10 FUE, +1 Potencia, Impacto 1",
-"+5 FUE, +1 Potencia",
-"+1 Potencia, +1D6 Daño de impacto, Impacto 1",
-"+5 FUE, +1 Potencia",
-"+1 Potencia, -1PA",
-"+5 Potencia, Impacto 3"
+"-1 PA Recarga",
+"-1 Pifia",
+"-1 PA Puntería"
 ],
 "desc": ""
 },
 {
-"name": "Brazos Gorila Hausstock-W - Moore Tech",
+"v": 2,
+"name": "Brazos Arasaka",
 "slot": "Brazos",
 "minTier": 1,
-"load": 8,
-"load6": 8,
-"price": 10000,
+"costs": [
+6,
+10,
+16
+],
+"prices": [
+3750,
+3750,
+3750
+],
 "tiers": [
-"5 PA, +10 FUE, +1D6 Daño de impacto, Impacto 1",
-"+5 FUE",
-"+5 FUE, +1D6 Daño de impacto, Impacto 1",
-"+5 FUE",
-"+5 FUE, +1D6 Daño de impacto, Impacto 1",
-"+15 FUE, +2D6 Daño de impacto, Impacto 2"
+"+10 Fuerza | +20 Pelea",
+"+3 Crítico Pelea",
+"-1 PA Pelea"
 ],
 "desc": ""
 },
 {
-"name": "Brazos Gorila Krieger - Stein",
+"v": 2,
+"name": "Brazos Moore Tech",
 "slot": "Brazos",
 "minTier": 1,
-"load": 8,
-"load6": 12,
-"price": 17000,
+"costs": [
+6,
+10,
+16
+],
+"prices": [
+3750,
+3750,
+3750
+],
 "tiers": [
-"5 PA, +20 FUE, +2D6 Daño de impacto, Impacto 2",
-"+10 FUE",
+"+20 Fuerza | Impacto 1",
+"-20 Fortaleza",
+"+5 Potencia"
+],
+"desc": ""
+},
+{
+"v": 2,
+"name": "Brazos Stein",
+"slot": "Brazos",
+"minTier": 1,
+"costs": [
+10,
+12,
+16
+],
+"prices": [
+3750,
+3750,
+3750
+],
+"tiers": [
+"+30 Fuerza | +6 Potencia, +1 PA Pelea",
 "-10 Fortaleza",
-"+10 FUE, Impacto 2",
-"-10 Fortaleza",
-"-30 Fortaleza, +10 Potencia"
+"+2 Impacto"
+],
+"desc": "Brazos que activan un pistón al golpear"
+},
+{
+"v": 2,
+"name": "Brazos Rostovik",
+"slot": "Brazos",
+"minTier": 1,
+"costs": [
+6,
+12,
+16
+],
+"prices": [
+3750,
+3750,
+3750
+],
+"tiers": [
+"+20 Fuerza | +10 Puntería",
+"-30 Penalizador en modo auto",
+"+20 RD General"
+],
+"desc": "Brazos con sistema de absorción de impacto integrados"
+},
+{
+"v": 2,
+"name": "Mantis Arasaka",
+"slot": "Brazos",
+"minTier": 1,
+"costs": [
+6,
+10,
+12
+],
+"prices": [
+3750,
+3750,
+3750
+],
+"tiers": [
+"Daño: Pot+7+2D10 / PA:5 / Crítico: +5 / RD: -15 | -15 RD",
+"+3 Crítico",
+"-1 PA Pelea"
 ],
 "desc": ""
 },
 {
-"name": "Brazos Gorila Kombat- Rostovik",
+"v": 2,
+"name": "Mantis Raven Microcybernetics",
 "slot": "Brazos",
 "minTier": 1,
-"load": 8,
-"load6": 12,
-"price": 12000,
+"costs": [
+6,
+10,
+16
+],
+"prices": [
+3750,
+3750,
+3750
+],
 "tiers": [
-"6 PA, +10 FUE, +1D6 Daño de impacto, +1D6 Daño de eléctrico, Impacto 1",
-"+5 FUE, +1D6 Daño de eléctrico, Impacto 1",
-"+5 FUE, +1D6 Daño de impacto, Impacto 1",
-"+5 FUE, +1D6 Daño de eléctrico, Impacto 1",
-"+1D6 Daño de impacto, Impacto 1",
-"+2d6 de daño, convierte la mitad del daño en eléctrico"
+"Daño: Pot+5+2D8 / PA:5 / Crítico: +5 / RD: -10 | Causa 5+2D6 de daño térmico y -20 RD Normal por 2 turnos. Golpes consecutivos renuevan la duración.",
+"+3 Crítico",
+"-50 RD"
+],
+"desc": "La hoja vibra a velocidades supersónicas, aumentando la temperatura de la misma y permitiendo cortar casi cualquier cosa"
+},
+{
+"v": 2,
+"name": "Mantis Higurashi",
+"slot": "Brazos",
+"minTier": 1,
+"costs": [
+8,
+12,
+16
+],
+"prices": [
+3750,
+3750,
+3750
+],
+"tiers": [
+"Daño: Pot+9+2D12 / PA:5 / Crítico: +5 / RD: -20 | +10 Pelea",
+"-30 RD",
+"+3 Crítico"
 ],
 "desc": ""
 },
 {
-"name": "Hojas Mantis Arasaka",
+"v": 2,
+"name": "Mantis Rostovik",
 "slot": "Brazos",
 "minTier": 1,
-"load": 8,
-"load6": 12,
-"price": 15000,
+"costs": [
+6,
+10,
+16
+],
+"prices": [
+3750,
+3750,
+3750
+],
 "tiers": [
-"Ataque de 4 PA, 5+2D8 daño cortante, +5 crítico",
-"-15 RD",
-"+1D8 Daño cortante",
-"-15 RD",
-"-1PA",
-"+1d8 daño cortante, -15 RD, +1 Letalidad"
+"Daño: Pot+5+2D8 / PA:5 / Crítico: +5 / RD: -10 | Permite disparar la hoja a 20m de distancia",
+"-30 RD",
+"+7 Crítico"
 ],
 "desc": ""
 },
 {
-"name": "Hojas Mantis Arasaka Monohoshizao",
+"v": 2,
+"name": "Monowire Kendachi",
 "slot": "Brazos",
 "minTier": 1,
-"load": 8,
-"load6": 12,
-"price": 17000,
-"tiers": [
-"Ataque de 5 PA, 5+2D8 daño cortante, +5 crítico",
-"-10 RD",
-"+1D8 Daño cortante",
-"-10 RD",
-"-10 Reflejos del objetivo",
-"+1d8 daño cortante, -15 RD, +1 Letalidad"
+"costs": [
+8,
+12,
+16
 ],
-"desc": "Las hojas se estiran mas de lo normal, reduciendo la evasión y reflejos del objetivo en 15"
-},
-{
-"name": "Hojas Mantis Arasaka Yamato Takeru",
-"slot": "Brazos",
-"minTier": 1,
-"load": 8,
-"load6": 12,
-"price": 17000,
-"tiers": [
-"Ataque de 4 PA, 3+2D8 daño cortante, +5 crítico",
-"+10 Fortaleza y RD",
-"+1D8 Daño cortante",
-"-10 RD",
-"+10 Fortaleza y RD",
-"+10 Fortaleza y RD, -20 RD, +1d8 daño cortante"
+"prices": [
+3750,
+3750,
+null
 ],
-"desc": "Causa un estado de euforia, aumenta la Fortaleza y RD en 10"
-},
-{
-"name": "Hojas Mantis Arasaka Ikasuchi",
-"slot": "Brazos",
-"minTier": 1,
-"load": 8,
-"load6": 12,
-"price": 17000,
 "tiers": [
-"Ataque de 5 PA, 5+1d8 daño cortante, 1d8 eléctrico",
-"-10 RD",
-"+1D8 Daño cortante, +1d8 eléctrico",
-"-10 RD",
-"-1PA para ataques consecutivos",
-"+1d8 daño cortante, +1d8 eléctrico, -20RD, Ignora RD eléctrica"
+"Daño: Pot+7+2D10 / PA:6 / Reflejos: -20 / Rango: 10m / Afectados: 5 | -15 RD",
+"-20 Reflejos",
+"+3 Crítico"
 ],
 "desc": ""
 },
 {
-"name": "Hojas Mantis Ballistich - Rostovik",
+"v": 2,
+"name": "Monowire Arasaka",
 "slot": "Brazos",
 "minTier": 1,
-"load": 8,
-"load6": 12,
-"price": 12000,
-"tiers": [
-"Ataque de 4 PA, 3+2D8 daño cortante, +5 crítico",
-"+10m rango",
-"+1D8 Daño cortante",
-"-15 RD",
-"+10m rango",
-"Daño base del disparo 30, -15 RD, +1d8 daño cortante"
+"costs": [
+6,
+10,
+16
 ],
-"desc": "Las hojas pueden dispararse. Rango base 15m, daño base 15"
-},
-{
-"name": "Monofilamento Arasaka",
-"slot": "Brazos",
-"minTier": 1,
-"load": 8,
-"load6": 12,
-"price": 14000,
+"prices": [
+3750,
+3750,
+3750
+],
 "tiers": [
-"Ataque de 5 PA, 3+1D8 daño cortante, Rango 2m",
-"-10 RD, Impacto 1",
-"+1D8 daño cortante, +2m rango",
-"-10 RD, Impacto 1",
-"-1PA",
-"+1d8 daño cortante, -10RD, +1m Rango"
+"Daño: Pot+5+2D8 / PA:6 / Reflejos: -15 / Rango: 7m / Afectados: 4 | -1 ICE por un turno a objetivos golpeados con este Monowire.",
+"-20 Reflejos",
+"-1 PA Pelea"
 ],
 "desc": ""
 },
 {
-"name": "Monofilamento Arasaka Kaseshini",
+"v": 2,
+"name": "Monowire More Tech",
 "slot": "Brazos",
 "minTier": 1,
-"load": 8,
-"load6": 12,
-"price": 16000,
-"tiers": [
-"Ataque de 5 PA, 3+1D8 daño cortante, Rango 3m",
-"-5 RD, Impacto 1",
-"+1D8 daño cortante, +2m rango",
-"-5 RD, Impacto 1",
-"-1PA",
-"Daño base 20, +1d8 daño cortante, -5 RD"
+"costs": [
+6,
+10,
+16
 ],
-"desc": "Se puede realizar una ataque duplicando el rango. PA 8, +10 daño base"
-},
-{
-"name": "Monofilamento Arasaka Shinobi",
-"slot": "Brazos",
-"minTier": 1,
-"load": 8,
-"load6": 12,
-"price": 17000,
-"tiers": [
-"Ataque de 4 PA, 3+1D8 daño cortante, Rango 2m, +5 crítico",
-"-10 RD",
-"+1D8 daño cortante, +1m rango",
-"+5 crítico",
-"+1 Letalidad",
-"+1d8 daño cortante, -10 RD, +1 Letalidad"
+"prices": [
+3750,
+3750,
+3750
 ],
-"desc": ""
-},
-{
-"name": "Monofilamento Arasaka Muramasa",
-"slot": "Brazos",
-"minTier": 1,
-"load": 8,
-"load6": 12,
-"price": 16000,
 "tiers": [
-"Ataque de 5 PA, 3+1D6 daño impacto, Rango 2m (Hacks TIER 1)",
-"Impacto 1",
-"+1D6 daño impacto, +1m rango (Hacks TIER 2)",
-"Impacto 1",
-"(Hacks TIER 3)",
-"+50% daño de hacks cargados"
-],
-"desc": "Permite precargar hacks de combate que son desplegados al impacto."
-},
-{
-"name": "Monofilamento Arasaka Infiltrator",
-"slot": "Brazos",
-"minTier": 1,
-"load": 8,
-"load6": 12,
-"price": 17000,
-"tiers": [
-"Ataque de 5 PA, 3+1D6 daño impacto, Rango 2m, -15 Icewall enemigo al conectarse",
-"Impacto 1",
-"+1D6 daño impacto, -10 penalizador por ataque apuntado.",
-"+1m rango, -15 Icewall enemigo al conectarse",
-"-10 penalizador por ataque apuntado.",
-"Ignora el Icewall al conectarse"
-],
-"desc": "Cable inteligente flexible permite usarse como una extensión del cuerpo"
-},
-{
-"name": "Sistema De Armas Rostovik Kalashnikov",
-"slot": "Brazos",
-"minTier": 1,
-"load": 8,
-"load6": 12,
-"price": 8000,
-"tiers": [
-"Ataque de 4X1 PA",
-"+50% Capacidad",
-"+50% Rango máx.",
-"-15RD",
-"+5 Crítico",
-"18+2d8 daño base, + 15 Capacidad, -20 RD, +5 crítico, PA 3x1"
-],
-"desc": "Daño 15+2d8, Rango máx. 50, Capacidad 30, -15RD, -15 Precisión"
-},
-{
-"name": "Sistema De Armas Rostovik Saiga",
-"slot": "Brazos",
-"minTier": 1,
-"load": 8,
-"load6": 12,
-"price": 8000,
-"tiers": [
-"Ataque de 4X1 PA",
-"+50% Capacidad",
-"+50% Rango máx.",
+"Daño: Pot+3+2D6 / PA:6 / Reflejos: -10 / Rango: 4m / Afectados: 3 | Causa 2D6 de daño eléctrico, +2 Impacto",
 "+2 Impacto",
-"+10 Crítico",
-"18+4d8 daño base, +10 Capacidad, +5 crítico, +1 Impacto"
+"-30 Reflejos"
 ],
-"desc": "Daño 15+4d6, Impacto 2, Rango máx. 40, Capacidad 10"
+"desc": "Monowire que despide descargas eléctricas al impacto. Doble daño contra robots y componentes electrónicos"
 },
 {
-"name": "Sistema De Armas Rostovik Vintorez",
+"v": 2,
+"name": "Monowire Darra Polytechnic",
 "slot": "Brazos",
 "minTier": 1,
-"load": 8,
-"load6": 12,
-"price": 9500,
-"tiers": [
-"Ataque de 6 PA (Supresor integrado)",
-"+50% Rango máx.",
-"+50% Rango máx.",
-"+5 Crítico",
-"+1 Letalidad",
-"20+2d10 daño base, + 10 Capacidad, -10 RD, +10 crítico, 5 PA"
+"costs": [
+6,
+10,
+16
 ],
-"desc": "Daño 15+2d8, Rango máx. 100, Capacidad 15, -40RD, +10 Precisión, PA 4x1"
+"prices": [
+3750,
+3750,
+3750
+],
+"tiers": [
+"Daño: Pot+3+2D6 / PA:6 / Reflejos: -10 / Rango: 4m / Afectados: 3 | Causa 5+D6 de daño Químico por 4 turnos. Golpes consecutivos renuevan la duración.",
+"-20 Reflejos",
+"-30 Fortaleza"
+],
+"desc": "Monowire con microfilamentos que inyectan toxinas al objetivo"
 },
 {
-"name": "Sistema De Armas Rostovik Dragunov",
+"v": 2,
+"name": "S.A. Militech C251",
 "slot": "Brazos",
 "minTier": 1,
-"load": 8,
-"load6": 12,
-"price": 11000,
-"tiers": [
-"Ataque 8 PA",
-"+50% Rango máx.",
-"-10 RD",
-"+5 Crítico",
-"+1 Letalidad",
-"30+3d8 daño base, -10 RD, +5 crítico, +1 Letalidad"
+"costs": [
+6,
+10,
+16
 ],
-"desc": "Daño 20+3d8, Rango máx. 200, Capacidad 10, -50RD, +20 Precisión"
+"prices": [
+3750,
+3750,
+3750
+],
+"tiers": [
+"Tipo: NORMAL / Daño: 15+2d8 / Efecto: -2PA, -30RD | Precisión: -30 / Rango: 70 / PA: Auto 4 / Cargador 15 / Cal: 7,62",
+"+15 Capacidad",
+"Retroceso reducido. -20 Penalizador Auto"
+],
+"desc": ""
 },
 {
-"name": "Sistema De Armas Stein Feuerwehr",
+"v": 2,
+"name": "S.A. Rostovik Rakater",
 "slot": "Brazos",
 "minTier": 1,
-"load": 8,
-"load6": 12,
-"price": 20000,
-"tiers": [
-"Ataque de 3X1 PA (Sistema de autotarget integrado)",
-"+50% Capacidad",
-"+50% Rango máx.",
-"+5 Crítico",
-"+5 Crítico",
-"10+2d6 daño base, + 30 Capacidad, -10 RD, Máxima letalidad 7"
+"costs": [
+6,
+10,
+16
 ],
-"desc": "Daño 8+2d6, Rango máx. 50, Capacidad 50, -5RD, -10 Precisión (Máxima letalidad 3, todos los disparos pueden ser críticos)"
+"prices": [
+3750,
+3750,
+3750
+],
+"tiers": [
+"Tipo: NORMAL / Daño: 25+3d8 / Efecto: -5PA, -30RD | Precisión: -20 / Rango: 50 / PA: 5 / Cargador 3 / Cal: 20mm",
+"+3 Capacidad",
+"Sistema de selección de munición"
+],
+"desc": ""
 },
 {
+"v": 2,
+"name": "S.A. Rostovik Db-6",
+"slot": "Brazos",
+"minTier": 1,
+"costs": [
+6,
+10,
+16
+],
+"prices": [
+3750,
+3750,
+3750
+],
+"tiers": [
+"Tipo: NORMAL / Daño: 15+4d8 / Efecto: -4 PA | Precisión: 0 / Rango: 40 / PA: 5 / Cargador 2 / Cal: 8",
+"+1 Capacidad",
+"Cambio a calibre 4. Daño: 20+4d10 / Efecto: -5 PA"
+],
+"desc": ""
+},
+{
+"v": 2,
+"name": "S.A. Rostovik Db-5",
+"slot": "Brazos",
+"minTier": 1,
+"costs": [
+6,
+10,
+16
+],
+"prices": [
+3750,
+3750,
+3750
+],
+"tiers": [
+"Tipo: TECH / Daño: 15+4d8; 31+2d8 / Efecto: -4 PA; -4 PA, -30RD | Precisión: 0;-20 / Rango: 40 / PA: 5; 8 / Cargador 2 / Cal: 8",
+"+1 Capacidad",
+"Cambio a calibre 4. Daño: 20+4d10; 30+3d10 / Efecto: -5 PA, -4 PA, -40RD"
+],
+"desc": ""
+},
+{
+"v": 2,
+"name": "S.A. Darra Quasar",
+"slot": "Brazos",
+"minTier": 1,
+"costs": [
+6,
+10,
+16
+],
+"prices": [
+3750,
+3750,
+3750
+],
+"tiers": [
+"Tipo: TECH / Daño: 6+2d6 / Efecto: -1 PA, -15RD | Precisión: 0; -20 / Rango: 40 / PA: 5; A4 / Cargador 9 / Cal: .410",
+"+9 Capacidad",
+"Mayor cadencia de fuego. PA: 4; A3"
+],
+"desc": ""
+},
+{
+"v": 2,
+"name": "S.A. Tsunami Bakeneko",
+"slot": "Brazos",
+"minTier": 1,
+"costs": [
+6,
+10,
+16
+],
+"prices": [
+3750,
+3750,
+3750
+],
+"tiers": [
+"Tipo: TECH / Daño: 20+3d10; 30+2d10 / Efecto: -3PA,-30RD;-6PA,-60RD | Precisión: -10;-30 / Rango: 70 / PA: 5; 8 / Cargador 1 / Cal: 7,62L",
+"+2 Capacidad",
+"Computadora de precisión. Precisión: +20; 0"
+],
+"desc": ""
+},
+{
+"v": 2,
+"name": "S.A. Kang Tao G-58",
+"slot": "Brazos",
+"minTier": 1,
+"costs": [
+6,
+10,
+16
+],
+"prices": [
+3750,
+3750,
+3750
+],
+"tiers": [
+"Tipo: SMART / Daño: 8+2d6 / Efecto: -15 RD | Precisión: 0;+30 / Rango: 35 / PA: A4;6x3(L2x1T) / Cargador 15 / Cal: 9mm",
+"+15 Capacidad",
+"Mayor duración de Lock. (L2x2T)"
+],
+"desc": ""
+},
+{
+"v": 2,
+"name": "S.A. Kang Tao L-69",
+"slot": "Brazos",
+"minTier": 1,
+"costs": [
+6,
+10,
+16
+],
+"prices": [
+3750,
+3750,
+3750
+],
+"tiers": [
+"Tipo: SMART / Daño: 10+4d6 / Efecto: -2 PA, -15RD | Precisión: 0;+30 / Rango: 30 / PA: 5(L2x3T) / Cargador 2 / Cal: 12",
+"+2 Capacidad",
+"Riel potenciado. Daño: 15+4d6 / Efecto: -2 PA, -25RD"
+],
+"desc": ""
+},
+{
+"v": 2,
+"name": "S.A. Tsunami Raju",
+"slot": "Brazos",
+"minTier": 1,
+"costs": [
+6,
+10,
+16
+],
+"prices": [
+3750,
+3750,
+3750
+],
+"tiers": [
+"Tipo: SMART / Daño: 20+2d10 / Efecto: -2 PA, -40RD | Precisión: -10; 50 / Rango: 70 / PA: 5(L3x2T) / Cargador 1 / Cal: SMART DART",
+"+1 Capacidad",
+"Riel potenciado. Daño: 25+2d10 / Efecto: -2 PA, -40RD"
+],
+"desc": ""
+},
+{
+"v": 2,
 "name": "Porter",
 "slot": "Brazos",
 "minTier": 1,
-"load": 8,
-"load6": 8,
-"price": 18000,
+"costs": [
+2,
+6,
+12
+],
+"prices": [
+3750,
+3750,
+3750
+],
 "tiers": [
-"1 Espacio pequeño (Inhalador, cargador pequeño, etc)",
-"1 Espacio mediano (1 cargador de rifle, cuchillo, 2 cargadores pequeños, etc)",
-"1 Espacio grande (1 Pistola custom, 2 cargadores de rifle, 3 cargadores pequeños, etc)",
-"No detectable por detectores de metales",
-"No detectable por escaners visuales",
+"2 Espacios pequeños",
+"-3 PA acción o desenfundado",
 "Indetectable"
 ],
 "desc": ""
 },
 {
-"name": "Tobillos Fortificados",
-"slot": "Piernas",
-"minTier": 1,
-"load": 6,
-"load6": 9,
-"price": 15000,
-"tiers": [
-"7 PA, +2 Potencia, +d8 Daño de Impacto, Impacto 2",
-"+1 Potencia",
-"+1 Potencia, +1D8 Daño de impacto, Impacto 1",
-"+1 Potencia",
-"-1PA Patadas",
-"+10 Potencia, +1D8 Daño de impacto, Impacto 1, +10 crítico, +1 Letalidad"
-],
-"desc": ""
-},
-{
+"v": 2,
 "name": "Tendones De Jenkins",
 "slot": "Piernas",
 "minTier": 1,
-"load": 6,
-"load6": 9,
-"price": 7000,
+"costs": [
+6,
+12,
+18
+],
+"prices": [
+18000,
+36000,
+72000
+],
 "tiers": [
-"+3 PA para correr",
-"+10 Atletismo para correr",
-"+1 PA para correr",
-"+10 Atletismo para correr",
-"+1 PA para correr",
-"+20 Atletismo, +3 PA para correr"
+"+5 PA Movimiento | D 1T, CD 6T",
+"+5 PA Movimiento",
+"+30 Atletismo"
 ],
 "desc": ""
 },
 {
+"v": 2,
+"name": "Tobillos Fortificados",
+"slot": "Piernas",
+"minTier": 1,
+"costs": [
+2,
+6,
+12
+],
+"prices": [
+18000,
+36000,
+72000
+],
+"tiers": [
+"+5 Potencia al saltar",
+"+20 Atletismo",
+"-50% de daño de caída"
+],
+"desc": ""
+},
+{
+"v": 2,
 "name": "Ligamentos De Leeroy",
 "slot": "Piernas",
 "minTier": 1,
-"load": 6,
-"load6": 9,
-"price": 7000,
+"costs": [
+4,
+8,
+12
+],
+"prices": [
+25000,
+50000,
+100000
+],
 "tiers": [
-"+5 PA para correr en el primer turno de combate",
-"+3 Iniciativa",
-"+5 PA para correr en el primer turno de combate",
-"+3 Iniciativa",
-"+1 turno de duración",
-"+10 Potencia, +10 crítico en ataques de carga"
+"+4 PA Movimiento",
+"+20 Atletismo",
+"+20 Evasión"
 ],
 "desc": ""
 },
 {
+"v": 2,
 "name": "Garras De Lince",
 "slot": "Piernas",
 "minTier": 1,
-"load": 5,
-"load6": 7,
-"price": 9000,
+"costs": [
+2,
+6,
+12
+],
+"prices": [
+18000,
+36000,
+72000
+],
 "tiers": [
-"+10 Sigilo (sonido)",
-"-1 Penalizador al movimiento por Sigilo",
-"+10 Sigilo (sonido)",
-"-1 Penalizador al movimiento por Sigilo",
-"+10 Sigilo (sonido)",
-"Permite sprintar en sigilo"
+"+10 Reflejos",
+"+20 Sigilo",
+"+30 Destreza"
 ],
 "desc": ""
 },
 {
+"v": 2,
 "name": "Tendones Reforzados",
 "slot": "Piernas",
 "minTier": 1,
-"load": 12,
-"load6": 18,
-"price": 17000,
+"costs": [
+2,
+6,
+12
+],
+"prices": [
+25000,
+50000,
+100000
+],
 "tiers": [
-"Permite realizar un salto aéreo, CD 10T",
-"-25% daño de caídas",
-"CD 8T",
-"-25% daño de caídas",
-"Permite realizar un segundo salto aéreo, CD 6T",
-"CD 2T, Duplica la potencia aplicada a la distancia de salto"
+"+10 Atletismo",
+"+5 Potencia para ataques de carga",
+"+30 Fortaleza para evitar ser derribado"
 ],
 "desc": ""
 },
 {
+"v": 2,
 "name": "Arasaka Kunai",
 "slot": "Piernas",
 "minTier": 1,
-"load": 12,
-"load6": 18,
-"price": 15000,
+"costs": [
+6,
+10,
+16
+],
+"prices": [
+18000,
+36000,
+72000
+],
 "tiers": [
-"Ataque de 7 PA, 2D8 daño cortante, +5 crítico",
-"-15 RD",
-"+1D8 Daño cortante",
-"-15 RD",
-"-1PA",
-"+1D8 Daño cortante, +5 Crítico, -10 RD, +1 Letalidad"
+"Daño: Pot+12+2D10 / PA:7 / Crítico: +5 / RD: -15 | -15 RD",
+"+3 Crítico",
+"-1 PA Pelea"
 ],
 "desc": ""
 },
 {
+"v": 2,
 "name": "Porter",
 "slot": "Piernas",
 "minTier": 1,
-"load": 8,
-"load6": 12,
-"price": 22000,
+"costs": [
+2,
+6,
+12
+],
+"prices": [
+25000,
+50000,
+100000
+],
 "tiers": [
-"3 Espacio pequeño (Inhalador, cargador pequeño, etc)",
-"2 Espacio mediano (1 cargador de rifle, cuchillo, 2 cargadores pequeños, etc)",
-"1 Espacio grande (1 Pistola custom, 2 cargadores de rifle, 3 cargadores pequeños, etc)",
-"No detectable por detectores de metales",
-"No detectable por escaners visuales",
+"2 Espacios medianos",
+"-1 PA acción o desenfundado",
 "Indetectable"
 ],
 "desc": ""
-},
-{
-"name": "Chip HD",
-"slot": "Chips",
-"minTier": 1,
-"load": 0,
-"load6": 0,
-"price": null,
-"tiers": [
-"Dispositivo de almacenamiento",
-null,
-null,
-null,
-null,
-null
-],
-"desc": "500 €$"
-},
-{
-"name": "Chip SKILL I",
-"slot": "Chips",
-"minTier": 1,
-"load": 0,
-"load6": 0,
-"price": null,
-"tiers": [
-"+10 conocimiento",
-null,
-null,
-null,
-null,
-null
-],
-"desc": "15.000 €$"
-},
-{
-"name": "Chip SKILL II",
-"slot": "Chips",
-"minTier": 1,
-"load": 0,
-"load6": 0,
-"price": null,
-"tiers": [
-"+15 conocimiento",
-null,
-null,
-null,
-null,
-null
-],
-"desc": "25.000 €$"
-},
-{
-"name": "Chip SKILL III",
-"slot": "Chips",
-"minTier": 1,
-"load": 0,
-"load6": 0,
-"price": null,
-"tiers": [
-"+20 conocimiento",
-null,
-null,
-null,
-null,
-null
-],
-"desc": "50.000 €$"
-},
-{
-"name": "Chip STAT I",
-"slot": "Chips",
-"minTier": 1,
-"load": 0,
-"load6": 0,
-"price": null,
-"tiers": [
-"+5 característica",
-null,
-null,
-null,
-null,
-null
-],
-"desc": "500.000 €$"
-},
-{
-"name": "Chip STAT II",
-"slot": "Chips",
-"minTier": 1,
-"load": 0,
-"load6": 0,
-"price": null,
-"tiers": [
-"+10 característica",
-null,
-null,
-null,
-null,
-null
-],
-"desc": "1.000.000 €$"
-},
-{
-"name": "Chip STAT III",
-"slot": "Chips",
-"minTier": 1,
-"load": 0,
-"load6": 0,
-"price": null,
-"tiers": [
-"+15 característica",
-null,
-null,
-null,
-null,
-null
-],
-"desc": "3.000.000 €$"
-},
-{
-"name": "Chip STAT IV",
-"slot": "Chips",
-"minTier": 1,
-"load": 0,
-"load6": 0,
-"price": null,
-"tiers": [
-"+20 característica",
-null,
-null,
-null,
-null,
-null
-],
-"desc": "5.000.000 €$"
 }
 ],
 "merits": [
@@ -2391,9 +2740,9 @@ null
 "name": "Metel",
 "tipo": "NORMAL",
 "modo": "SEMI",
-"calibre": ".42",
+"calibre": ".50 AE",
 "rec": "4",
-"rango": "30",
+"rango": "70",
 "precision": "-15",
 "efecto": "-2PA,-10RD",
 "pa": "4",
@@ -2408,9 +2757,9 @@ null
 "name": "DR-5 Nova",
 "tipo": "NORMAL",
 "modo": "SEMI",
-"calibre": ".42",
+"calibre": "12.3×41mm",
 "rec": "4",
-"rango": "40",
+"rango": "70",
 "precision": "0",
 "efecto": "-2PA,-10RD",
 "pa": "4",
@@ -2427,13 +2776,13 @@ null
 "modo": "SEMI",
 "calibre": ".42",
 "rec": "4",
-"rango": "70",
+"rango": "80",
 "precision": "10",
 "efecto": "-2PA,-10RD",
 "pa": "4",
 "cap": "6",
 "marca": "Malorian",
-"base": "16",
+"base": "14",
 "dados": "3d6"
 },
 {
@@ -2442,9 +2791,9 @@ null
 "name": "DR-12 Quasar",
 "tipo": "TECH",
 "modo": "SEM/AUT",
-"calibre": "9 ST",
+"calibre": "8×30mm TSh",
 "rec": "5",
-"rango": "40",
+"rango": "50",
 "precision": "10/-20",
 "efecto": "-1PA,-15RD",
 "pa": "4-A3",
@@ -2459,7 +2808,7 @@ null
 "name": "RT-46 Burya",
 "tipo": "TECH",
 "modo": "SEMI/HIPER",
-"calibre": "12 ST",
+"calibre": "14×40mm TS",
 "rec": "5",
 "rango": "80",
 "precision": "0/-20",
@@ -2467,8 +2816,8 @@ null
 "pa": "5/8",
 "cap": "4",
 "marca": "Techtronika",
-"base": "18/30",
-"dados": "3d6/d6"
+"base": "18/34",
+"dados": "3d8/d8"
 },
 {
 "kind": "weapon",
@@ -2478,7 +2827,7 @@ null
 "modo": "AUTO",
 "calibre": "9mm",
 "rec": "",
-"rango": "30",
+"rango": "40",
 "precision": "-30",
 "efecto": "-1PA",
 "pa": "A3",
@@ -2495,7 +2844,7 @@ null
 "modo": "SEM/AUT",
 "calibre": "9mm",
 "rec": "3",
-"rango": "50",
+"rango": "60",
 "precision": "0/-30",
 "efecto": "-1PA",
 "pa": "4/A3",
@@ -2510,9 +2859,9 @@ null
 "name": "Liberty",
 "tipo": "NORMAL",
 "modo": "SEMI",
-"calibre": "9mm",
+"calibre": ".45",
 "rec": "3",
-"rango": "70",
+"rango": "50",
 "precision": "10",
 "efecto": "-1PA,-10RD",
 "pa": "5",
@@ -2544,9 +2893,9 @@ null
 "name": "Tamayura",
 "tipo": "NORMAL",
 "modo": "SEMI",
-"calibre": ".45",
+"calibre": ".50 AE",
 "rec": "3",
-"rango": "50",
+"rango": "60",
 "precision": "0",
 "efecto": "-2PA",
 "pa": "5",
@@ -2561,9 +2910,9 @@ null
 "name": "Nue",
 "tipo": "NORMAL",
 "modo": "SEMI",
-"calibre": ".45",
+"calibre": ".45 WM",
 "rec": "3",
-"rango": "60",
+"rango": "70",
 "precision": "5",
 "efecto": "-2PA",
 "pa": "5",
@@ -2578,9 +2927,9 @@ null
 "name": "3516",
 "tipo": "NORMAL",
 "modo": "SEMI",
-"calibre": "Custom",
+"calibre": ".500 Malour",
 "rec": "4",
-"rango": "80",
+"rango": "90",
 "precision": "15",
 "efecto": "-2PA,-20RD",
 "pa": "5",
@@ -2595,9 +2944,9 @@ null
 "name": "Ticon",
 "tipo": "TECH",
 "modo": "SEMI/RAF",
-"calibre": "9 ST",
+"calibre": "5.7×28mm TF",
 "rec": "4",
-"rango": "40",
+"rango": "70",
 "precision": "0/-10",
 "efecto": "-1PA,-10RD",
 "pa": "4-9x3",
@@ -2612,9 +2961,9 @@ null
 "name": "JKE-X2 Kenshin",
 "tipo": "TECH",
 "modo": "SEMI/RAF",
-"calibre": "9 ST",
+"calibre": "10x20mm TF",
 "rec": "4",
-"rango": "40",
+"rango": "60",
 "precision": "10/0",
 "efecto": "-1PA,-10RD",
 "pa": "4-9x3",
@@ -2629,9 +2978,9 @@ null
 "name": "M-76e Omaha",
 "tipo": "TECH",
 "modo": "SEMI/RAF",
-"calibre": "9 ST",
+"calibre": "5.7×28mm TF",
 "rec": "4",
-"rango": "40",
+"rango": "70",
 "precision": "5/-5",
 "efecto": "-1PA,-10RD",
 "pa": "4-9x3",
@@ -2646,9 +2995,9 @@ null
 "name": "A-22B Chao",
 "tipo": "SMART",
 "modo": "AUT/RAF",
-"calibre": "Micro 9",
+"calibre": "6.5×25mm Micro",
 "rec": "4",
-"rango": "20",
+"rango": "40",
 "precision": "-10/20",
 "efecto": "-15RD",
 "pa": "A4-5x3 (L2x1T)",
@@ -2663,9 +3012,9 @@ null
 "name": "HJKE-11 Yukimura",
 "tipo": "SMART",
 "modo": "AUT/RAF",
-"calibre": "Micro 9",
+"calibre": "6.5×25mm Micro",
 "rec": "4",
-"rango": "20",
+"rango": "40",
 "precision": "0/30",
 "efecto": "-15RD",
 "pa": "A4-5x2 (L2x2T)",
@@ -2680,9 +3029,9 @@ null
 "name": "Guillotine",
 "tipo": "NORMAL",
 "modo": "SEM/AUT",
-"calibre": "9mm",
+"calibre": "9x19mm",
 "rec": "4",
-"rango": "50",
+"rango": "70",
 "precision": "-5/-30",
 "efecto": "-1PA",
 "pa": "5-A3",
@@ -2697,9 +3046,9 @@ null
 "name": "DS1 Pulsar",
 "tipo": "NORMAL",
 "modo": "SEM/AUT",
-"calibre": "9mm",
+"calibre": "7.62×39mm",
 "rec": "4",
-"rango": "50",
+"rango": "120",
 "precision": "0/-25",
 "efecto": "-1PA",
 "pa": "5-A3",
@@ -2714,9 +3063,9 @@ null
 "name": "M221 Saratoga",
 "tipo": "NORMAL",
 "modo": "SEM/AUT",
-"calibre": "9mm",
+"calibre": "10mm",
 "rec": "4",
-"rango": "70",
+"rango": "90",
 "precision": "5/-20",
 "efecto": "-1PA",
 "pa": "4-A2",
@@ -2731,9 +3080,9 @@ null
 "name": "Shigure",
 "tipo": "NORMAL",
 "modo": "SEM/AUT",
-"calibre": ".45",
+"calibre": "10mm",
 "rec": "4",
-"rango": "60",
+"rango": "90",
 "precision": "5/-20",
 "efecto": "-1PA",
 "pa": "5-A2",
@@ -2748,9 +3097,9 @@ null
 "name": "Senkoh LX",
 "tipo": "SMART",
 "modo": "AUT/RAF",
-"calibre": "Micro 9",
+"calibre": "8×30mm TF",
 "rec": "4",
-"rango": "20",
+"rango": "60",
 "precision": "-5/25",
 "efecto": "-15RD",
 "pa": "A4-8x3 (L2x2T)",
@@ -2765,9 +3114,9 @@ null
 "name": "G-58 Dian",
 "tipo": "SMART",
 "modo": "AUT/RAF",
-"calibre": "Micro 9",
+"calibre": "9.5×35mm Micro",
 "rec": "5",
-"rango": "25",
+"rango": "60",
 "precision": "0/30",
 "efecto": "-15RD / T2 x 1T",
 "pa": "A4-7x3 (L2x1T)",
@@ -2782,9 +3131,9 @@ null
 "name": "TKI-20 Shingen",
 "tipo": "SMART",
 "modo": "AUT/RAF",
-"calibre": "Micro 9",
+"calibre": "9.5×35mm Micro",
 "rec": "5",
-"rango": "35",
+"rango": "60",
 "precision": "10/40",
 "efecto": "-15RD / T3 x 2T",
 "pa": "A4-8x3 (L2x2T)",
@@ -2799,7 +3148,7 @@ null
 "name": "DA8 Umbra",
 "tipo": "NORMAL",
 "modo": "SEM/AUT",
-"calibre": "5.56mm",
+"calibre": "5.45x39mm",
 "rec": "4",
 "rango": "150",
 "precision": "-5/-20",
@@ -2816,7 +3165,7 @@ null
 "name": "D5 Copperhead",
 "tipo": "NORMAL",
 "modo": "SEM/AUT",
-"calibre": "5.56mm",
+"calibre": "5.56x45mm",
 "rec": "4",
 "rango": "150",
 "precision": "10/-10",
@@ -2835,7 +3184,7 @@ null
 "modo": "SEM/AUT",
 "calibre": "6.5mm",
 "rec": "4",
-"rango": "125",
+"rango": "150",
 "precision": "5/-10",
 "efecto": "-1PA,-20RD",
 "pa": "5-10x3",
@@ -2852,7 +3201,7 @@ null
 "modo": "SEM/AUT",
 "calibre": "6.5mm",
 "rec": "4",
-"rango": "125",
+"rango": "150",
 "precision": "10/-10",
 "efecto": "-1PA,-20RD",
 "pa": "5-10x3",
@@ -2867,9 +3216,9 @@ null
 "name": "M251s Ajax",
 "tipo": "NORMAL",
 "modo": "SEM/AUT",
-"calibre": "7.62mm S",
+"calibre": ".243",
 "rec": "4",
-"rango": "100",
+"rango": "150",
 "precision": "0/-20",
 "efecto": "-2PA,-30RD",
 "pa": "5-A4",
@@ -2884,9 +3233,9 @@ null
 "name": "D5 Sidewinder",
 "tipo": "SMART",
 "modo": "AUT/RAF",
-"calibre": "Micro 5",
+"calibre": "10×40mm Micro",
 "rec": "4",
-"rango": "50",
+"rango": "90",
 "precision": "0/30",
 "efecto": "-25RD",
 "pa": "A4-8x3 (L2x2T)",
@@ -2901,9 +3250,9 @@ null
 "name": "Kyubi",
 "tipo": "NORMAL",
 "modo": "SEMI",
-"calibre": "7.62mm S",
+"calibre": ".308",
 "rec": "4",
-"rango": "125",
+"rango": "300",
 "precision": "10",
 "efecto": "-2PA,-30RD",
 "pa": "5",
@@ -2918,9 +3267,9 @@ null
 "name": "SOR-22",
 "tipo": "NORMAL",
 "modo": "SEMI",
-"calibre": "7.62mm L",
+"calibre": ".50BMG",
 "rec": "5",
-"rango": "200",
+"rango": "500",
 "precision": "10",
 "efecto": "-2PA,-40RD",
 "pa": "5",
@@ -2935,9 +3284,9 @@ null
 "name": "Kolac",
 "tipo": "NORMAL",
 "modo": "SEMI",
-"calibre": "12.7mm",
+"calibre": "22×126mm",
 "rec": "5",
-"rango": "500",
+"rango": "400",
 "precision": "10",
 "efecto": "-5PA,-60RD",
 "pa": "6",
@@ -2952,9 +3301,9 @@ null
 "name": "M-179e Achilles",
 "tipo": "TECH",
 "modo": "SEMI/HIPER",
-"calibre": "7 LT",
+"calibre": "4,7x10mm TF",
 "rec": "5",
-"rango": "150",
+"rango": "90",
 "precision": "10/-10",
 "efecto": "-2PA,-25RD/-4PA,-50RD",
 "pa": "5/8",
@@ -2969,9 +3318,9 @@ null
 "name": "SPT32 Grad",
 "tipo": "NORMAL",
 "modo": "SEMI",
-"calibre": "12.7mm",
+"calibre": "23×152mm",
 "rec": "5",
-"rango": "700",
+"rango": "800",
 "precision": "20",
 "efecto": "-5PA,-70RD",
 "pa": "5",
@@ -2986,9 +3335,9 @@ null
 "name": "Nekomata",
 "tipo": "TECH",
 "modo": "SEMI/HIPER",
-"calibre": "9 LT",
+"calibre": "15×80mm TS",
 "rec": "5",
-"rango": "250",
+"rango": "400",
 "precision": "20/-10",
 "efecto": "-3PA,-30RD/-6PA,-60RD",
 "pa": "5/8",
@@ -3003,7 +3352,7 @@ null
 "name": "Ashura",
 "tipo": "SMART",
 "modo": "SEMI",
-"calibre": "Smart dart",
+"calibre": "12.7×70mm Micro",
 "rec": "5",
 "rango": "300",
 "precision": "-10/50",
@@ -3020,9 +3369,9 @@ null
 "name": "DB-2 Testera",
 "tipo": "NORMAL",
 "modo": "DOBLE",
-"calibre": "Cal. 8",
+"calibre": "Cal. 10",
 "rec": "2x1",
-"rango": "10",
+"rango": "40",
 "precision": "10",
 "efecto": "-4PA",
 "pa": "5",
@@ -3037,9 +3386,9 @@ null
 "name": "DB-4 Igla",
 "tipo": "NORMAL",
 "modo": "DOBLE",
-"calibre": "Cal. 8",
+"calibre": "Cal. 10",
 "rec": "2x1",
-"rango": "20",
+"rango": "70",
 "precision": "20",
 "efecto": "-4PA",
 "pa": "5",
@@ -3056,7 +3405,7 @@ null
 "modo": "PUMP",
 "calibre": "Cal. 4",
 "rec": "3x1",
-"rango": "30",
+"rango": "80",
 "precision": "10",
 "efecto": "-5PA",
 "pa": "6",
@@ -3073,7 +3422,7 @@ null
 "modo": "PUMP",
 "calibre": "Cal. 12",
 "rec": "2x1",
-"rango": "50",
+"rango": "80",
 "precision": "10",
 "efecto": "-3PA",
 "pa": "5",
@@ -3090,7 +3439,7 @@ null
 "modo": "AUTO",
 "calibre": "Cal. 12",
 "rec": "5",
-"rango": "30",
+"rango": "60",
 "precision": "0",
 "efecto": "-3PA",
 "pa": "5",
@@ -3107,7 +3456,7 @@ null
 "modo": "AUTO",
 "calibre": "Cal. 12",
 "rec": "5",
-"rango": "20",
+"rango": "60",
 "precision": "-10",
 "efecto": "-3PA",
 "pa": "5",
@@ -3122,9 +3471,9 @@ null
 "name": "DB-2 Satara",
 "tipo": "TECH",
 "modo": "DOBLE/HIPER",
-"calibre": "Custom",
+"calibre": "Cal. 10 F",
 "rec": "2x1",
-"rango": "20",
+"rango": "70",
 "precision": "0/-20",
 "efecto": "-2PA,-20RD/-6PA,-40RD",
 "pa": "5/8",
@@ -3139,9 +3488,9 @@ null
 "name": "DB-4 Palica",
 "tipo": "SMART",
 "modo": "DOBLE",
-"calibre": "Micro 12",
+"calibre": "15×55mm Micro",
 "rec": "2x1",
-"rango": "15",
+"rango": "50",
 "precision": "25",
 "efecto": "-2PA,-15RD",
 "pa": "5 (L3x1T)",
@@ -3156,9 +3505,9 @@ null
 "name": "L-69 Zhuo",
 "tipo": "SMART",
 "modo": "SEMI",
-"calibre": "Micro 12",
+"calibre": "18×70mm Micro",
 "rec": "5",
-"rango": "25",
+"rango": "60",
 "precision": "30",
 "efecto": "-2PA,-15RD",
 "pa": "5 (L2x3T)",
@@ -3173,9 +3522,9 @@ null
 "name": "M2067 Defender",
 "tipo": "NORMAL",
 "modo": "AUTO",
-"calibre": "5.56mm",
+"calibre": "5.56x45mm",
 "rec": "8",
-"rango": "200",
+"rango": "150",
 "precision": "-30",
 "efecto": "-1PA,-15RD",
 "pa": "A3",
@@ -3190,9 +3539,9 @@ null
 "name": "MA70 HB",
 "tipo": "NORMAL",
 "modo": "AUTO",
-"calibre": "7.62mm E",
+"calibre": ".308",
 "rec": "8",
-"rango": "150",
+"rango": "250",
 "precision": "-30",
 "efecto": "-3PA,-40RD",
 "pa": "A4",
@@ -3207,9 +3556,9 @@ null
 "name": "Mk. 31 HMG",
 "tipo": "NORMAL",
 "modo": "AUTO",
-"calibre": "12.7mm E",
+"calibre": ".50 BMG",
 "rec": "15",
-"rango": "300",
+"rango": "400",
 "precision": "-30",
 "efecto": "-4PA,-50RD",
 "pa": "A4",
@@ -3217,6 +3566,282 @@ null
 "marca": "Militech",
 "base": "20",
 "dados": "2d10"
+},
+{
+"kind": "weapon",
+"cat": "Cuerpo a cuerpo",
+"name": "Navaja",
+"skill": "Pelea",
+"tipo": "COR/PER",
+"base": "POT(8)",
+"dados": "D6",
+"elem": [],
+"crit": 5,
+"efecto": "+5 crítico, -5 RD",
+"pa": "4",
+"notes": "DES 1."
+},
+{
+"kind": "weapon",
+"cat": "Cuerpo a cuerpo",
+"name": "Cuchillo",
+"skill": "Pelea",
+"tipo": "COR/PER",
+"base": "POT(10)",
+"dados": "D6",
+"elem": [],
+"crit": 5,
+"efecto": "+5 crítico, -5 RD",
+"pa": "4",
+"notes": "DES 1."
+},
+{
+"kind": "weapon",
+"cat": "Cuerpo a cuerpo",
+"name": "Blade",
+"skill": "Pelea",
+"tipo": "COR/PER",
+"base": "POT(12)",
+"dados": "D6",
+"elem": [],
+"crit": 5,
+"efecto": "+5 crítico, -10 RD",
+"pa": "4",
+"notes": "DES 1. Cuchillo con guarda protectora, contrafilo acerrado, filo y durabilidad excepcional."
+},
+{
+"kind": "weapon",
+"cat": "Cuerpo a cuerpo",
+"name": "Saw Blade",
+"skill": "Pelea",
+"tipo": "COR/PER",
+"base": "POT(12)",
+"dados": "D6",
+"elem": [],
+"crit": 5,
+"efecto": "+5 crítico, -10(20) RD",
+"pa": "4",
+"notes": "DES 1. Cuchillo con guarda protectora rotatoria, filo y durabilidad excepcional. Su contrafilo posee una sierra giratoria activada desde un botón del mango, lo cual permite cortar materiales muy resistentes."
+},
+{
+"kind": "weapon",
+"cat": "Cuerpo a cuerpo",
+"name": "Ballistic Blade",
+"skill": "Pelea",
+"tipo": "COR/PER",
+"base": "POT(12)",
+"dados": "D6",
+"elem": [],
+"crit": 5,
+"efecto": "+5 crítico, -10(20) RD",
+"pa": "4",
+"notes": "DES 1. Cuchillo con filo y durabilidad excepcional. Dispone de un mecanísmo que dispara la hoja a altas velocidades."
+},
+{
+"kind": "weapon",
+"cat": "Cuerpo a cuerpo",
+"name": "Machete",
+"skill": "Pelea",
+"tipo": "COR",
+"base": "POT+5",
+"dados": "D6",
+"elem": [],
+"crit": 5,
+"efecto": "+5 crítico, -10 RD",
+"pa": "5",
+"notes": "DES 2."
+},
+{
+"kind": "weapon",
+"cat": "Cuerpo a cuerpo",
+"name": "Replica De Katana",
+"skill": "Pelea",
+"tipo": "COR/PER",
+"base": "POT",
+"dados": "2D6",
+"elem": [],
+"crit": 5,
+"efecto": "+5 crítico, -10 RD",
+"pa": "5",
+"notes": "DES 3."
+},
+{
+"kind": "weapon",
+"cat": "Cuerpo a cuerpo",
+"name": "Katana",
+"skill": "Pelea",
+"tipo": "COR/PER",
+"base": "POT",
+"dados": "3D6",
+"elem": [],
+"crit": 5,
+"efecto": "+5 crítico, -15 RD",
+"pa": "5",
+"notes": "DES 3."
+},
+{
+"kind": "weapon",
+"cat": "Cuerpo a cuerpo",
+"name": "Ikazuchi",
+"skill": "Pelea",
+"tipo": "COR/PER",
+"base": "POT",
+"dados": "D6",
+"elem": [
+{
+"dados": "2D6",
+"tipo": "Eléctrico"
+}
+],
+"crit": 5,
+"efecto": "+5 crítico, -10 RD",
+"pa": "5",
+"notes": "DES 3. Katana que posee un pequeño generador en el mango que electrifica el filo de la misma."
+},
+{
+"kind": "weapon",
+"cat": "Cuerpo a cuerpo",
+"name": "Inazuma",
+"skill": "Pelea",
+"tipo": "COR/PER",
+"base": "POT(x2)",
+"dados": "3D6",
+"elem": [],
+"crit": 5,
+"efecto": "+5(10) crítico, -15(30) RD",
+"pa": "5",
+"notes": "DES 2. Katana que guarda en su funda un dispositivo que permite realizar desenfundados extremadamente rápidos, agregando esa velocidad a la potencia del corte"
+},
+{
+"kind": "weapon",
+"cat": "Cuerpo a cuerpo",
+"name": "Zangetsu",
+"skill": "Pelea",
+"tipo": "COR/PER",
+"base": "POT",
+"dados": "3D6",
+"elem": [],
+"crit": 10,
+"efecto": "+10 crítico, -30 RD",
+"pa": "5",
+"notes": "DES 3. Katana con hoja compuesta de múltiples fragmentos de hoja extremadamente afilada pero frágil, en caso de romperse una se puede reponer con un control ubicado en el mango."
+},
+{
+"kind": "weapon",
+"cat": "Cuerpo a cuerpo",
+"name": "Kazeshini",
+"skill": "Pelea",
+"tipo": "COR/PER",
+"base": "POT(15)",
+"dados": "3D6",
+"elem": [],
+"crit": 5,
+"efecto": "+5 crítico, -10 RD, -10 REF",
+"pa": "5",
+"notes": "DES 3. Katana con hoja compuesta de múltiples fragmentos de hoja unidos por filamentos resistentes que se separan con un control ubicado en el mango aumentando su rango, funciona como el implante Monowire, solo que con menos rango y control."
+},
+{
+"kind": "weapon",
+"cat": "Cuerpo a cuerpo",
+"name": "Bushikatagi",
+"skill": "Pelea",
+"tipo": "COR/PER",
+"base": "POT",
+"dados": "3D6",
+"elem": [],
+"crit": 5,
+"efecto": "+5 crítico, -15 RD",
+"pa": "5",
+"notes": "DES 3. Katana que despliega la mitad de su filo hacia abajo convirtiendosé en una espada doble"
+},
+{
+"kind": "weapon",
+"cat": "Cuerpo a cuerpo",
+"name": "Bastón Plegable",
+"skill": "Pelea",
+"tipo": "CON",
+"base": "POT(15)",
+"dados": "D6",
+"elem": [],
+"crit": 0,
+"efecto": "-10 FOR",
+"pa": "4",
+"notes": "DES 2."
+},
+{
+"kind": "weapon",
+"cat": "Cuerpo a cuerpo",
+"name": "Tonfa",
+"skill": "Pelea",
+"tipo": "CON",
+"base": "POT(12)",
+"dados": "2D6",
+"elem": [],
+"crit": 0,
+"efecto": "-15 FOR",
+"pa": "4",
+"notes": "DES 2."
+},
+{
+"kind": "weapon",
+"cat": "Cuerpo a cuerpo",
+"name": "Bat",
+"skill": "Pelea",
+"tipo": "CON",
+"base": "POT+5",
+"dados": "2D6",
+"elem": [],
+"crit": 0,
+"efecto": "-20 FOR",
+"pa": "5",
+"notes": "DES 2."
+},
+{
+"kind": "weapon",
+"cat": "Cuerpo a cuerpo",
+"name": "Bastón Eléctrico",
+"skill": "Pelea",
+"tipo": "CON/ELE",
+"base": "POT(10)",
+"dados": "D6",
+"elem": [
+{
+"dados": "2D6",
+"tipo": "Eléctrico"
+}
+],
+"crit": 0,
+"efecto": "-10 FOR",
+"pa": "4",
+"notes": "DES 2."
+},
+{
+"kind": "weapon",
+"cat": "Cuerpo a cuerpo",
+"name": "Nudillera",
+"skill": "Pelea",
+"tipo": "CON",
+"base": "+2",
+"dados": "",
+"elem": [],
+"crit": 0,
+"efecto": "-10 FOR",
+"pa": "4",
+"notes": "DES 1."
+},
+{
+"kind": "weapon",
+"cat": "Cuerpo a cuerpo",
+"name": "Puño Daga",
+"skill": "Pelea",
+"tipo": "CON/PER",
+"base": "+2",
+"dados": "",
+"elem": [],
+"crit": 5,
+"efecto": "+5 crítico, -5 RD",
+"pa": "4",
+"notes": "DES 1."
 },
 {
 "kind": "item",
