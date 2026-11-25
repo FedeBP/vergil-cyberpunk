@@ -80,10 +80,12 @@ function resolveTarget(raw, skills) {
 }
 
 // Efectos hasta el tier instalado; se acumulan (Mamba Negra T3 = +15 +30 +50 RD Química).
+// Implantes cuyos efectos solo valen con otro implante activo (el Excel no lo dice).
+const WHEN_ACTIVE = {'kerenzikov boost system': 'Kerenzikov'};
 function implantInfo(im) {
   const eff = im.tiers.slice(0, im.tier).map(parseEffect);
   const last = k => eff.reduce((v, e) => e[k] ?? v, null), total = k => eff.reduce((t, e) => t + e[k], 0);
-  return {mods: eff.flatMap(e => e.mods), dur: last('dur'), cd: last('cd'), trigger: last('trigger'), cdr: total('cdr'), loadPct: total('loadPct')};
+  return {mods: eff.flatMap(e => e.mods), when: WHEN_ACTIVE[norm(im.name)] || null, dur: last('dur'), cd: last('cd'), trigger: last('trigger'), cdr: total('cdr'), loadPct: total('loadPct')};
 }
 
 function compute(ch) {
@@ -105,7 +107,8 @@ function compute(ch) {
       // Un número sin signo solo fija RAM/Icewall del sistema operativo ("5 PA" en armas es el coste del ataque).
       if (m.set) { if (['ram', 'icewall'].includes(t) && (!sets[t] || m.v > sets[t].v)) sets[t] = {v: m.v, int10: m.int10, src: im.name}; continue; }
       if (m.v < 0) continue; // en implantes los negativos son para el enemigo ("-15 RD" perforación, "-20 Reflejos" del objetivo)
-      if (m.when ? active(m.when) : (!x.dur || im.on > 0)) add(t, m.v, im.name);
+      const when = m.when || x.when;
+      if (when ? active(when) : (!x.dur || im.on > 0)) add(t, m.v, im.name);
     }
     return x;
   });
