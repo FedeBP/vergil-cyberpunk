@@ -77,12 +77,11 @@ function resolveTarget(raw, skills) {
   return sk ? 'skill:' + norm(sk.name) : null;
 }
 
-// Efectos hasta el tier instalado. Si un mismo efecto se repite (Mamba Negra +15/+30/+50 RD Química), vale el del tier más alto.
+// Efectos hasta el tier instalado; se acumulan (Mamba Negra T3 = +15 +30 +50 RD Química).
 function implantInfo(im) {
   const eff = im.tiers.slice(0, im.tier).map(parseEffect);
-  const last = k => eff.reduce((v, e) => e[k] || v, null);
-  const mods = Object.values(Object.fromEntries(eff.flatMap(e => e.mods).map(m => [`${m.target}|${m.when}|${m.set}`, m])));
-  return {mods, dur: last('dur'), cd: last('cd'), trigger: last('trigger'), cdr: last('cdr') || 0, loadPct: last('loadPct') || 0};
+  const last = k => eff.reduce((v, e) => e[k] ?? v, null), total = k => eff.reduce((t, e) => t + e[k], 0);
+  return {mods: eff.flatMap(e => e.mods), dur: last('dur'), cd: last('cd'), trigger: last('trigger'), cdr: total('cdr'), loadPct: total('loadPct')};
 }
 
 function compute(ch) {

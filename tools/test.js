@@ -19,28 +19,30 @@ assert.deepStrictEqual([s('pa'), s('vitalidad'), s('potencia'), s('rango'), s('i
 assert.deepStrictEqual([sh.points.ini.spent, sh.points.ini.avail, sh.points.attr.avail, sh.points.skill.avail, sh.points.skill.spent], [325, 320, 15, 100, 100]);
 assert.deepStrictEqual([sh.load.used, sh.load.max], [0, 108], 'humanidad = CON/2 + DET + NV×2');
 
-// Implantes del Excel v9: 3 tiers, costo de humanidad total al tier, el mismo efecto en varios tiers vale el más alto.
+// Implantes del Excel v9: 3 tiers, costo de humanidad total al tier, los efectos de cada tier se suman.
 require('../catalog.js');
 const cat = (name, tier) => ({...JSON.parse(JSON.stringify(CATALOG.implants.find(i => i.name === name))), tier, on: 0, cdLeft: 0});
 ch.implants = [cat('Kiroshi Clarividente', 3), cat('Kerenzikov', 3), cat('Newton Module', 3), cat('Chrome Compressor', 1), cat('Netwatch Netdriver', 1)];
 ch.strain = 5;
 sh = R.compute(ch);
-assert.strictEqual(sh.def.evasion.total, 50, 'Clarividente T3: +30 Evasión reemplaza al +10 del T1');
+assert.strictEqual(sh.def.evasion.total, 60, 'Clarividente T3: +10 y +30 Evasión se suman');
 assert.deepStrictEqual([sh.load.implants, sh.load.strain, sh.load.used], [21, 5, 26], '(12+6+12+6+6) −50% Chrome Compressor + situaciones');
 assert.deepStrictEqual([s('ram'), s('ramregen')], [10, 1], 'RAM 5+INT/10');
 const ker = ch.implants.findIndex(i => i.name === 'Kerenzikov');
-assert.deepStrictEqual([sh.imps[ker].dur, sh.imps[ker].cdEff, sh.cdr], [1, 5, 25], 'Newton T3 −25%: CD 6 → 5 (redondea arriba)');
+assert.deepStrictEqual([sh.imps[ker].dur, sh.imps[ker].cdEff, sh.cdr], [1, 3, 50], 'Newton T3 −10−15−25 = −50%: CD 6 → 3');
 assert.deepStrictEqual([s('pa'), skill('Puntería').crit], [11, 8], 'Kerenzikov inactivo no suma');
 assert.ok(R.activate(ch, ker));
 sh = R.compute(ch);
 assert.deepStrictEqual([s('pa'), skill('Puntería').crit], [15, 11], 'Kerenzikov activo: +4 PA, +3 Crítico Puntería');
 R.nextTurn(ch);
-assert.deepStrictEqual([ch.implants[ker].on, ch.implants[ker].cdLeft], [0, 5]);
+assert.deepStrictEqual([ch.implants[ker].on, ch.implants[ker].cdLeft], [0, 3]);
 const n2 = R.normalize(R.blankCharacter());
 n2.implants = [cat('Brazos Moore Tech', 2), cat('Mantis Arasaka', 2), cat('Mamba Negra', 3), cat('Armadura Subdermal', 1), cat('Editor De Dolor', 1)];
 const s2 = R.compute(n2);
-assert.deepStrictEqual([s2.attrs.fue.total, s2.def.fortaleza.total, s2.rd.normal.total, s2.rd.quimica.total, s2.rd.termal.total], [70, 34, 20, 55, 5],
-  '"-20 Fortaleza"/"-15 RD" son para el enemigo; RD General suma a todas; Mamba Negra T3 = 50');
+assert.deepStrictEqual([s2.attrs.fue.total, s2.def.fortaleza.total, s2.rd.normal.total, s2.rd.quimica.total, s2.rd.termal.total], [70, 34, 20, 100, 5],
+  'los negativos no se aplican solos; RD General suma a todas; Mamba Negra T3 = 15+30+50');
+const n3 = R.normalize(R.blankCharacter()); n3.implants = [cat('Editor De Dolor', 3)];
+assert.strictEqual(R.compute(n3).sec.implantes.total, R.compute(R.normalize(R.blankCharacter())).sec.implantes.total + 15, '+30 Constitución sube la humanidad en 15');
 assert.ok(R.slotFull(n2, 'Brazos') && !R.slotFull(n2, 'Otros'));
 assert.deepStrictEqual(R.parseEffect('-10% Enfriamiento | -50% Carga de implantes').cdr, 10);
 assert.strictEqual(R.parseEffect('+20 Fuerza, +1 a los PA cuando tus PGs bajen').mods.length, 0);

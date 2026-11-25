@@ -61,10 +61,10 @@ const inp = (path, val, type = 'number', more = '') => `<input data-f="${path}" 
 const field = (label, path, val, type = 'text', more = '') => `<div class="field"><label>${label}</label>${inp(path, val, type, more)}</div>`;
 const area = (label, path, val, ph = '') => `<div class="field span"><label>${label}</label><textarea data-f="${path}" placeholder="${ph}">${esc(val)}</textarea></div>`;
 const attrSelect = (path, val) => `<select data-f="${path}">${R.ATTRS.map(([k, , ab]) => `<option value="${k}" ${k === val ? 'selected' : ''}>${ab}</option>`).join('')}</select>`;
-// Si un efecto se repite en varios tiers, solo cuenta (y se muestra) el del tier más alto.
+// Valores fijos ("RAM 5+INT/10"): solo cuenta el del tier más alto; el resto se acumula.
 const autoChips = (texts, c) => {
   const mods = texts.flatMap(t => R.parseEffect(t).mods);
-  return mods.filter((m, i) => !mods.slice(i + 1).some(o => o.target === m.target && o.when === m.when && o.set === m.set)).map(m => {
+  return mods.filter((m, i) => !m.set || !mods.slice(i + 1).some(o => o.set && o.target === m.target)).map(m => {
     const label = labelFor(m.target, c);
     return label && m.v > 0 && `${m.set ? m.v + (m.int10 ? '+INT/10' : '') : sg(m.v)} ${label}${m.when ? ' (con ' + m.when + ')' : ''}`;
   }).filter(Boolean);
@@ -166,7 +166,7 @@ function renderImplants(c, sh) {
         ${chips.length ? `<div class="chips">${chips.map(t => `<span class="pill on">${esc(t)}</span>`).join('')}${x.dur ? '<span class="pill">solo activo</span>' : ''}</div>` : ''}
         ${edit ? `<div class="field-grid" style="margin-top:12px">${field('Nombre', `implants.${i}.name`, im.name)}<div class="field"><label>Ranura</label><select data-f="implants.${i}.slot">${R.SLOTS.map(s => `<option ${s === im.slot ? 'selected' : R.slotFull(c, s) ? 'disabled' : ''}>${s}${slotLabel(c, s)}</option>`).join('')}</select></div>${im.costs.map((v, k) => field(`Humanidad T${k + 1}`, `implants.${i}.costs.${k}`, v, 'number')).join('')}
           ${im.tiers.map((t, k) => area(`Tier ${k + 1}`, `implants.${i}.tiers.${k}`, t || '', 'Ej: +10 Reflejos, D 2T, CD 6T')).join('')}</div>
-          <p class="help">Se aplica solo lo escrito como “+N Objetivo” (Percepción, Reflejos, PA, RD, Pelea…). “D 2T, CD 6T” lo vuelve activable: sus bonos valen solo activo. “+N X al usar Kerenzikov” vale con ese implante activo. “RAM N+INT/10” fija la RAM base. Si un efecto se repite en varios tiers, vale el más alto.</p>`
+          <p class="help">Se aplica solo lo escrito como “+N Objetivo” (Percepción, Reflejos, PA, RD, Pelea…). “D 2T, CD 6T” lo vuelve activable: sus bonos valen solo activo. “+N X al usar Kerenzikov” vale con ese implante activo. “RAM N+INT/10” fija la RAM base. Los efectos de cada tier se suman.</p>`
         : `<ul class="effect-list">${im.tiers.map((t, k) => k < im.tier && t ? `<li><strong>T${k + 1}:</strong> ${esc(t)}</li>` : '').join('')}</ul>${im.tier < 3 && im.tiers[im.tier] ? `<div class="next-tier"><b>Tier ${im.tier + 1}:</b> ${esc(im.tiers[im.tier])}${price ? ` · <span class="yellow">${price.toLocaleString('es-AR')} €$</span>` : ''}</div>` : ''}`}</div>`;
     }).join('');
 }
