@@ -44,6 +44,11 @@ assert.deepStrictEqual([s2.attrs.fue.total, s2.def.fortaleza.total, s2.rd.normal
 const n3 = R.normalize(R.blankCharacter()); n3.implants = [cat('Editor De Dolor', 3)];
 assert.strictEqual(R.compute(n3).sec.implantes.total, R.compute(R.normalize(R.blankCharacter())).sec.implantes.total + 15, '+30 Constitución sube la humanidad en 15');
 assert.ok(R.slotFull(n2, 'Brazos') && !R.slotFull(n2, 'Otros'));
+const n4 = R.normalize(R.blankCharacter());
+n4.implants = [cat('Brazos Arasaka', 2), cat('Brazos Arasaka', 3), cat('Porter', 1)];
+assert.strictEqual(R.compute(n4).load.implants, 16 + 2, 'par de brazos iguales: cuenta una vez el costo del tier más alto');
+n4.implants = [cat('S.A. Rostovik Rakater', 1)];
+assert.ok(R.cantInstall(n4, cat('S.A. Rostovik Rakater', 1)) && !R.cantInstall(n4, cat('Brazos Arasaka', 1)), 'Rakater en un solo brazo');
 assert.deepStrictEqual(R.parseEffect('-10% Enfriamiento | -50% Carga de implantes').cdr, 10);
 assert.strictEqual(R.parseEffect('+20 Fuerza, +1 a los PA cuando tus PGs bajen').mods.length, 0);
 assert.deepStrictEqual(R.unmetReqs('DES 70, Pelea: Agarres 40, Hab. 50', ch, R.compute(ch)), ['DES 70']);

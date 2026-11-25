@@ -157,7 +157,7 @@ function renderImplants(c, sh) {
   return heading('01', 'Implantes', 'Los efectos “+N Algo” se aplican solos al +/- que corresponda. Lo condicional queda como texto.') +
     `<div class="grid four">${plain('Carga / Humanidad', `${sh.load.used}/${sh.load.max}`, `implantes ${sh.load.implants}${sh.load.pct ? ` (−${sh.load.pct}%)` : ''} + situaciones ${sh.load.strain}`, sh.load.used > sh.load.max ? 'bad' : 'emph')}${plain('Enfriamiento', `−${sh.cdr}%`, 'cooldowns')}${tile('RAM', sh.sec.ram)}${tile('ICE', sh.sec.icewall)}</div>
     <div class="mini-bar" style="height:8px;margin:13px 0"><div class="mini-fill" style="width:${Math.min(100, sh.load.used / Math.max(1, sh.load.max) * 100)}%;background:${sh.load.used > sh.load.max ? 'var(--red)' : 'var(--yellow)'}"></div></div>
-    <div class="card"><label>Instalar implante</label><div class="select-roll"><select id="addImplant"><option value="">Elegí del catálogo…</option>${groups.map(([slot, l]) => `<optgroup label="${esc(slot)}${slotLabel(c, slot)}">${l.map(i => `<option value="${C.implants.indexOf(i)}" ${R.slotFull(c, slot) ? 'disabled' : ''}>${esc(i.name)}</option>`).join('')}</optgroup>`).join('')}<option value="*">Personalizado…</option></select><button class="btn primary" data-a="addImplant">Instalar</button></div></div>` +
+    <div class="card"><label>Instalar implante</label><div class="select-roll"><select id="addImplant"><option value="">Elegí del catálogo…</option>${groups.map(([slot, l]) => `<optgroup label="${esc(slot)}${slotLabel(c, slot)}">${l.map(i => `<option value="${C.implants.indexOf(i)}" ${R.cantInstall(c, i) ? 'disabled' : ''}>${esc(i.name)}</option>`).join('')}</optgroup>`).join('')}<option value="*">Personalizado…</option></select><button class="btn primary" data-a="addImplant">Instalar</button></div></div>` +
     c.implants.map((im, i) => {
       const x = sh.imps[i], edit = ui.edit === i, chips = autoChips(im.tiers.slice(0, im.tier).filter(Boolean), c);
       const price = im.prices?.[im.tier] || 0;
@@ -336,7 +336,8 @@ const ACTIONS = {
     if (!v) return false;
     const im = v === '*' ? {v: 2, name: 'Implante personalizado', slot: R.SLOTS.find(s => !R.slotFull(ch(), s)), minTier: 1, tier: 1, costs: [0, 0, 0], prices: [null, null, null], desc: '', tiers: [null, null, null], on: 0, cdLeft: 0}
       : {...clone(C.implants[+v]), tier: C.implants[+v].minTier, on: 0, cdLeft: 0};
-    if (R.slotFull(ch(), im.slot)) { toast(`${im.slot}: ya tenés el máximo (${R.SLOT_LIMITS[im.slot]})`); return false; }
+    const why = R.cantInstall(ch(), im);
+    if (why) { toast(why); return false; }
     ch().implants.push(im);
     if (v === '*') ui.edit = ch().implants.length - 1;
     toast(im.name + ' instalado');

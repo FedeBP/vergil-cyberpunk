@@ -36,6 +36,8 @@ const RD = [['normal', 'Normal'], ['termal', 'Termal'], ['electrica', 'Eléctric
 const SLOT_LIMITS = {'Sistema operativo': 1, 'Ojos': 1, 'Corteza frontal': 2, 'Sistema nervioso': 2, 'Sistema circulatorio': 2,
   'Sistema integumentario': 2, 'Esqueleto': 2, 'Brazos': 2, 'Manos': 2, 'Piernas': 1, 'Otros': Infinity};
 const SLOTS = Object.keys(SLOT_LIMITS);
+const PAIRED = ['Brazos', 'Manos', 'Piernas'];
+const SINGLE = ['s.a. rostovik rakater']; // dispara cohetes: solo en un brazo
 const TARGETS = {fuerza: 'fue', destreza: 'des', percepcion: 'per', inteligencia: 'int', determinacion: 'det', constitucion: 'con',
   fue: 'fue', des: 'des', per: 'per', int: 'int', det: 'det', con: 'con', 'vitalidad maxima': 'vitalidad',
   evasion: 'evasion', reflejos: 'reflejos', fortaleza: 'fortaleza', voluntad: 'voluntad',
@@ -151,7 +153,11 @@ function compute(ch) {
     merits: {count: ch.merits.reduce((t, m) => t + (m.ranks || 1), 0), max: Math.min(ch.level, 10)},
     // Carga = costo de humanidad de los implantes (al tier instalado, con reducciones tipo Chrome Compressor) + carga por situaciones.
     load: (() => {
-      const implants = F(ch.implants.reduce((t, i) => t + (+i.costs?.[i.tier - 1] || 0), 0) * Math.max(0, 1 - loadPct / 100));
+      // El mismo implante en ambos brazos, manos o piernas es un par: su costo cuenta una vez (el del tier más alto).
+      const cost = {};
+      ch.implants.forEach((i, k) => { const key = PAIRED.includes(i.slot) ? i.slot + '|' + norm(i.name) : k;
+        cost[key] = Math.max(cost[key] || 0, +i.costs?.[i.tier - 1] || 0); });
+      const implants = F(Object.values(cost).reduce((t, v) => t + v, 0) * Math.max(0, 1 - loadPct / 100));
       return {implants, strain: +ch.strain || 0, used: implants + (+ch.strain || 0), max: sec.implantes.total, pct: loadPct};
     })(),
   };
@@ -195,6 +201,9 @@ function nextTurn(ch) {
 
 const slotUse = (ch, slot) => ch.implants.filter(i => i.slot === slot).length;
 const slotFull = (ch, slot) => slotUse(ch, slot) >= (SLOT_LIMITS[slot] ?? Infinity);
+// Motivo por el que no se puede instalar (o null): espacio lleno o implante que va en un solo miembro.
+const cantInstall = (ch, im) => slotFull(ch, im.slot) ? `${im.slot}: ya tenés el máximo (${SLOT_LIMITS[im.slot]})`
+  : SINGLE.includes(norm(im.name)) && ch.implants.some(i => norm(i.name) === norm(im.name)) ? `${im.name} solo se puede tener en un miembro` : null;
 
 function blankCharacter() {
   return {v: 3, name: 'Nuevo personaje', player: '', role: '', roleDesc: '', level: 1, exp: 0,
@@ -226,6 +235,6 @@ function normalize(ch) {
   return out;
 }
 
-globalThis.Rules = {F, norm, LEVEL_POINTS, TARGETS, SLOT_LIMITS, slotUse, slotFull, ATTRS, DEFAULT_SKILLS, DEFENSES, SECONDARY, RD, SLOTS, parseEffect, implantInfo,
+globalThis.Rules = {F, norm, LEVEL_POINTS, TARGETS, SLOT_LIMITS, slotUse, slotFull, cantInstall, ATTRS, DEFAULT_SKILLS, DEFENSES, SECONDARY, RD, SLOTS, parseEffect, implantInfo,
   compute, unmetReqs, activate, nextTurn, blankCharacter, normalize};
 })();
