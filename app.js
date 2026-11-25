@@ -5,7 +5,7 @@ const sg = v => (v >= 0 ? '+' : '') + v;
 const $ = id => document.getElementById(id);
 const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
 const clone = x => JSON.parse(JSON.stringify(x));
-const ui = {tab: 'resumen', edit: -1, editItem: -1, open: {}};
+const ui = {tab: 'resumen', edit: -1, editItem: -1, open: {}, pick: {}};
 let db;
 
 // ---------- Datos ----------
@@ -132,7 +132,7 @@ function renderSkills(c, sh) {
 }
 
 function renderCombat(c, sh) {
-  const active = c.implants.map((im, i) => [im, sh.imps[i], i]).filter(([, x]) => x.dur);
+  const active = sortedImplants(c).map(([im, i]) => [im, sh.imps[i], i]).filter(([, x]) => x.dur);
   const half = (merit, v) => hasMerit(merit) ? Math.ceil(v / 2) : v;
   const res = (id, label, max, btns, foot) => `<div class="resource-card"><h3>${label}</h3><div class="number">${c[id]} <span class="muted small">/ ${max}</span></div><div class="mini-bar"><div class="mini-fill" style="width:${Math.max(0, Math.min(100, c[id] / Math.max(1, max) * 100))}%"></div></div><div class="stat-footer">${foot}</div><div class="resource-buttons">${btns.map(([v, l]) => `<button class="btn tiny" data-a="res" data-id="${id}" data-v="${v}">${l || sg(v)}</button>`).join('')}</div></div>`;
   return heading('01', 'Control de combate', 'Los cooldowns arrancan al terminar el efecto y se redondean hacia arriba.') +
@@ -152,13 +152,44 @@ function renderCombat(c, sh) {
 // Tiers con texto (un chip solo tiene T1); un implante personalizado vacío muestra los 6.
 const tierList = im => { const l = [1, 2, 3].filter(t => im.tiers[t - 1]); return l.length ? l : [1, 2, 3]; };
 const slotLabel = (c, slot) => R.SLOT_LIMITS[slot] === Infinity ? '' : ` (${R.slotUse(c, slot)}/${R.SLOT_LIMITS[slot]})`;
+// Instalados en el mismo orden que la lista del catálogo (por ranura); los personalizados al final de su ranura.
+const sortedImplants = c => c.implants.map((im, i) => [im, i]).sort(([a, i], [b, j]) => {
+  const pos = im => [R.SLOTS.indexOf(im.slot), (k => k < 0 ? 1e9 : k)(C.implants.findIndex(x => x.name === im.name && x.slot === im.slot))];
+  const [sa, ca] = pos(a), [sb, cb] = pos(b);
+  return sa - sb || ca - cb || i - j;
+});
+// Vistas previas de lo elegido en una lista, antes de agregarlo.
+const opt = (id, v, label, disabled) => `<option value="${esc(v)}" ${String(ui.pick[id]) === String(v) ? 'selected' : ''} ${disabled ? 'disabled' : ''}>${esc(label)}</option>`;
+const preview = body => `<div class="preview">${body}</div>`;
+function implantPreview(c) {
+  const m = C.implants[ui.pick.addImplant];
+  if (!m || ui.pick.addImplant === '' || ui.pick.addImplant === '*') return '';
+  const why = R.cantInstall(c, m), when = R.implantInfo({...m, tier: 3}).when;
+  return preview(`<div class="eyebrow" style="color:var(--muted);font-size:9px">${esc(m.slot).toUpperCase()}</div><b>${esc(m.name)}</b>${m.desc ? `<div class="help">${esc(m.desc)}</div>` : ''}
+    ${why ? `<div class="red small">${esc(why)}</div>` : ''}${when ? `<div class="help">Sus efectos solo valen con ${esc(when)} activo.</div>` : ''}
+    <ul class="effect-list">${m.tiers.map((t, k) => t ? `<li><strong>T${k + 1}</strong> · Humanidad ${m.costs[k]}${m.prices[k] ? ` · ${m.prices[k].toLocaleString('es-AR')} €$` : ''}<br>${esc(t)}</li>` : '').join('')}</ul>`);
+}
+function itemPreview(c, sh) {
+  const x = C.items[ui.pick.addItem];
+  if (!x || ui.pick.addItem === '') return '';
+  const body = x.kind === 'weapon' ? weaponKv({...blankWeapon(), skill: 'Puntería', ...x}, c, sh) : kv(Object.entries(x.attrs || {}));
+  return preview(`<div class="eyebrow" style="color:var(--muted);font-size:9px">${esc(x.cat).toUpperCase()}</div><b>${esc(x.name)}</b>${body}${x.notes ? `<div class="help">${esc(x.notes)}</div>` : ''}`);
+}
+function meritPreview(c, sh) {
+  const m = ui.pick.addMerit && catMerit(ui.pick.addMerit);
+  if (!m) return '';
+  const bad = [...R.unmetReqs(m.req, c, sh), ...(m.lvl > c.level ? [`nivel ${m.lvl}`] : [])];
+  return preview(`<span class="pill">N${m.lvl}</span> <b>${esc(m.name)}</b>${m.req && m.req !== '-' ? ` <span class="muted small">req. ${esc(m.req)}</span>` : ''}${m.max > 1 ? ` <span class="muted small">· hasta ${m.max} rangos</span>` : ''}
+    <div class="help">${esc(m.desc)}</div>${bad.length ? `<div class="red small">No cumple: ${esc(bad.join(', '))}</div>` : ''}`);
+}
+
 function renderImplants(c, sh) {
   const groups = R.SLOTS.map(slot => [slot, C.implants.filter(i => i.slot === slot)]).filter(([, l]) => l.length);
   return heading('01', 'Implantes', 'Los efectos “+N Algo” se aplican solos al +/- que corresponda. Lo condicional queda como texto.') +
     `<div class="grid four">${plain('Carga / Humanidad', `${sh.load.used}/${sh.load.max}`, `implantes ${sh.load.implants}${sh.load.pct ? ` (−${sh.load.pct}%)` : ''} + situaciones ${sh.load.strain}`, sh.load.used > sh.load.max ? 'bad' : 'emph')}${plain('Enfriamiento', `−${sh.cdr}%`, 'cooldowns')}${tile('RAM', sh.sec.ram)}${tile('ICE', sh.sec.icewall)}</div>
     <div class="mini-bar" style="height:8px;margin:13px 0"><div class="mini-fill" style="width:${Math.min(100, sh.load.used / Math.max(1, sh.load.max) * 100)}%;background:${sh.load.used > sh.load.max ? 'var(--red)' : 'var(--yellow)'}"></div></div>
-    <div class="card"><label>Instalar implante</label><div class="select-roll"><select id="addImplant"><option value="">Elegí del catálogo…</option>${groups.map(([slot, l]) => `<optgroup label="${esc(slot)}${slotLabel(c, slot)}">${l.map(i => `<option value="${C.implants.indexOf(i)}" ${R.cantInstall(c, i) ? 'disabled' : ''}>${esc(i.name)}</option>`).join('')}</optgroup>`).join('')}<option value="*">Personalizado…</option></select><button class="btn primary" data-a="addImplant">Instalar</button></div></div>` +
-    c.implants.map((im, i) => {
+    <div class="card"><label>Instalar implante</label><div class="select-roll"><select id="addImplant"><option value="">Elegí del catálogo…</option>${groups.map(([slot, l]) => `<optgroup label="${esc(slot)}${slotLabel(c, slot)}">${l.map(i => opt('addImplant', C.implants.indexOf(i), i.name, R.cantInstall(c, i))).join('')}</optgroup>`).join('')}<option value="*">Personalizado…</option></select><button class="btn primary" data-a="addImplant">Instalar</button></div>${implantPreview(c)}</div>` +
+    sortedImplants(c).map(([im, i]) => {
       const x = sh.imps[i], edit = ui.edit === i, chips = autoChips(im.tiers.slice(0, im.tier).filter(Boolean), c);
       const price = im.prices?.[im.tier] || 0;
       return `<div class="implant"><div class="implant-top"><div><div class="eyebrow" style="color:var(--muted);font-size:9px">${esc(im.slot).toUpperCase()}</div><h3>${esc(im.name)}</h3>${im.desc ? `<div class="help">${esc(im.desc)}</div>` : ''}<small>Tier ${im.tier} · Humanidad ${im.costs[im.tier - 1]}${x.dur ? ` · D ${x.dur}T / CD ${x.cdEff}T` : ''}</small></div><div class="actions"><button class="btn tiny" data-a="editImp" data-i="${i}">${edit ? 'Listo' : 'Editar'}</button><button class="btn tiny danger" data-a="delImp" data-i="${i}">Quitar</button></div></div>
@@ -191,7 +222,7 @@ function renderPerfil(c, sh) {
     `<div class="grid two">${[['Iniciales', sh.points.ini, 'al crear el personaje'], ['Por nivel', pa, `${R.LEVEL_POINTS} × ${c.level - 1} niveles${pa.avail !== R.LEVEL_POINTS * (c.level - 1) ? ' + méritos' : ''}`]].map(([l, x, sub]) => { const left = x.avail - x.spent; return plain(l, `${x.spent}/${x.avail}`, left ? (left < 0 ? `Te pasaste ${-left}` : `Quedan ${left}`) + ' · ' + sub : sub, left < 0 ? 'bad' : left ? 'emph' : ''); }).join('')}</div>
      <div class="card"><div class="attr-row head"><span>CARACT.</span><span>INICIAL</span><span>POR NIVEL</span><span>+/-</span><span>TOTAL</span></div>${R.ATTRS.map(([k, l, ab]) => `<div class="attr-row"><strong title="${l}">${ab}</strong>${inp(`attrs.${k}.ini`, c.attrs[k].ini, 'number', 'min="0"')}${inp(`attrs.${k}.lvl`, c.attrs[k].lvl, 'number', 'min="0"')}<span class="yellow mono" title="${why(sh.attrs[k])}">${sg(sh.attrs[k].mod)}</span><b class="mono">${sh.attrs[k].total}</b></div>`).join('')}</div>` +
     heading('04', 'Méritos', `1 por nivel, máximo 10 · ${sh.merits.count}/${sh.merits.max}`) +
-    `<div class="card">${merits || '<p class="empty">Sin méritos.</p>'}<label style="margin-top:12px">Agregar mérito</label><div class="select-roll"><select id="addMerit"><option value="">Elegí…</option>${lvls.map(l => `<optgroup label="Nivel ${l}">${C.merits.filter(m => m.lvl === l).map(m => `<option ${l > c.level ? 'disabled' : ''}>${esc(m.name)}</option>`).join('')}</optgroup>`).join('')}<option value="*">Personalizado…</option></select><button class="btn primary" data-a="addMerit">Agregar</button></div></div>` +
+    `<div class="card">${merits || '<p class="empty">Sin méritos.</p>'}<label style="margin-top:12px">Agregar mérito</label><div class="select-roll"><select id="addMerit"><option value="">Elegí…</option>${lvls.map(l => `<optgroup label="Nivel ${l}">${C.merits.filter(m => m.lvl === l).map(m => opt('addMerit', m.name, m.name, l > c.level)).join('')}</optgroup>`).join('')}<option value="*">Personalizado…</option></select><button class="btn primary" data-a="addMerit">Agregar</button></div>${meritPreview(c, sh)}</div>` +
     heading('05', 'Equipo') +
     `<div class="card"><div class="field-grid">${R.RD.map(([k, l]) => field('RD equipo · ' + l, `armor.${k}`, c.armor[k], 'number')).join('')}</div></div>` +
     heading('06', 'Rol y notas') + `<div class="card"><div class="field-grid">${area('Detalles de rol', 'roleDetails', c.roleDetails)}${area('Notas', 'notes', c.notes)}</div></div>`;
@@ -238,7 +269,7 @@ function renderInventory(c, sh) {
   const list = kind => c.items.map((it, i) => [it, i]).filter(([it]) => (it.kind === 'weapon') === (kind === 'weapon'));
   const cards = kind => list(kind).map(([it, i]) => itemCard(it, i, c, sh)).join('') || `<div class="card"><p class="empty">${kind === 'weapon' ? 'Sin armas.' : 'Sin objetos.'}</p></div>`;
   return heading('01', 'Inventario', 'Armas, consumibles, mejoras y quickhacks del Excel, o los tuyos propios.') +
-    `<div class="card"><label>Agregar del catálogo</label><div class="select-roll"><select id="addItem"><option value="">Elegí…</option>${cats.map(cat => `<optgroup label="${esc(cat)}">${C.items.filter(x => x.cat === cat).map(x => `<option value="${C.items.indexOf(x)}">${esc(x.name)}</option>`).join('')}</optgroup>`).join('')}</select><button class="btn primary" data-a="addItem">Agregar</button></div>
+    `<div class="card"><label>Agregar del catálogo</label><div class="select-roll"><select id="addItem"><option value="">Elegí…</option>${cats.map(cat => `<optgroup label="${esc(cat)}">${C.items.filter(x => x.cat === cat).map(x => opt('addItem', C.items.indexOf(x), x.name)).join('')}</optgroup>`).join('')}</select><button class="btn primary" data-a="addItem">Agregar</button></div>${itemPreview(c, sh)}
       <div class="actions" style="margin-top:10px"><button class="btn" data-a="addCustom" data-kind="weapon">+ Arma personalizada</button><button class="btn" data-a="addCustom" data-kind="item">+ Objeto personalizado</button></div></div>` +
     heading('02', 'Armas') + cards('weapon') +
     heading('03', 'Consumibles y objetos') + cards('item') +
@@ -320,6 +351,7 @@ const ACTIONS = {
     if (!v) return false;
     const x = clone(C.items[+v]);
     ch().items.push(x.kind === 'weapon' ? {...blankWeapon(), ...x, skill: 'Puntería'} : {...x, qty: 1, notes: ''});
+    ui.pick.addItem = '';
     toast(x.name + ' agregado');
   },
   addCustom(el) {
@@ -340,6 +372,7 @@ const ACTIONS = {
     if (why) { toast(why); return false; }
     ch().implants.push(im);
     if (v === '*') ui.edit = ch().implants.length - 1;
+    ui.pick.addImplant = '';
     toast(im.name + ' instalado');
   },
   delImp(el) { const im = ch().implants[+el.dataset.i]; if (!confirm(`¿Quitar ${im.name}?`)) return false; ch().implants.splice(+el.dataset.i, 1); ui.edit = -1; clampResources(); },
@@ -348,6 +381,7 @@ const ACTIONS = {
   addMerit() {
     const v = $('addMerit').value;
     if (!v) return false;
+    ui.pick.addMerit = '';
     ch().merits.push(v === '*' ? {name: 'Mérito personalizado', lvl: 1, req: '-', max: 10, desc: '', ranks: 1, custom: true} : {...catMerit(v), ranks: 1});
     clampResources();
   },
@@ -384,6 +418,7 @@ document.addEventListener('change', async e => {
     t.value = '';
     return;
   }
+  if (['addImplant', 'addItem', 'addMerit'].includes(t.id)) { ui.pick[t.id] = t.value; return render(); }
   if (t.dataset.aChange === 'switch') { db.current = t.value; ui.edit = ui.editItem = -1; save(); return render(); }
   if (t.dataset.f) { setPath(t.dataset.f, t); save(); render(); }
 });
