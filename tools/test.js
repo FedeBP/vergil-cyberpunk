@@ -34,9 +34,15 @@ assert.deepStrictEqual([s('pa'), skill('Puntería').crit], [11, 8], 'Kerenzikov 
 assert.ok(R.activate(ch, ker));
 sh = R.compute(ch);
 assert.deepStrictEqual([s('pa'), skill('Puntería').crit], [15, 11], 'Kerenzikov activo: +4 PA, +3 Crítico Puntería');
+assert.ok(!R.activate(ch, ker), 'activo no se reactiva');
 ch.paUsed = 4;
 R.nextTurn(ch);
 assert.deepStrictEqual([ch.implants[ker].on, ch.implants[ker].cdLeft, ch.paUsed], [0, 3, 0], 'el turno nuevo recupera los PA');
+assert.ok(!R.activate(ch, ker), 'en enfriamiento no se activa sin forzar');
+const strain0 = ch.strain;
+assert.ok(R.activate(ch, ker, true));
+assert.deepStrictEqual([ch.implants[ker].on, ch.implants[ker].cdLeft, ch.strain - strain0], [1, 0, 5], 'forzar: se activa y suma 5 de carga');
+ch.implants[ker].on = 0; ch.strain = strain0;
 ch.implants.push(cat('Kerenzikov Boost System', 3));
 assert.strictEqual(R.compute(ch).def.reflejos.total, 30, 'Boost System no suma sin Kerenzikov activo');
 ch.implants[ker].cdLeft = 0; R.activate(ch, ker);

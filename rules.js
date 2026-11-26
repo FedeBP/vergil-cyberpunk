@@ -182,9 +182,12 @@ function unmetReqs(req, ch, sh) {
   }).map(s => s.trim());
 }
 
-function activate(ch, i) {
+// Activar en enfriamiento ("forzar") se puede, a cambio de +5 de carga de humanidad.
+const FORCE_COST = 5;
+function activate(ch, i, force = false) {
   const im = ch.implants[i], x = compute(ch).imps[i];
-  if (!x.dur || im.on > 0 || im.cdLeft > 0) return false;
+  if (!x.dur || im.on > 0 || (im.cdLeft > 0 && !force)) return false;
+  if (im.cdLeft > 0) { ch.strain = (+ch.strain || 0) + FORCE_COST; im.cdLeft = 0; }
   im.on = x.dur;
   return true;
 }
@@ -242,5 +245,5 @@ function normalize(ch) {
 }
 
 globalThis.Rules = {F, norm, LEVEL_POINTS, TARGETS, SLOT_LIMITS, slotUse, slotFull, cantInstall, ATTRS, DEFAULT_SKILLS, DEFENSES, SECONDARY, RD, SLOTS, parseEffect, implantInfo,
-  compute, unmetReqs, activate, nextTurn, blankCharacter, normalize};
+  compute, unmetReqs, activate, FORCE_COST, nextTurn, blankCharacter, normalize};
 })();
