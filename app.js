@@ -137,6 +137,7 @@ function renderCombat(c, sh) {
   const res = (id, label, max, btns, foot) => `<div class="resource-card"><h3>${label}</h3><div class="number">${c[id]} <span class="muted small">/ ${max}</span></div><div class="mini-bar"><div class="mini-fill" style="width:${Math.max(0, Math.min(100, c[id] / Math.max(1, max) * 100))}%"></div></div><div class="stat-footer">${foot}</div><div class="resource-buttons">${btns.map(([v, l]) => `<button class="btn tiny" data-a="res" data-id="${id}" data-v="${v}">${l || sg(v)}</button>`).join('')}</div></div>`;
   return heading('01', 'Control de combate', 'Los cooldowns arrancan al terminar el efecto y se redondean hacia arriba.') +
     `<div class="combat-head"><div class="row wrap"><div><div class="eyebrow">ENCUENTRO ACTUAL</div><div class="round-number">TURNO <span class="yellow">${c.round}</span></div></div><div class="actions"><button class="btn primary" data-a="nextTurn">Siguiente turno →</button><button class="btn ghost" data-a="resetCombat">Reiniciar</button></div></div></div>` +
+    `<div class="resource-card" style="margin-bottom:12px"><h3>PA del turno</h3><div class="number">${sh.sec.pa.total - c.paUsed} <span class="muted small">/ ${sh.sec.pa.total}</span></div><div class="mini-bar"><div class="mini-fill" style="width:${Math.max(0, (sh.sec.pa.total - c.paUsed) / Math.max(1, sh.sec.pa.total) * 100)}%"></div></div><div class="stat-footer">Gastados ${c.paUsed} · se recuperan al pasar de turno</div><div class="resource-buttons"><button class="btn tiny" data-a="pa" data-v="1">−1</button><button class="btn tiny" data-a="pa" data-v="-1">+1</button><button class="btn tiny ghost" data-a="pa" data-v="0">Recuperar</button></div></div>` +
     `<div class="grid four">${tile('PA', sh.sec.pa)}${tile('Reflejos', sh.def.reflejos)}${tile('Evasión', sh.def.evasion)}${tile('Iniciativa', sh.sec.iniciativa)}</div>` +
     combatPreviews(c, sh) +
     heading('02', 'Implantes activables', sh.cdr ? `Reducción de cooldown: ${sh.cdr}%` : '') +
@@ -341,9 +342,10 @@ const ACTIONS = {
   addTrait() { ch().traits.push({text: '', skill: ch().skills[0]?.name || ''}); },
   delTrait(el) { ch().traits.splice(+el.dataset.i, 1); },
   nextTurn() { R.nextTurn(ch()); },
-  resetCombat() { if (!confirm('¿Reiniciar turno, efectos activos y cooldowns?')) return false; ch().round = 1; ch().implants.forEach(i => { i.on = 0; i.cdLeft = 0; }); },
+  resetCombat() { if (!confirm('¿Reiniciar turno, efectos activos y cooldowns?')) return false; ch().round = 1; ch().paUsed = 0; ch().implants.forEach(i => { i.on = 0; i.cdLeft = 0; }); },
   activate(el) { R.activate(ch(), +el.dataset.i); },
   cd(el) { const im = ch().implants[+el.dataset.i]; im.cdLeft = Math.max(0, im.cdLeft + +el.dataset.v); },
+  pa(el) { const c = ch(); c.paUsed = +el.dataset.v ? Math.max(0, Math.min(R.compute(c).sec.pa.total, c.paUsed + +el.dataset.v)) : 0; },
   rest() { ch().strain = 0; toast('Carga por situaciones en 0'); },
   res(el) { ch()[el.dataset.id] += +el.dataset.v; clampResources(); },
   addItem() {

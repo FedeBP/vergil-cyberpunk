@@ -202,6 +202,7 @@ function nextTurn(ch) {
     if (t && ended.includes(t) && !im.on && !im.cdLeft) im.on = sh.imps[i].dur || 1;
   });
   ch.round = (ch.round || 1) + 1;
+  ch.paUsed = 0; // los PA se recuperan cada turno
 }
 
 const slotUse = (ch, slot) => ch.implants.filter(i => i.slot === slot).length;
@@ -216,7 +217,7 @@ function blankCharacter() {
     attrs: Object.fromEntries(ATTRS.map(([k]) => [k, {ini: 50, lvl: 0}])),
     skills: DEFAULT_SKILLS.map(([name, a, b]) => ({name, a, b, mod: 0, spec: false, custom: false})),
     traits: [], merits: [], implants: [], strain: 0, armor: {normal: 0, termal: 0, electrica: 0, quimica: 0, hack: 0},
-    items: [], vitality: 0, luck: 50, resolution: 0, round: 1, inventory: '', quick: '', roleDetails: '', notes: ''};
+    items: [], paUsed: 0, vitality: 0, luck: 50, resolution: 0, round: 1, inventory: '', quick: '', roleDetails: '', notes: ''};
 }
 
 // Completa campos faltantes (personajes importados o de versiones viejas) sin pisar lo existente.
